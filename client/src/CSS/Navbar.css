@@ -1,0 +1,172 @@
+@import url("https://fonts.googleapis.com/css2?family=Noto+Sans+Kawi:wght@400..700&family=Rancho&display=swap");
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+.NavBarContainer {
+  width: 100%;
+  height: 4rem;
+  padding: 0 4rem;
+  display: flex;
+  justify-content: center;
+  position: fixed;
+  top: 5rem;
+}
+
+.navBar {
+  position: relative;
+  width: 100%;
+  padding: 0 4rem;
+  display: flex;
+  justify-content: space-between;
+  border-radius: 10px;
+  background-color: rgba(0, 0, 0, 0.8);
+  -webkit-box-shadow: 10px 10px 25px 0px rgba(0, 0, 0, 0.75);
+  -moz-box-shadow: 10px 10px 25px 0px rgba(0, 0, 0, 0.75);
+  box-shadow: 10px 10px 25px 0px rgba(0, 0, 0, 0.75);
+}
+
+/* .navBar::before,
+.navBar::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 10px;
+  background-color: rgba(0, 0, 0, 0.59);
+  z-index: -99;
+}
+
+.navBar::after {
+  background-color: rgba(0, 0, 0, 0.59);
+  z-index: -99;
+} */
+
+.navLeft {
+  width: 20%;
+  
+}
+
+.navImage {
+  width: auto;
+  height: 4rem;
+}
+
+.navRight {
+  width: 50%;
+  height: 100%;
+  display: flex;
+  justify-content: end;
+  align-items: center;
+}
+
+.navItems {
+  width: auto;
+  height: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.menuButton {
+  display: none;
+}
+
+.navItems-Item {
+  cursor: pointer;
+  display: flex;
+  text-decoration: none;
+  list-style: none;
+  padding: 10px 50px;
+  color: white;
+  font-size: 1.4rem;
+}
+
+.sideBarContainer {
+  width: 50%;
+  height: 100vh;
+  padding: 0;
+  background-color: rgba(0, 0, 0, 0.7);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  position: fixed;
+  top: 0;
+  right: 0;
+  right: -100%; 
+  transition: right 0.3s ease-in-out;
+}
+.navSideBar {
+  
+  position: relative;
+  width: 100%;
+  height: 100%;
+  padding: 0 4rem;
+  z-index: 999;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.sideBarContainer.open {
+  right: 0;
+}
+
+.sideBar-Item {
+  width: 100%;
+  height: 5rem;
+  display: flex;
+  align-items: center;
+  text-decoration: none;
+  color: white;
+  font-size: 1.4rem;
+  font-weight: 500;
+  padding: 2rem 0;
+}
+.menuButton{
+  color: white;
+  font-size: 1.3rem;
+}
+@media (min-width: 900px) {
+  .sideBarContainer {
+    display: none;
+  }
+}
+@media (max-width: 900px) {
+  .NavBarContainer {
+    width: 100%;
+    padding: 0;
+    border-radius: 10px 10px 0 0;
+    top: 0;
+    box-shadow: none;
+  }
+  .navBar::before,
+  .navBar::after {
+    width: 100%;
+    padding: 0;
+    border-radius: 0;
+  }
+  .navBar {
+    border-radius: 0;
+    width: 100%;
+    box-shadow: none;
+  }
+  .menuButton {
+    display: block;
+  }
+  .navItems-Item {
+    display: none;
+  }
+  .sideBarContainer {
+    top: 4rem;
+  }
+}
+
+@media (max-width: 600px) {
+  .sideBarContainer {
+    width: 100%;
+  }
+}
