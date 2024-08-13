@@ -1,9 +1,11 @@
 import axios from "axios";
 import Rect, {  createContext, useContext, useEffect, useState } from "react";
+import { useMainContext } from "./MainContext";
 
 const AuthContext = createContext(null);
 
 export const AuthProvider = ({ children }) => {
+  const { setIsLogged, isLogged } = useMainContext();
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [token, setToken] = useState(null);
   const backendurl= process.env.REACT_APP_BACKEND_URL
@@ -18,7 +20,7 @@ export const AuthProvider = ({ children }) => {
   const validateToken = async (token) => {
     try {
       const response = await axios.post(
-        `${backendurl}api/validateToken`,
+        `${backendurl}validate/validateToken`,
         {},
         {
           headers: {
@@ -29,6 +31,7 @@ export const AuthProvider = ({ children }) => {
       
       if (response.status === 200) {
         setIsAuthenticated(true);
+        console.log("doğrulandı")
       } else {
         setIsAuthenticated(false);
         localStorage.removeItem("token");
