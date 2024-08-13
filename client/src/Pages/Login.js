@@ -11,28 +11,24 @@ export default function Login() {
   const [password, setPassword] = useState();
   const [errorMessage, setErrorMessage] = useState("");
   const navigation = useNavigate();
-  const { setIsLogged, isLogged } = useMainContext();
   const { validateToken } = useAuth();
   const backendurl= process.env.REACT_APP_BACKEND_URL
   const submit = async (e) => {
     e.preventDefault();
     const payload = {
-      username: username,
+      email: username,
       password: password,
     };
 
     try {
       const res = await axios.post(
-        `${backendurl}api/signin`,
+        `${backendurl}login/signin`,
         payload
       );
       setErrorMessage("");
-      console.log(res.data.response.data);
-      window.localStorage.setItem("token", res.data.response.data);
-      window.localStorage.setItem("logged", true);
-      validateToken(res.data.response.data);
-      setIsLogged(true);
-      console.log("Giriş Yapıldı Mı", isLogged);
+      console.log(res)
+      window.localStorage.setItem("token", res.data.data);
+      validateToken(res.data.data);
       navigation("/homepage");
     } catch (e) {
       console.log(e);

@@ -9,11 +9,8 @@ export default function Navbar() {
   const { setIsLogged } = useMainContext();
   const [isSidebarVisible, setIsSidebarVisible] = useState(false);
 
-  const logout = () => {
-    localStorage.removeItem("token");
-    localStorage.removeItem("logged");
-    setIsLogged(false);
-    navigate("/");
+  const goProfile = () => {
+    navigate("/profile");
   };
 
   const toggleSidebar = () => {
@@ -32,7 +29,7 @@ export default function Navbar() {
               Anasayfa
             </NavLink>
             <NavLink className="navItems-Item">Konum Ara</NavLink>
-            <li className="navItems-Item" onClick={logout}>
+            <li className="navItems-Item" onClick={goProfile}>
               Profil
             </li>
             <NavLink className="menuButton" onClick={toggleSidebar}>
@@ -51,9 +48,9 @@ export default function Navbar() {
               Anasayfa
             </NavLink>
             <NavLink className="sideBar-Item">Konum Ara</NavLink>
-            <NavLink className="sideBar-Item" to="/">
+            <li className="sideBar-Item" onClick={goProfile}>
               Profil
-            </NavLink>
+            </li>
           </ul>
         </div>
       </nav>
