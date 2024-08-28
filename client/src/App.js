@@ -6,6 +6,7 @@ import Profile from "./Pages/Profile"
 import { MainProvider, useMainContext } from "./MainContext";
 import { AuthProvider, useAuth } from "./AuthContext";
 import { useEffect, useState } from "react";
+import Location from "./Pages/Location";
 
 function App() {
   return (
@@ -22,11 +23,6 @@ function App() {
 const AppContent = () => {
   const [logged, setLogged] = useState(false);
 
-  /* useEffect(() => {
-    const storedLogged = window.localStorage.getItem("logged");
-    setLogged(storedLogged === "true");
-    console.log("Giriş durumu: ", storedLogged);
-  }, []); */
 
   const { isAuthenticated,validateToken } = useAuth();
 
@@ -40,6 +36,7 @@ const AppContent = () => {
         />
         <Route path="/"  element={!isAuthenticated ? <Login/> : <Homepage />}/>
         <Route path="/profile"  element={isAuthenticated ? <Profile/> : <Login />}/>
+        <Route path="/location" element={<Location/>}/>
       </Routes>
     </div>
   );

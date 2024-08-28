@@ -16,7 +16,7 @@ export default function Profile() {
     if (token) {
       validateToken(token);
     }
-  }, [validateToken]);
+  }, []);
   const Logout = () => {
     window.localStorage.removeItem("token");
     window.localStorage.removeItem("logged");

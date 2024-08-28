@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import "../CSS/Navbar.css";
-import logo from "../images/images.png";
+import logo from "../images/logo.png";
 import { NavLink, useNavigate } from "react-router-dom";
 import { useMainContext } from "../MainContext";
 
@@ -11,6 +11,9 @@ export default function Navbar() {
 
   const goProfile = () => {
     navigate("/profile");
+  };
+  const goLocation = () => {
+    navigate("/location");
   };
 
   const toggleSidebar = () => {
@@ -28,7 +31,7 @@ export default function Navbar() {
             <NavLink className="navItems-Item" to="/homepage">
               Anasayfa
             </NavLink>
-            <NavLink className="navItems-Item">Konum Ara</NavLink>
+            <NavLink className="navItems-Item" to="/location">Konum Ara</NavLink>
             <li className="navItems-Item" onClick={goProfile}>
               Profil
             </li>
@@ -47,7 +50,7 @@ export default function Navbar() {
             <NavLink className="sideBar-Item" to="/homepage">
               Anasayfa
             </NavLink>
-            <NavLink className="sideBar-Item">Konum Ara</NavLink>
+            <NavLink className="sideBar-Item" to="/location">Konum Ara</NavLink>
             <li className="sideBar-Item" onClick={goProfile}>
               Profil
             </li>

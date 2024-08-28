@@ -5,17 +5,16 @@ import { AuthProvider, useAuth } from "../AuthContext";
 import { Navigate, useNavigate } from "react-router-dom";
 export default function Homepage() {
   const navigate = useNavigate();
-
   const { isAuthenticated, validateToken } = useAuth();
   const goProfile = () => {
     navigate("/profile");
   };
-  useEffect(() => {
+  /* useEffect(() => {
     const token = localStorage.getItem("token");
     if (token) {
       validateToken(token);
     }
-  }, [validateToken]);
+  }, [validateToken]); */
   return (
     <div className="homepageContainer">
       <div className="homepageContent">
