@@ -1,15 +1,19 @@
 .locationContainer {
   height: 100vh;
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: start;
   background-image: url(../images/deneme10.jpg);
   background-size: cover;
+  background-attachment: fixed;
+  overflow: auto;
 }
 
 .locationContent {
   width: 100%;
-  height: calc(100vh - 12rem);
+  height: auto;
+  min-height: calc(100vh - 12rem); /* Minimum yükseklik ayarlandı */
   position: relative;
   top: 12rem;
   display: flex;
@@ -21,9 +25,11 @@
 .locationContentHeader {
   height: 5rem;
   width: 50%;
+  min-width: 200px;
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-shrink: 0;
 }
 
 .locationButton {
@@ -47,6 +53,7 @@
 .locationContentBody {
   width: 50%;
   height: auto;
+  margin-top: 2rem;
   border-radius: 10px;
   background-color: rgba(0, 0, 0, 0.8);
   -webkit-box-shadow: 10px 10px 25px 0px rgba(0, 0, 0, 0.75);

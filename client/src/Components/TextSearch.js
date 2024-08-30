@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import "../CSS/TextSearch.css";
+import { useMainContext } from "../MainContext";
 
 const TextSearch = () => {
   const [city, setCity] = useState([]);
@@ -15,8 +16,9 @@ const TextSearch = () => {
   const [locationX, setLocationX] = useState(null);
   const [locationY, setLocationY] = useState(null);
   const [type, setType] = useState("");
-  const [trigger, setTrigger] = useState(false); // Trigger state'i ekleyin
+  const [trigger, setTrigger] = useState(false); 
   const [nextPageToken, setNextPageToken] = useState("");
+  const {setGlobalSearch,globalSearch} =useMainContext();
   const apiKey = process.env.REACT_APP_APIKEY;
 
   useEffect(() => {
@@ -109,17 +111,16 @@ const TextSearch = () => {
   };
 
   const handleTextSearch = async (pageToken = "") => {
+    console.log(locationX , " ", locationY)
     try {
       const response = await axios.post(
         "https://places.googleapis.com/v1/places:searchText",
         {
           textQuery: type,
+          
           locationBias: {
             circle: {
-              center: {
-                latitude: locationX,
-                longitude: locationY,
-              },
+              center: { latitude: locationX, longitude: locationY },
               radius: 500.0,
             },
           },
@@ -136,7 +137,15 @@ const TextSearch = () => {
         }
       );
 
-      console.log(response.data);
+      /* console.log(response.data); */
+      /* setGlobalSearch(...globalSearch, response.data.places) */
+      const newPlaces = response.data.places;
+
+    // globalSearch'e gelen yeni yanıtları ekleme
+    setGlobalSearch((globalSearch) => [
+      ...globalSearch,
+      ...newPlaces
+    ]);
       if (response.data.nextPageToken) {
         handleTextSearch((pageToken = response.data.nextPageToken));
       } else {
@@ -147,6 +156,9 @@ const TextSearch = () => {
     }
   };
 
+  useEffect(()=>{
+    console.log(globalSearch)
+  },[globalSearch])
   const handleButtonClick = async () => {
     await HandleGeocode();
     setTrigger((prev) => !prev);
@@ -159,6 +171,10 @@ const TextSearch = () => {
           <select
             onChange={(e) => {
               setSelectedCity(e.target.value);
+              if (selectedCity) {
+                setSelectedNeighborhoods("");
+                setSelectedState("");
+              }
             }}
           >
             <option value="">Şehirler</option>
@@ -169,26 +185,28 @@ const TextSearch = () => {
             ))}
           </select>
           {selectedCity && (
-           <select
-           value={selectedState}
-           onChange={(e) => {
-             setSelectedState(e.target.value);
-             const selected = state.find((type) => type.id === Number(e.target.value));
-             
-             if (selected) {
-               setSelectedStateName(selected.name);
-             } else {
-               setSelectedStateName(""); 
-             }
-           }}
-         >
-           <option value="">İlçeler</option>
-           {state.map((type, index) => (
-             <option key={index} value={type.id}>
-               {type.name}
-             </option>
-           ))}
-         </select>
+            <select
+              value={selectedState}
+              onChange={(e) => {
+                setSelectedState(e.target.value);
+                const selected = state.find(
+                  (type) => type.id === Number(e.target.value)
+                );
+
+                if (selected) {
+                  setSelectedStateName(selected.name);
+                } else {
+                  setSelectedStateName("");
+                }
+              }}
+            >
+              <option value="">İlçeler</option>
+              {state.map((type, index) => (
+                <option key={index} value={type.id}>
+                  {type.name}
+                </option>
+              ))}
+            </select>
           )}
 
           {selectedState && selectedCity && (

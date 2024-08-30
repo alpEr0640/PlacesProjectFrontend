@@ -1,6 +1,6 @@
 import React, { Children, useContext, useState } from "react";
 import "../CSS/Login.css";
-import image from "../images/images.png";
+import image from "../images/logo.png";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useMainContext } from "../MainContext";
@@ -11,7 +11,7 @@ export default function Login() {
   const [password, setPassword] = useState();
   const [errorMessage, setErrorMessage] = useState("");
   const navigation = useNavigate();
-  const { validateToken } = useAuth();
+  const { validateToken  } = useAuth();
   const backendurl= process.env.REACT_APP_BACKEND_URL
   const submit = async (e) => {
     e.preventDefault();

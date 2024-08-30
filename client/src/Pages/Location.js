@@ -1,13 +1,15 @@
 import React, { useState } from "react";
 import TextSearch from "../Components/TextSearch";
 import LocationSearch from "../Components/LocationSearch";
+import SearchTable from "../Components/SearchTable";
 import "../CSS/Location.css";
+import { useMainContext } from "../MainContext";
 export default function Location() {
   const [showTextSearch, setShowTextSearch] = useState(true);
   const [showLocationSearch, setShowLocationSearch] = useState(false);
   const [showSearchBody, setShowSearchBody] = useState(true);
   const [activeButton, setActiveButton] = useState("textSearch");
- 
+  const {globalSearch} =useMainContext();
   const handleButtonClick = (buttonType) => {
     setActiveButton(buttonType);
     setShowSearchBody(true);
@@ -47,8 +49,11 @@ export default function Location() {
 
           {activeButton === "textSearch" && <TextSearch />}
           {activeButton === "locationSearch" && <LocationSearch />}
+            
         </div>
+        {globalSearch && <SearchTable/>}
       </div>
+      
     </div>
   );
 }

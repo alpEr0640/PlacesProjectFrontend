@@ -4,6 +4,7 @@ const MainContext = createContext(null);
 
 export const MainProvider = ({ children})=>{
     const[isLogged , setIsLogged]= useState(false);
+    const [globalSearch, setGlobalSearch] = useState("");
 
     useEffect(() => {
         const storedLogged = window.localStorage.getItem("logged");
@@ -15,7 +16,7 @@ export const MainProvider = ({ children})=>{
       }, []);
 
     return(
-        <MainContext.Provider value={{isLogged ,setIsLogged}}>
+        <MainContext.Provider value={{isLogged ,setIsLogged , setGlobalSearch, globalSearch}}>
             {children}
         </MainContext.Provider>
     )

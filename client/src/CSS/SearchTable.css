@@ -1,0 +1,39 @@
+.tableContainer {
+  margin-top: 3rem;
+  width: 100%;
+  padding: 0 4rem;
+}
+
+.tableContent {
+  display: block;
+  overflow-x: auto;
+  white-space: nowrap;
+  margin-bottom: 4rem;
+  width: auto;
+  border-radius: 10px;
+  background-color: rgba(0, 0, 0, 0.6);
+  -webkit-box-shadow: 10px 10px 25px 0px rgba(0, 0, 0, 0.75);
+  -moz-box-shadow: 10px 10px 25px 0px rgba(0, 0, 0, 0.75);
+  box-shadow: 10px 10px 25px 0px rgba(0, 0, 0, 0.75);
+    
+}
+
+td{
+    border-bottom:gray 1px solid;
+}
+th{
+    height: 4rem!important;
+    border-bottom:gray 3px solid;
+}
+
+th,
+td {
+  color: white;
+  height: 3rem;
+  padding: 0rem 1rem;
+  min-width: 150px;
+  max-width: 600px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
