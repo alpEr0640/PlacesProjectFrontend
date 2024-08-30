@@ -26,7 +26,7 @@ export default function Login() {
         payload
       );
       setErrorMessage("");
-      console.log(res)
+     
       window.localStorage.setItem("token", res.data.data);
       validateToken(res.data.data);
       navigation("/homepage");

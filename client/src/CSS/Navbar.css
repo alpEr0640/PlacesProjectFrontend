@@ -48,12 +48,13 @@
 
 .navLeft {
   width: 20%;
-  
+  display: flex;
+  align-items: center;
 }
 
 .navImage {
   width: auto;
-  height: 4rem;
+  height: 3rem;  
 }
 
 .navRight {
@@ -62,9 +63,11 @@
   display: flex;
   justify-content: end;
   align-items: center;
+
 }
 
 .navItems {
+  
   width: auto;
   height: 100%;
   display: flex;
@@ -81,9 +84,9 @@
   text-decoration: none;
   list-style: none;
   padding: 10px 50px;
-  color: white;
+  color:white;;
   font-size: 1.4rem;
-}
+} 
 
 .sideBarContainer {
   width: 50%;

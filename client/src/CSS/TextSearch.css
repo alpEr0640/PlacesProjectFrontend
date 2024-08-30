@@ -1,0 +1,56 @@
+.textSearchContainer {
+  width: 100%;
+  height: 100%;
+}
+.selectContent {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: start;
+}
+.selectContent select, .selectContent input {
+  width: 48%;
+  height: 3rem;
+  border: none;
+  border-radius: 10px;
+  margin: 10px 1%;
+  text-indent: 0.5rem;
+}
+
+.deneme {
+  display: flex;
+  flex-direction: row;
+}
+.textSearchType {
+  width: 48%;
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  margin: 10px 1%;
+}
+.textSearchType input {
+  width: 100%;
+  height: 3rem;
+  border-radius: 10px;
+  text-indent: 0.5rem;
+  font-size: 1rem;
+}
+.textSearchType input::placeholder {
+  font-size: 0.8rem;
+}
+.searchButton {
+  width: 48%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.searchButton button {
+  width: 60%;
+  height: 3rem;
+  border-radius: 10px;
+  background-color: #00B4C4;
+  cursor: pointer;
+  border: none;
+  color: white;
+}
