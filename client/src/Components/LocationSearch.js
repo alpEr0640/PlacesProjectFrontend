@@ -1,6 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
-import "../CSS/LocationSearch.css"
+import "../CSS/LocationSearch.css";
+import { useMainContext } from "../MainContext";
 function LocationSearch() {
   const [lng, setLng] = useState(null); //!sola sağa giderken değişiyor
   const [lat, setLat] = useState(null); //! aşağı yukarı giderken değişiyor
@@ -15,8 +16,10 @@ function LocationSearch() {
   const apiKey = process.env.REACT_APP_APIKEY;
   const [trigger, setTrigger] = useState(false);
   const [nextPageToken, setNextPageToken] = useState("");
+  const { setGlobalSearch, globalSearch } = useMainContext();
 
   const calculateCoordinate = () => {
+    /* setGlobalSearch(""); */
     const num = parseFloat(area);
     if (!isNaN(num)) {
       const calculatedDistance = Math.sqrt(num) / 2;
@@ -81,9 +84,12 @@ function LocationSearch() {
           },
         }
       );
-
+      const newPlaces = response.data.places;
+      if (Array.isArray(newPlaces)) {
+        setGlobalSearch((globalSearch) => [...globalSearch, ...newPlaces]);
+      }
       console.log(response.data);
-      if (response.data.nextPageToken) {
+      if (response.data.nextPageToken && newPlaces.length !== 0) {
         fetchData(response.data.nextPageToken);
       } else {
         setNextPageToken("");

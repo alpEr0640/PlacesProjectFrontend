@@ -9,12 +9,10 @@ export default function Homepage() {
   const goProfile = () => {
     navigate("/profile");
   };
-  /* useEffect(() => {
-    const token = localStorage.getItem("token");
-    if (token) {
-      validateToken(token);
-    }
-  }, [validateToken]); */
+
+  const goLocation = ()=>{
+    navigate("/location")
+  }
   return (
     <div className="homepageContainer">
       <div className="homepageContent">
@@ -24,7 +22,7 @@ export default function Homepage() {
           <span>Hoş Geldiniz</span>
         </h1>
         <div className="homepageButtons">
-          <button className="homepageButtons-button">Konum Ara</button>
+          <button className="homepageButtons-button" onClick={goLocation}>Konum Ara</button>
           <button className="homepageButtons-button" onClick={goProfile}>
             Profil
           </button>

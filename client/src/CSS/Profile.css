@@ -3,6 +3,8 @@
   padding: 0 4rem;
   display: flex;
   justify-content: center;
+  background: url(../images/deneme10.jpg);
+  background-size: cover;
 }
 .profileContent {
   position: relative;

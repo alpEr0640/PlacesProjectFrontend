@@ -1,3 +1,27 @@
+  .searchTableContainer{
+    display: flex;
+    justify-content: end;
+    align-items: center;
+  }
+  
+  .searchTableButton:last-child{
+    background-color: #00B4C4;
+    color: white;
+  }
+  .searchTableButton:first-child{
+    background-color: rgba(0, 0, 0, 0.8);
+    color: white;
+  }
+
+  .searchTableButton{
+    width: 200px;
+    height: 50px;
+    margin: 0 10px 10px 0;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+  }
+
 .tableContainer {
   margin-top: 3rem;
   width: 100%;
@@ -8,26 +32,26 @@
   display: block;
   overflow-x: auto;
   white-space: nowrap;
-  margin-bottom: 4rem;
+  margin-bottom: 2rem;
   width: auto;
   border-radius: 10px;
-  background-color: rgba(0, 0, 0, 0.6);
+  background-color: rgba(0, 0, 0, 0.8);
   -webkit-box-shadow: 10px 10px 25px 0px rgba(0, 0, 0, 0.75);
   -moz-box-shadow: 10px 10px 25px 0px rgba(0, 0, 0, 0.75);
   box-shadow: 10px 10px 25px 0px rgba(0, 0, 0, 0.75);
     
 }
 
-td{
-    border-bottom:gray 1px solid;
+.searchLocationTd{
+    border-bottom:gray 1px solid !important;
 }
-th{
+.SearchLocationTh{
     height: 4rem!important;
     border-bottom:gray 3px solid;
 }
 
-th,
-td {
+.SearchLocationTh,
+.searchLocationTd {
   color: white;
   height: 3rem;
   padding: 0rem 1rem;
@@ -36,4 +60,45 @@ td {
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+}
+.Pagination{
+  display: flex;
+  justify-content: end;
+  margin:0 1rem 1rem 0;
+
+}
+.pageNumbersUl{
+  display: flex;
+  justify-content: center;
+  align-items: cente;
+}
+.pageNumbersUl li{
+  display: flex;
+  align-items: center; 
+  justify-content: center;
+  margin: 0px 10px;
+  cursor: pointer;
+  height: 40px;
+    width: 40px;
+  border-radius: 50%;
+  color: white;
+  border: 1px solid #00B4C4;
+
+}
+.paginationButton{
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 1px solid #00B4C4;
+  background: none;
+  cursor: pointer;
+  color:  white;
+}
+
+.paginationButton:hover,.pageNumbersUl li:hover{
+  background-color: #00B4C4;
+  color: white;
+}
+.activePage{
+  background-color: #00B4C4;
 }

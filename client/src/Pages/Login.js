@@ -5,6 +5,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useMainContext } from "../MainContext";
 import { AuthProvider, useAuth } from "../AuthContext";
+import { Notify } from "notiflix";
 
 export default function Login() {
   const [username, setUsername] = useState();
@@ -26,12 +27,22 @@ export default function Login() {
         payload
       );
       setErrorMessage("");
+      console.log(res.data.data)
      
       window.localStorage.setItem("token", res.data.data);
       validateToken(res.data.data);
       navigation("/homepage");
+      Notify.info('Giriş Başarılı');
     } catch (e) {
-      console.log(e);
+      console.log(e.response.status)
+      if (e.response.status===404 ) {
+        setErrorMessage("Kullanıcı Bulunamadı")
+      }
+      if (e.response.status===401 ) {
+        setErrorMessage("Hatalı Şifre Girdiniz")
+      } if (e.response.status===500 ) {
+        setErrorMessage("Server Hatası")
+      }
     }
   };
 
@@ -45,7 +56,7 @@ export default function Login() {
           <div className="rightContentHeader">Customer Compass</div>
           <form className="rightContentBody">
             <div className="loginField">
-              {/* {errorMessage && <div className="error">{errorMessage}</div>} */}
+              {errorMessage && <div className="error">{errorMessage}</div>}
               <input
                 placeholder="Kullanıcı Adı"
                 type="text"

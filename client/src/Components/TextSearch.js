@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import "../CSS/TextSearch.css";
 import { useMainContext } from "../MainContext";
+import { Notify } from "notiflix";
 
 const TextSearch = () => {
   const [city, setCity] = useState([]);
@@ -16,9 +17,9 @@ const TextSearch = () => {
   const [locationX, setLocationX] = useState(null);
   const [locationY, setLocationY] = useState(null);
   const [type, setType] = useState("");
-  const [trigger, setTrigger] = useState(false); 
+  const [trigger, setTrigger] = useState(false);
   const [nextPageToken, setNextPageToken] = useState("");
-  const {setGlobalSearch,globalSearch} =useMainContext();
+  const { setGlobalSearch, globalSearch } = useMainContext();
   const apiKey = process.env.REACT_APP_APIKEY;
 
   useEffect(() => {
@@ -111,13 +112,13 @@ const TextSearch = () => {
   };
 
   const handleTextSearch = async (pageToken = "") => {
-    console.log(locationX , " ", locationY)
+    console.log(locationX, " ", locationY);
     try {
       const response = await axios.post(
         "https://places.googleapis.com/v1/places:searchText",
         {
           textQuery: type,
-          
+
           locationBias: {
             circle: {
               center: { latitude: locationX, longitude: locationY },
@@ -136,16 +137,15 @@ const TextSearch = () => {
           },
         }
       );
-
-      /* console.log(response.data); */
-      /* setGlobalSearch(...globalSearch, response.data.places) */
-      const newPlaces = response.data.places;
-
-    // globalSearch'e gelen yeni yanıtları ekleme
-    setGlobalSearch((globalSearch) => [
-      ...globalSearch,
-      ...newPlaces
-    ]);
+      console.log(response.data)
+      if(response.data.places){
+        const newPlaces = response.data.places;
+        setGlobalSearch((globalSearch) => [...globalSearch, ...newPlaces]);
+      }
+      else{
+        Notify.failure('Sonuç Bulunamadı');
+      }
+  
       if (response.data.nextPageToken) {
         handleTextSearch((pageToken = response.data.nextPageToken));
       } else {
@@ -156,9 +156,9 @@ const TextSearch = () => {
     }
   };
 
-  useEffect(()=>{
-    console.log(globalSearch)
-  },[globalSearch])
+  useEffect(() => {
+    console.log(globalSearch);
+  }, [globalSearch]);
   const handleButtonClick = async () => {
     await HandleGeocode();
     setTrigger((prev) => !prev);
