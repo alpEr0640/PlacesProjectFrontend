@@ -17,6 +17,7 @@
   flex-direction: row;
   align-items: top;
   width: 100%;
+  justify-content: center;
 }
 
 .card {

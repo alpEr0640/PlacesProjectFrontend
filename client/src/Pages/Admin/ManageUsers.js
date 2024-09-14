@@ -3,12 +3,17 @@ import React, { useEffect, useState } from "react";
 import "../../CSS/Admin/ManageUsers.css";
 import EditUserModal from "./EditUserModal";
 import { useNavigate } from "react-router-dom";
+import { Confirm } from "notiflix/build/notiflix-confirm-aio";
+import { Notify } from "notiflix/build/notiflix-notify-aio";
+import EditUserQuotaModal from "./EditUserQuotaModal";
 
 export default function ManageUsers() {
   const [users, setUsers] = useState();
   const backendurl = process.env.REACT_APP_BACKEND_URL;
   const [loading, setLoading] = useState(true);
   const [selectedUser, setSelectedUser] = useState(null);
+  const [selectedUserQuota, setSelectedUserQuota] = useState(null);
+  const [editTrigger, setEditTrigger] = useState(false);
   const navigate = useNavigate();
   const getUsers = async (token) => {
     try {
@@ -19,6 +24,7 @@ export default function ManageUsers() {
       });
       setUsers(res.data.users);
       setLoading(false);
+      console.log(users);
     } catch (e) {
       console.log(e);
       setLoading(false);
@@ -28,33 +34,105 @@ export default function ManageUsers() {
   useEffect(() => {
     const token = localStorage.getItem("token");
     getUsers(token);
-  }, []);
-
-  useEffect(() => {
-    if (users) {
-      // list users
-      console.log("Updated users:", users);
-    }
-  }, [users]);
+  }, [editTrigger]);
 
   const handleEditClick = (user) => {
     setSelectedUser(user);
   };
 
+  const handleDeleteClick = async (user) => {
+    Confirm.show(
+      "Kullanıcıyı Sil",
+      "Kullanıcıyı Silmek İstiyor Musunuz?",
+      "Evet",
+      "Hayır",
+      async () => {
+        // delete user
+        const token = localStorage.getItem("token");
+        try {
+          var res = await axios.delete(`${backendurl}admin/deleteUser`, {
+            headers: {
+              Authorization: token,
+            },
+            data: {
+              uid: user.uid,
+            },
+          });
+          if (res.status == 200) {
+            Notify.success("Kullanıcı Silindi");
+          } else {
+            Notify.failure("Kullanıcı Silinemedi");
+          }
+        } catch (e) {
+          console.log(e);
+          const str = "Kullanıcı Silinemedi: " + e.response.data.data;
+          Notify.failure(str);
+        } finally {
+          setEditTrigger((prev) => !prev);
+        }
+      },
+      () => {
+        // do nothing
+      },
+      {
+        // custom options
+      }
+    );
+  };
+
   const handleUserUpdate = async (updatedUser) => {
     // post update to backend
-    setSelectedUser(null); // Modal'ı kapat
+    setSelectedUser(null); // close modal
     const token = localStorage.getItem("token");
     try {
-      var res = await axios.post(`${backendurl}admin/updateUser`, updatedUser, {
+      var res = await axios.put(`${backendurl}admin/updateUser`, updatedUser, {
         headers: {
           Authorization: `${token}`,
         },
       });
+      if (res.status == 200) {
+        Notify.success("Kullanıcı Güncellendi");
+      } else {
+        Notify.failure("Kullanıcı Güncellenemedi");
+      }
     } catch (e) {
       console.log(e);
+      const str = "Kullanıcı Güncellenemedi: " + e.response.data.data;
+      Notify.failure(str);
+    } finally {
+      setEditTrigger((prev) => !prev);
     }
-    window.location.reload();
+  };
+
+  const handleQuotaClick = async (user) => {
+    setSelectedUserQuota(user);
+  };
+
+  const handleQuotaUpdate = async (updatedQuota) => {
+    setSelectedUserQuota(null); // close modal
+    const token = localStorage.getItem("token");
+    try {
+      var res = await axios.put(
+        `${backendurl}admin/updateUserQuota`,
+        updatedQuota,
+        {
+          headers: {
+            Authorization: `${token}`,
+          },
+        }
+      );
+      if (res.status == 200) {
+        Notify.success("Kullanıcı Kotası Güncellendi");
+      } else {
+        Notify.failure("Kullanıcı Kotası Güncellenemedi");
+      }
+    } catch (e) {
+      console.log(e);
+      const str = "Kullanıcı Kotası Güncellenemedi: " + e.response.data.data;
+      Notify.failure(str);
+    } finally {
+      setEditTrigger((prev) => !prev);
+    }
   };
 
   return (
@@ -64,7 +142,7 @@ export default function ManageUsers() {
         {loading ? (
           <p>Loading users...</p>
         ) : (
-          <table border="1" cellPadding="10" cellSpacing="0">
+          <table className="adminPageTable">
             <thead>
               <tr>
                 <th>ID</th>
@@ -79,7 +157,7 @@ export default function ManageUsers() {
               </tr>
             </thead>
             <tbody>
-              {users.length > 0 ? (
+              {users && users.length > 0 ? (
                 users.map((user) => (
                   <tr key={user.uid}>
                     <td>{user.uid}</td>
@@ -98,7 +176,20 @@ export default function ManageUsers() {
                       >
                         Düzenle
                       </button>
-                      <button>Sil</button>
+                      <button
+                        onClick={async () => {
+                          await handleDeleteClick(user);
+                        }}
+                      >
+                        Sil
+                      </button>
+                      <button
+                        onClick={async () => {
+                          await handleQuotaClick(user);
+                        }}
+                      >
+                        Kota Güncelle
+                      </button>
                     </td>
                   </tr>
                 ))
@@ -118,6 +209,15 @@ export default function ManageUsers() {
             user={selectedUser}
             onClose={() => setSelectedUser(null)}
             onSave={handleUserUpdate}
+          />
+        </div>
+      )}
+      {selectedUserQuota && (
+        <div className="modal">
+          <EditUserQuotaModal
+            user={selectedUserQuota}
+            onClose={() => setSelectedUserQuota(null)}
+            onSave={handleQuotaUpdate}
           />
         </div>
       )}
