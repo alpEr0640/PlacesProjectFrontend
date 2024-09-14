@@ -14,20 +14,22 @@
   align-items: center;
 }
 
-table {
+.adminPageTable {
   margin-top: 30px;
   display: table;
   width: 90%;
   height: 70%;
+  border-spacing: 0;
 }
-table thead {
+.adminPageTable thead {
   text-align: center;
   height: 40px;
   background-color: gray;
   color: white;
 }
-table td {
+.adminPageTable td {
   text-align: center;
+  color: black;
 }
 
 /* Modal */
@@ -73,7 +75,6 @@ table td {
   display: flex;
   justify-content: center;
   align-items: center;
-
 }
 .modal .editUserModalContent {
   position: relative;
@@ -136,4 +137,12 @@ table td {
   align-items: end;
   justify-content: end;
   color: white;
+}
+
+.modal .cardBody label {
+  color: white;
+  margin: 20px;
+  width: 70%;
+  height: 40px;
+  text-align: center;
 }
