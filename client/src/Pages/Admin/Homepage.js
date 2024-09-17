@@ -66,14 +66,14 @@ export default function Homepage() {
               <p style={{ marginTop: "5%" }}>Kullanıcı Kaydet</p>
             </div>
           </div>
-          <div className="card">
+          {/* <div className="card">
             <div className="cardHeader">
               <p> asdsad </p>
             </div>
             <div className="cardBody">
               <p>asdsad</p>
             </div>
-          </div>
+          </div> */}
         </div>
       </div>
     </div>
