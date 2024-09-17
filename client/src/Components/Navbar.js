@@ -11,9 +11,15 @@ export default function Navbar() {
 
   const goProfile = () => {
     navigate("/profile");
+    setIsSidebarVisible(false);
   };
+  const goHomepage = ()=>{
+    navigate("/homepage");
+    setIsSidebarVisible(false);
+  }
   const goLocation = () => {
     navigate("/location");
+    setIsSidebarVisible(false);
   };
 
   const toggleSidebar = () => {
@@ -47,10 +53,10 @@ export default function Navbar() {
 
         <div className={`sideBarContainer ${isSidebarVisible ? "open" : ""}`}>
           <ul className="navSideBar">
-            <NavLink className="sideBar-Item" to="/homepage">
+            <li className="sideBar-Item" onClick={goHomepage}>
               Anasayfa
-            </NavLink>
-            <NavLink className="sideBar-Item" to="/location">Konum Ara</NavLink>
+            </li>
+            <li className="sideBar-Item" onClick={goLocation}>Konum Ara</li>
             <li className="sideBar-Item" onClick={goProfile}>
               Profil
             </li>

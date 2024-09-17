@@ -1,0 +1,58 @@
+.manuelSearchContainer {
+  width: 100%;
+  height: 100%;
+}
+
+.manuelSearchCoordinates {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.manuelSearchCoordinates input {
+  width: 48%;
+  height: 3rem;
+  border: none;
+  border-radius: 10px;
+  margin: 10px 1%;
+  text-indent: 0.5rem;
+}
+
+.manuelSearchDetail{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.manuelSearchDetail input{
+    width: 48%;
+    height: 3rem;
+    border: none;
+    border-radius: 10px;
+    margin: 10px 1%;
+    text-indent: 0.5rem;
+}
+
+.manuelSearchButton{
+    display: flex;
+    margin-bottom: 1rem;
+}
+.manuelSearchButton input{
+    width: 48%;
+    height: 3rem;
+    border: none;
+    border-radius: 10px;
+    margin: 10px 1%;
+    text-indent: 0.5rem;
+}
+.manuelSearchButton button{
+    width: 30%;
+    height: 3rem;
+    border: none;
+    border-radius: 10px;
+    margin: 10px 1%;
+    text-indent: 0.5rem;
+    background-color: #00B4C4;
+    color: white;
+    cursor: pointer;
+}

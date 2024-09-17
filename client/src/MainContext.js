@@ -3,9 +3,10 @@ import React, { createContext,useContext, useEffect, useState } from "react"
 const MainContext = createContext(null);
 
 export const MainProvider = ({ children})=>{
-    const[isLogged , setIsLogged]= useState(false);
+   /*  const[isLogged , setIsLogged]= useState(false); */
     const [globalSearch, setGlobalSearch] = useState("");
-
+   /*  const [isLoading, setIsLoading]= useState(false); */
+/* 
     useEffect(() => {
         const storedLogged = window.localStorage.getItem("logged");
         if (storedLogged) {
@@ -14,9 +15,9 @@ export const MainProvider = ({ children})=>{
             setIsLogged(false)
         }
       }, []);
-
+ */
     return(
-        <MainContext.Provider value={{isLogged ,setIsLogged , setGlobalSearch, globalSearch}}>
+            <MainContext.Provider value={{setGlobalSearch, globalSearch}}>
             {children}
         </MainContext.Provider>
     )

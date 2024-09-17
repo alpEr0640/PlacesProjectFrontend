@@ -1,26 +1,26 @@
-  .searchTableContainer{
-    display: flex;
-    justify-content: end;
-    align-items: center;
-  }
-  
-  .searchTableButton:last-child{
-    background-color: #00B4C4;
-    color: white;
-  }
-  .searchTableButton:first-child{
-    background-color: rgba(0, 0, 0, 0.8);
-    color: white;
-  }
+.searchTableContainer {
+  display: flex;
+  justify-content: end;
+  align-items: center;
+}
 
-  .searchTableButton{
-    width: 200px;
-    height: 50px;
-    margin: 0 10px 10px 0;
-    border: none;
-    border-radius: 10px;
-    cursor: pointer;
-  }
+.searchTableButton:last-child {
+  background-color: #00b4c4;
+  color: white;
+}
+.searchTableButton:first-child {
+  background-color: rgba(0, 0, 0, 0.8);
+  color: white;
+}
+
+.searchTableButton {
+  width: 200px;
+  height: 50px;
+  margin: 0 10px 10px 0;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+}
 
 .tableContainer {
   margin-top: 3rem;
@@ -32,22 +32,22 @@
   display: block;
   overflow-x: auto;
   white-space: nowrap;
-  margin-bottom: 2rem;
   width: auto;
-  border-radius: 10px;
+  border-radius: 10px 10px 0 0;
   background-color: rgba(0, 0, 0, 0.8);
+}
+.alper {
+  border-radius: 10px;
   -webkit-box-shadow: 10px 10px 25px 0px rgba(0, 0, 0, 0.75);
   -moz-box-shadow: 10px 10px 25px 0px rgba(0, 0, 0, 0.75);
   box-shadow: 10px 10px 25px 0px rgba(0, 0, 0, 0.75);
-    
 }
-
-.searchLocationTd{
-    border-bottom:gray 1px solid !important;
+.searchLocationTd {
+  border-bottom: gray 1px solid !important;
 }
-.SearchLocationTh{
-    height: 4rem!important;
-    border-bottom:gray 3px solid;
+.SearchLocationTh {
+  height: 4rem !important;
+  border-bottom: gray 3px solid;
 }
 
 .SearchLocationTh,
@@ -61,44 +61,59 @@
   overflow: hidden;
   text-overflow: ellipsis;
 }
-.Pagination{
+.Pagination {
   display: flex;
   justify-content: end;
-  margin:0 1rem 1rem 0;
-
+  margin: 0 0 1rem 0;
+  padding: 1rem 0.8rem 0.8rem 0;
+  background-color: rgba(0, 0, 0, 0.8);
+  border-radius: 0 0 10px 10px;
 }
-.pageNumbersUl{
+.pageNumbersUl {
   display: flex;
   justify-content: center;
   align-items: cente;
 }
-.pageNumbersUl li{
+.pageNumbersUl li {
   display: flex;
-  align-items: center; 
+  align-items: center;
   justify-content: center;
   margin: 0px 10px;
   cursor: pointer;
   height: 40px;
-    width: 40px;
+  width: 40px;
   border-radius: 50%;
   color: white;
-  border: 1px solid #00B4C4;
-
+  border: 1px solid #00b4c4;
 }
-.paginationButton{
+.paginationButton {
   width: 40px;
   height: 40px;
   border-radius: 50%;
-  border: 1px solid #00B4C4;
+  border: 1px solid #00b4c4;
   background: none;
   cursor: pointer;
-  color:  white;
-}
-
-.paginationButton:hover,.pageNumbersUl li:hover{
-  background-color: #00B4C4;
   color: white;
 }
-.activePage{
-  background-color: #00B4C4;
+
+.paginationButton:hover,
+.pageNumbersUl li:hover {
+  background-color: #00b4c4;
+  color: white;
+}
+.activePage {
+  background-color: #00b4c4;
+}
+
+@media (max-width: 900px) {
+  .Pagination {
+    justify-content: flex-end;
+    position: relative;
+    right: 0;
+  }
+
+  .pageNumbersUl {
+    display: flex;
+    justify-content: flex-start;
+  }
 }

@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import "../CSS/TextSearch.css";
 import { useMainContext } from "../MainContext";
-import { Notify } from "notiflix";
+import { Loading, Notify } from "notiflix";
 
 const TextSearch = () => {
   const [city, setCity] = useState([]);
@@ -20,8 +20,11 @@ const TextSearch = () => {
   const [trigger, setTrigger] = useState(false);
   const [nextPageToken, setNextPageToken] = useState("");
   const { setGlobalSearch, globalSearch } = useMainContext();
+  const [tempArray, setTempArray] = useState("");
+  const [temp, setTemp] = useState(false);
   const apiKey = process.env.REACT_APP_APIKEY;
-
+  const backendurl = process.env.REACT_APP_BACKEND_URL;
+  
   useEffect(() => {
     const fetchCities = async () => {
       try {
@@ -71,7 +74,7 @@ const TextSearch = () => {
 
   useEffect(() => {
     if (locationX !== null && locationY !== null) {
-      handleTextSearch();
+      checkQuota();
     }
   }, [locationX, locationY, trigger]);
 
@@ -111,8 +114,25 @@ const TextSearch = () => {
     }
   };
 
-  const handleTextSearch = async (pageToken = "") => {
-    console.log(locationX, " ", locationY);
+  const checkQuota = async (pageToken = "") => {
+    const token = window.localStorage.getItem("token");
+    //! kota kontrol isteği
+    try {
+      const checkQuotaRes = await axios.get(`${backendurl}home/checkQuota`, {
+        headers: {
+          Authorization: token,
+        },
+      });
+      console.log("kota kontrol: ", checkQuotaRes.data.result);
+      if (checkQuotaRes.data.result === true) {
+        handleTextSearch();
+      }
+    } catch (e) {
+      Notify.failure("Kotanız Bulunmamaktadır");
+    }
+  };
+
+  const handleTextSearch = async (pageToken) => {
     try {
       const response = await axios.post(
         "https://places.googleapis.com/v1/places:searchText",
@@ -137,29 +157,57 @@ const TextSearch = () => {
           },
         }
       );
-      console.log(response.data)
-      if(response.data.places){
+      console.log("status kontrol: ", response.status);
+      if (response.data.places) {
         const newPlaces = response.data.places;
-        setGlobalSearch((globalSearch) => [...globalSearch, ...newPlaces]);
+        setTempArray((tempArray) => [...tempArray, ...newPlaces]);
+      } else {
+        Notify.failure("Sonuç Bulunamadı");
       }
-      else{
-        Notify.failure('Sonuç Bulunamadı');
-      }
-  
+
       if (response.data.nextPageToken) {
         handleTextSearch((pageToken = response.data.nextPageToken));
       } else {
         setNextPageToken("");
+        if (response.status === 200) {
+          decreaseQuota();
+        }
       }
-    } catch (error) {
-      console.error("Error fetching places:", error);
+    } catch (e) {
+      console.log(e);
     }
   };
 
+  const decreaseQuota = async () => {
+    const token = window.localStorage.getItem("token");
+    try {
+      console.log(token);
+      const decreaseQuotaRes = await axios.put(
+        `${backendurl}home/decreaseQuota`,
+        {},
+        {
+          headers: {
+            Authorization: token,
+          },
+        }
+      );
+      setTemp(!temp);
+      Notify.info("Arama Tamamlandı");
+      console.log("kota azaltma", decreaseQuotaRes);
+    } catch (e) {
+      Notify.failure("Beklenmeyen Bir Hata Oluştu");
+    }
+  };
+  useEffect(() => {
+    setGlobalSearch((globalSearch) => [...globalSearch, ...tempArray]);
+    Loading.remove();
+    setTempArray("");
+  }, [temp]);
   useEffect(() => {
     console.log(globalSearch);
   }, [globalSearch]);
   const handleButtonClick = async () => {
+    Loading.standard({svgColor:"#00B4C4"})
     await HandleGeocode();
     setTrigger((prev) => !prev);
   };

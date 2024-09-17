@@ -3,7 +3,7 @@
   padding: 0 4rem;
   display: flex;
   justify-content: center;
-  background: url(../images/deneme10.jpg);
+  background: url(../images/mainBackground.jpg);
   background-size: cover;
 }
 .profileContent {

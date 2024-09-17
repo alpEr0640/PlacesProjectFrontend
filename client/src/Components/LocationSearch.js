@@ -2,6 +2,8 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import "../CSS/LocationSearch.css";
 import { useMainContext } from "../MainContext";
+import { Loading, Notify } from "notiflix";
+
 function LocationSearch() {
   const [lng, setLng] = useState(null); //!sola sağa giderken değişiyor
   const [lat, setLat] = useState(null); //! aşağı yukarı giderken değişiyor
@@ -17,8 +19,12 @@ function LocationSearch() {
   const [trigger, setTrigger] = useState(false);
   const [nextPageToken, setNextPageToken] = useState("");
   const { setGlobalSearch, globalSearch } = useMainContext();
+  const backendurl = process.env.REACT_APP_BACKEND_URL;
+  const [tempArray, setTempArray] = useState("");
+  const [temp, setTemp] = useState(false);
 
   const calculateCoordinate = () => {
+    Loading.standard({svgColor:"#00B4C4"})
     /* setGlobalSearch(""); */
     const num = parseFloat(area);
     if (!isNaN(num)) {
@@ -49,9 +55,27 @@ function LocationSearch() {
       rightLat !== null &&
       rightLng !== null
     ) {
-      fetchData();
+      checkQuota();
     }
   }, [trigger, leftLat, leftLng, rightLat, rightLng]);
+
+  const checkQuota = async (pageToken = "") => {
+    const token = window.localStorage.getItem("token");
+    //! kota kontrol isteği
+    try {
+      const checkQuotaRes = await axios.get(`${backendurl}home/checkQuota`, {
+        headers: {
+          Authorization: token,
+        },
+      });
+      console.log("kota kontrol: ", checkQuotaRes.data.result);
+      if (checkQuotaRes.data.result === true) {
+        fetchData();
+      }
+    } catch (e) {
+      Notify.failure("Kotanız Bulunmamaktadır");
+    }
+  };
 
   const fetchData = async (pageToken = "") => {
     try {
@@ -86,13 +110,16 @@ function LocationSearch() {
       );
       const newPlaces = response.data.places;
       if (Array.isArray(newPlaces)) {
-        setGlobalSearch((globalSearch) => [...globalSearch, ...newPlaces]);
+        setTempArray((tempArray) => [...tempArray, ...newPlaces]);
       }
       console.log(response.data);
       if (response.data.nextPageToken && newPlaces.length !== 0) {
         fetchData(response.data.nextPageToken);
       } else {
         setNextPageToken("");
+        if (response.status === 200) {
+          decreaseQuota();
+        }
       }
     } catch (error) {
       console.error("Error fetching places:", error);
@@ -100,6 +127,33 @@ function LocationSearch() {
       setTrigger(false);
     }
   };
+
+  const decreaseQuota = async () => {
+    const token = window.localStorage.getItem("token");
+    try {
+      console.log(token);
+      const decreaseQuotaRes = await axios.put(
+        `${backendurl}home/decreaseQuota`,
+        {},
+        {
+          headers: {
+            Authorization: token,
+          },
+        }
+      );
+      setTemp(!temp);
+      Notify.info("Arama Tamamlandı");
+      console.log("kota azaltma", decreaseQuotaRes);
+    } catch (e) {
+      Notify.failure("Beklenmeyen Bir Hata Oluştu");
+    }
+  };
+
+  useEffect(() => {
+    setGlobalSearch((globalSearch) => [...globalSearch, ...tempArray]);
+    Loading.remove();
+    setTempArray("");
+  }, [temp]);
 
   return (
     <div className="locationSearchContainer">

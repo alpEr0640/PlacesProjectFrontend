@@ -1,15 +1,8 @@
 .loginContainer {
   width: 100%;
   height: 100vh;
-  background-image: url(../images/deneme10.jpg);
+  background-image: url(../images/mainBackground.jpg);
   background-size: cover;
-  /* background: rgb(13, 90, 110); */
- /*  background: radial-gradient(
-    circle,
-    rgba(13, 90, 110, 1) 0%,
-    rgba(37, 131, 170, 1) 54%,
-    rgba(0, 212, 255, 1) 100%
-  ); */
   display: flex;
   justify-content: center;
   align-items: center;
@@ -18,7 +11,8 @@
 .loginContent {
   display: flex;
   flex-direction: row;
-  width: 70%;
+  justify-content: center;
+  width: 40%;
   height: 60%;
   background-color: rgba(0, 0, 0, 0.6);
   border-radius: 20px;
@@ -27,21 +21,10 @@
   box-shadow: 10px 14px 26px -10px rgba(0, 0, 0, 0.75);
   z-index: 1;
 }
-.loginLeftContent {
-  width: 50%;
-  height: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
 
-.loginImage {
-  width: 50%;
-  height: auto;
-}
 
 .loginRightContent {
-  width: 50%;
+  width: 70%;
   height: 100%;
 }
 .rightContentHeader {
@@ -61,7 +44,7 @@
   height: 80%;
 }
 .loginField {
-  height: 70%;
+  height: 65%;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -69,8 +52,8 @@
 }
 
 .loginField input {
-  width: 70%;
-  height: 3rem;
+  width: 100%;
+  height: 4rem;
   border-radius: 1rem;
   border: none;
   margin: 1.3rem 1rem;

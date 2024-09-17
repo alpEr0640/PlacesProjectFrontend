@@ -18,7 +18,7 @@ export default function Homepage() {
       <div className="homepageContent">
         <h1 className="homepageHeader animate__animated animate__bounceanimate__animated animate__fadeInTopLeft">
           {" "}
-          <span>Customer Compass'a</span>
+          <span>Sector Scout'a</span>
           <span>Hoş Geldiniz</span>
         </h1>
         <div className="homepageButtons">

@@ -3,18 +3,21 @@ import "../CSS/SearchTable.css";
 import { useMainContext } from "../MainContext";
 import { Confirm } from "notiflix/build/notiflix-confirm-aio";
 import { Notify } from "notiflix";
+import axios from "axios";
+import { useAuth } from "../AuthContext";
 
 export default function SearchTable() {
   const pageNumbers = [];
   const { globalSearch, setGlobalSearch } = useMainContext();
   const [currentPage, setCurrentPage] = useState(1);
   const [dataPerPage, setDataPerPage] = useState(7);
-
+  const backendurl = process.env.REACT_APP_BACKEND_URL;
   const totalPages = Math.ceil(globalSearch.length / dataPerPage);
-
+  const { validateToken } = useAuth();
   const lastIndex = currentPage * dataPerPage;
   const firstIndex = lastIndex - dataPerPage;
   const currentData = globalSearch.slice(firstIndex, lastIndex);
+  const [deneme, setDeneme] = useState(window.innerWidth);
 
   const GoForward = () => {
     if (currentPage < totalPages) {
@@ -27,9 +30,12 @@ export default function SearchTable() {
       setCurrentPage(currentPage - 1);
     }
   };
+  window.onresize = function () {
+    setDeneme(window.innerWidth);
+  };
 
   const getVisiblePageNumbers = () => {
-    const maxVisiblePages = 9;
+    const maxVisiblePages = deneme < 900 ? 3 : 9;
 
     if (totalPages <= maxVisiblePages) {
       return Array.from({ length: totalPages }, (_, i) => i + 1);
@@ -66,7 +72,34 @@ export default function SearchTable() {
       {number}
     </li>
   ));
-
+  const downloadData = async () => {
+    const payload = {
+      data: globalSearch,
+    };
+    const token = localStorage.getItem("token");
+    if (token) {
+      validateToken(token);
+    }
+    console.log(globalSearch);
+    try {
+      const res = await axios.post(`${backendurl}home/downloadExcel`, payload, {
+        headers: {
+          Authorization: `${token}`,
+        },
+        responseType: "blob",
+      });
+      const url = window.URL.createObjectURL(new Blob([res.data]));
+      const link = document.createElement("a");
+      link.href = url;
+      link.setAttribute("download", "output.xlsx");
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+      console.log(res);
+    } catch (e) {
+      console.log(e);
+    }
+  };
   const clearData = () => {
     Confirm.show(
       "UYARI",
@@ -94,23 +127,27 @@ export default function SearchTable() {
         <button className="searchTableButton" onClick={clearData}>
           Temizle
         </button>
-        <button className="searchTableButton">İndir</button>
+        <button className="searchTableButton" onClick={downloadData}>
+          İndir
+        </button>
       </div>
-      <table className="tableContent">
-        <thead>
-          <tr>
-            <th className="SearchLocationTh">Yer İsmi</th>
-            <th className="SearchLocationTh">Adres</th>
-          </tr>
-        </thead>
-        <tbody>
-          {currentData.map((type, index) => (
-            <tr key={index}>
-              <td className="searchLocationTd">{type.displayName.text}</td>
-              <td className="searchLocationTd">{type.formattedAddress}</td>
+      <div className="alper">
+        <table className="tableContent">
+          <thead>
+            <tr>
+              <th className="SearchLocationTh">Yer İsmi</th>
+              <th className="SearchLocationTh">Adres</th>
             </tr>
-          ))}
-        </tbody>
+          </thead>
+          <tbody>
+            {currentData.map((type, index) => (
+              <tr key={index}>
+                <td className="searchLocationTd">{type.displayName.text}</td>
+                <td className="searchLocationTd">{type.formattedAddress}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
         <div className="Pagination">
           <button
             className={"paginationButton"}
@@ -128,7 +165,7 @@ export default function SearchTable() {
             {">"}
           </button>
         </div>
-      </table>
+      </div>
     </div>
   );
 }

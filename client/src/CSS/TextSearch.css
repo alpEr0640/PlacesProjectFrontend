@@ -54,3 +54,24 @@
   border: none;
   color: white;
 }
+
+@media (max-width:900px){
+  .selectContent select, .selectContent input{
+    width: 80%;
+  }
+  .selectContent{
+    display: flex;
+    justify-content: center;
+    
+  }
+  .deneme{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding-bottom: 1rem;
+  }
+  .textSearchType{
+    width: 80%;
+  }
+}

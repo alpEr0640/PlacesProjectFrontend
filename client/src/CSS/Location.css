@@ -4,7 +4,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: start;
-  background-image: url(../images/deneme10.jpg);
+  background-image: url(../images/mainBackground.jpg);
   background-size: cover;
   background-attachment: fixed;
   overflow: auto;
@@ -13,7 +13,7 @@
 .locationContent {
   width: 100%;
   height: auto;
-  min-height: calc(100vh - 12rem); /* Minimum yükseklik ayarlandı */
+  min-height: calc(100vh - 12rem); 
   position: relative;
   top: 12rem;
   display: flex;
@@ -35,6 +35,7 @@
 .locationButton {
   height: 70%;
   width: 20%;
+  min-width: 200px;
   margin: 0rem 2rem;
   border: none;
   cursor: pointer;
@@ -77,4 +78,20 @@
   
 }
 
+@media (max-width:900px){
+  .locationButton{
+    min-width: 200px;
+  }
+  .locationContent{
+    top: 5rem;
+  }
+  .locationContentBody{
+    width: 100%;
+  }
+}
+@media (max-width:500px){
+  .locationButton{
+    min-width: 120px;
+  }
+}
 

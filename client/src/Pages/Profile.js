@@ -4,46 +4,55 @@ import { useNavigate } from "react-router-dom";
 import { useMainContext } from "../MainContext";
 import { useAuth } from "../AuthContext";
 import axios from "axios";
+import { Loading } from "notiflix/build/notiflix-loading-aio";
 export default function Profile() {
   const navigate = useNavigate();
-  const { setIsLogged, isLogged } = useMainContext();
+  const { setIsLogged, isLogged, isLoading } = useMainContext();
   const { validateToken } = useAuth();
   const backendurl = process.env.REACT_APP_BACKEND_URL;
-  const [profileData, setProfileData]= useState("");
+  const [profileData, setProfileData] = useState("");
 
   useEffect(() => {
+    /*  Loading.standard({ svgColor: "#00B4C4" }); */
     const token = localStorage.getItem("token");
+
     if (token) {
       validateToken(token);
     }
   }, []);
+
   const Logout = () => {
-    window.localStorage.removeItem("token");
-    window.localStorage.removeItem("logged");
-    setIsLogged(false);
-    validateToken(localStorage.getItem("token"));
-    console.log("Çıkış kontrol", isLogged);
-    navigate("/");
-  };
-  const getUser = async (token) => {
     try {
-      var res = await axios.get(
-        `${backendurl}home/getUser`,
-        {
-          headers: {
-            Authorization: `${token}`,
-          },
-        }
-      );
-      
-      setProfileData(...profileData, res.data.data);
-     
+      Loading.standard({ svgColor: "#00B4C4" });
+      window.localStorage.removeItem("token");
+      validateToken(localStorage.getItem("token"));
+      console.log("Çıkış kontrol", isLogged);
     } catch (e) {
       console.log(e);
+    }
+    finally{
+      Loading.remove();
+    }
+  };
+
+  const getUser = async (token) => {
+    try {
+      var res = await axios.get(`${backendurl}home/getUser`, {
+        headers: {
+          Authorization: `${token}`,
+        },
+      });
+
+      setProfileData(...profileData, res.data.data);
+    } catch (e) {
+      console.log(e);
+    } finally {
+      Loading.remove();
     }
   };
 
   useEffect(() => {
+    Loading.standard({ svgColor: "#00B4C4" });
     const token = localStorage.getItem("token");
     getUser(token);
   }, []);
@@ -57,7 +66,7 @@ export default function Profile() {
         <div className="profileContentBody">
           <div className="profileContentBody-Left">
             <p>
-             Ad<span>:</span>
+              Ad<span>:</span>
             </p>
             <p>
               Soyad <span>:</span>

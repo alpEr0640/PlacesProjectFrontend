@@ -7,10 +7,12 @@ import AdminHomepage from "./Pages/Admin/Homepage";
 import { MainProvider, useMainContext } from "./MainContext";
 import { AuthProvider, useAuth } from "./AuthContext";
 import { useEffect, useState } from "react";
-
+import { Loading } from 'notiflix/build/notiflix-loading-aio';
 import RegisterUser from "./Pages/Admin/RegisterUser";
 import ManageUsers from "./Pages/Admin/ManageUsers";
 import Location from "./Pages/Location";
+import Loads from "./Animation/Loads";
+
 
 
 function App() {
@@ -27,10 +29,13 @@ function App() {
 
 const AppContent = () => {
   const [logged, setLogged] = useState(false);
+  
 
-
-  const { isAuthenticated, validateToken } = useAuth();
-
+  const { isAuthenticated, validateToken,isLoading } = useAuth();
+  if (isLoading) {
+    return <Loads />;
+  }
+  Loading.remove();
   return (
     <div className="app">
       {isAuthenticated && <Navbar />}
@@ -41,7 +46,7 @@ const AppContent = () => {
         />
         <Route path="/"  element={!isAuthenticated ? <Login/> : <Homepage />}/>
         <Route path="/profile"  element={isAuthenticated ? <Profile/> : <Login />}/>
-        <Route path="/location" element={<Location/>}/>
+        <Route path="/location" element={isAuthenticated ? <Location/> : <Login/>}/>
         {/* Admin routes */}
         <Route
           path="/admin/home"
