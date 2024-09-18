@@ -137,6 +137,8 @@ export default function SearchTable() {
             <tr>
               <th className="SearchLocationTh">Yer İsmi</th>
               <th className="SearchLocationTh">Adres</th>
+              <th className="SearchLocationTh">Web Sitesi</th>
+              <th className="SearchLocationTh">Telefon Numarası</th>
             </tr>
           </thead>
           <tbody>
@@ -144,6 +146,10 @@ export default function SearchTable() {
               <tr key={index}>
                 <td className="searchLocationTd">{type.displayName.text}</td>
                 <td className="searchLocationTd">{type.formattedAddress}</td>
+                <td className="searchLocationTd">{type.websiteUri}</td>
+                <td className="searchLocationTd">{type.internationalPhoneNumber}</td>
+                {/* <td className="searchLocationTd">{type.currentOpeningHours.openNow===true ?"Açık":"Kapalı"}</td> */}
+                
               </tr>
             ))}
           </tbody>

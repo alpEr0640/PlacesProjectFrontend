@@ -87,7 +87,7 @@ export default function ManuelSearch() {
             "Content-Type": "application/json",
             "X-Goog-Api-Key": apiKey,
             "X-Goog-FieldMask":
-              "places.displayName,places.formattedAddress,places.priceLevel,nextPageToken",
+              "places.displayName,places.formattedAddress,places.userRatingCount,nextPageToken,places.websiteUri",
           },
         }
       );

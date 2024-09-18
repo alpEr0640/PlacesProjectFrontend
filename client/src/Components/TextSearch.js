@@ -107,6 +107,7 @@ const TextSearch = () => {
         console.log(locationX, " ", locationY);
         /* setTrigger(prev => !prev);  */
       } else {
+        Loading.remove();
         alert("Adres bulunamadı.");
       }
     } catch (e) {
@@ -153,7 +154,7 @@ const TextSearch = () => {
             "Content-Type": "application/json",
             "X-Goog-Api-Key": apiKey,
             "X-Goog-FieldMask":
-              "places.displayName,places.formattedAddress,places.priceLevel,nextPageToken",
+              "places.displayName,places.formattedAddress,places.currentOpeningHours,nextPageToken,places.websiteUri,places.nationalPhoneNumber,places.internationalPhoneNumber,places.location,places.regularOpeningHours",
           },
         }
       );
@@ -200,6 +201,7 @@ const TextSearch = () => {
   };
   useEffect(() => {
     setGlobalSearch((globalSearch) => [...globalSearch, ...tempArray]);
+    console.log(globalSearch)
     Loading.remove();
     setTempArray("");
   }, [temp]);
