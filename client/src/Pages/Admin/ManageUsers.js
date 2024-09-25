@@ -177,6 +177,18 @@ export default function ManageUsers() {
     );
   };
 
+  const formatDate = (isoDate) => {
+    const date = new Date(isoDate);
+    return date.toLocaleString('tr-TR', {
+      year: 'numeric',
+      month: 'long',
+      day: 'numeric',
+      hour: '2-digit',
+      minute: '2-digit',
+      second: '2-digit',
+    });
+  };
+
   return (
     <div className="manageUsersContainer">
       <div className="usersContent">
@@ -209,10 +221,10 @@ export default function ManageUsers() {
                     <td>{user.email}</td>
                     <td>{user.phone}</td>
                     <td>{user.quota}</td>
-                    <td>{user.registrationDate}</td>
-                    <td>{user.subscriptionEndDate}</td>
+                    <td>{formatDate(user.registrationDate)}</td>
+                    <td>{formatDate(user.subscriptionEndDate)}</td>
                     <td>{user.role}</td>
-                    <td>
+                    <td className="actions">
                       <button
                         onClick={() => {
                           handleEditClick(user);
