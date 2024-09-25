@@ -135,6 +135,48 @@ export default function ManageUsers() {
     }
   };
 
+  const handleSubsUpdate = async (user, type) => {
+    Confirm.show(
+      "Kullanıcı Aboneliği",
+      `Kullanıcıya ${type} abonelik tanımlamak istiyor musunuz?`,
+      "Evet",
+      "Hayır",
+      // update user subs
+      async () => {
+        const token = localStorage.getItem("token");
+        try {
+          var res = await axios.put(
+            `${backendurl}admin/updateUserSubscription`,
+            { uid: user.uid, subscriptionType: type },
+            {
+              headers: {
+                Authorization: `${token}`,
+              },
+            }
+          );
+          if (res.status == 200) {
+            Notify.success("Kullanıcı Aboneliği Güncellendi");
+          } else {
+            Notify.failure("Kullanıcı Aboneliği Güncellenemedi");
+          }
+        } catch (e) {
+          console.log(e);
+          const str =
+            "Kullanıcı Aboneliği Güncellenemedi: " + e.response.data.data;
+          Notify.failure(str);
+        } finally {
+          setEditTrigger((prev) => !prev);
+        }
+      },
+      () => {
+        // do nothing
+      },
+      {
+        // custom options
+      }
+    );
+  };
+
   return (
     <div className="manageUsersContainer">
       <div className="usersContent">
@@ -152,6 +194,7 @@ export default function ManageUsers() {
                 <th>Telefon</th>
                 <th>Kota</th>
                 <th>Kayıt Tarihi</th>
+                <th>Abonelik Bitiş Tarihi</th>
                 <th>Role</th>
                 <th>Yönet</th>
               </tr>
@@ -167,6 +210,7 @@ export default function ManageUsers() {
                     <td>{user.phone}</td>
                     <td>{user.quota}</td>
                     <td>{user.registrationDate}</td>
+                    <td>{user.subscriptionEndDate}</td>
                     <td>{user.role}</td>
                     <td>
                       <button
@@ -189,6 +233,20 @@ export default function ManageUsers() {
                         }}
                       >
                         Kota Güncelle
+                      </button>
+                      <button
+                        onClick={async () => {
+                          await handleSubsUpdate(user, "monthly");
+                        }}
+                      >
+                        Aylık Abonelik Güncelle
+                      </button>
+                      <button
+                        onClick={async () => {
+                          await handleSubsUpdate(user, "yearly");
+                        }}
+                      >
+                        Yıllık Abonelik Güncelle
                       </button>
                     </td>
                   </tr>
