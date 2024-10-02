@@ -45,8 +45,13 @@ export default function Login() {
         if (e.response.status === 401) {
           setErrorMessage("Hatalı Şifre Girdiniz");
         }
+        if(e.response.status ===429){
+          Loading.remove();
+          setErrorMessage("İstek Limitini Aştınız");
+        }
         if (e.response.status === 500) {
           setErrorMessage("Server Hatası");
+          Loading.remove();
         }
       }
       

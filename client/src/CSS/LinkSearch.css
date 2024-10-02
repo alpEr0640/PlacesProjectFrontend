@@ -1,0 +1,29 @@
+.linkSearchContainer {
+  width: 100%;
+  height: 80%;
+}
+
+.linkSearchContent input {
+  width: 95%;
+  height: 3rem;
+  border: none;
+  border-radius: 10px;
+  margin: 1rem;
+  text-indent: 0.5rem;
+}
+
+.linkSearchButton{
+    width: 95%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+}
+.linkSearchButton button{
+    width: 12rem;
+    height: 3rem;
+    border-radius: 10px;
+    border: none;
+    margin: 1rem;
+    background-color: #00B4C4;
+    color: white;
+}

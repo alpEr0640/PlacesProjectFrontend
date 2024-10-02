@@ -1,50 +1,65 @@
-import axios from "axios";
 import React, { useEffect, useState } from "react";
-import "../CSS/LocationSearch.css";
-import { useMainContext } from "../MainContext";
+import "../CSS/LinkSearch.css";
 import { Loading, Notify } from "notiflix";
-import { useAuth } from "../AuthContext";
-function LocationSearch() {
-  const [lng, setLng] = useState(null); //!sola sağa giderken değişiyor
-  const [lat, setLat] = useState(null); //! aşağı yukarı giderken değişiyor
-  const [area, setArea] = useState("");
+import axios from "axios";
+import { useMainContext } from "../MainContext";
+export default function LinkSearch() {
+  const [url, setUrl] = useState("");
+  const latDegree = 111.32;
   const [type, setType] = useState("");
   const [distance, setDistance] = useState("");
   const [leftLat, setLeftLat] = useState(null);
   const [leftLng, setLeftLng] = useState(null);
   const [rightLat, setRightLat] = useState(null);
   const [rightLng, setRightLng] = useState(null);
-  const latDegree = 111.32;
-  const apiKey = process.env.REACT_APP_APIKEY;
   const [trigger, setTrigger] = useState(false);
+  const [tempArray, setTempArray] = useState("");
+  const backendurl = process.env.REACT_APP_BACKEND_URL;
+  const apiKey = process.env.REACT_APP_APIKEY;
   const [nextPageToken, setNextPageToken] = useState("");
   const { setGlobalSearch, globalSearch } = useMainContext();
-  const backendurl = process.env.REACT_APP_BACKEND_URL;
-  const [tempArray, setTempArray] = useState("");
   const [temp, setTemp] = useState(false);
-  const { validateToken } = useAuth();
-  const calculateCoordinate = () => {
-    const token = window.localStorage.getItem("token");
-    validateToken(token)
+  const handleClick = (url) => {
+    //arama tipini bulmak için
+    const searchTermMatch = url.match(/\/search\/(.*?)\//);
+    const searchTerm = searchTermMatch
+      ? decodeURIComponent(searchTermMatch[1])
+      : null;
+    setType(searchTerm);
+    console.log("arama tipi:", searchTerm);
+
+    //lat lng bulmak için
+    const coordsMatch = url.match(/@(-?\d+.\d+),(-?\d+.\d+)/);
+    const latitude = coordsMatch ? parseFloat(coordsMatch[1]) : null;
+    const longitude = coordsMatch ? parseFloat(coordsMatch[2]) : null;
+    console.log("lat:", latitude, " lng:", longitude);
+    //zoom değerini bulmak için
+    const zoomMatch = url.match(/,(\d+(\.\d+)?)z/);
+    const zoom = zoomMatch ? parseFloat(zoomMatch[1]) : null;
+    console.log("zoom: ", zoom);
+    //calculate zoom to km
+    const C = 40075016;
+    const width =
+      (38000 / Math.pow(2, zoom - 3)) * Math.cos((latitude * Math.PI) / 180);
+    calculateCoordinate(latitude, longitude, width);
+  };
+
+  const calculateCoordinate = (lat, lng, area) => {
     Loading.standard({ svgColor: "#00B4C4" });
     const num = parseFloat(area);
-    if (!isNaN(num)) {
-      const calculatedDistance = Math.sqrt(num) / 2;
-      setDistance(calculatedDistance);
-      const latInDegrees = parseFloat(lat);
-      const lngInDegrees = parseFloat(lng);
-      const distanceInDegreesLat = calculatedDistance / latDegree;
-      const distanceInDegreesLng =
-        calculatedDistance /
-        (latDegree * Math.cos((latInDegrees * Math.PI) / 180));
-      setLeftLat(latInDegrees - distanceInDegreesLat);
-      setLeftLng(lngInDegrees - distanceInDegreesLng);
-      setRightLat(latInDegrees + distanceInDegreesLat);
-      setRightLng(lngInDegrees + distanceInDegreesLng);
-    } else {
-      setDistance(4);
-      setArea(16);
-    }
+
+    const calculatedDistance = num / 2;
+    setDistance(calculatedDistance);
+    const latInDegrees = parseFloat(lat);
+    const lngInDegrees = parseFloat(lng);
+    const distanceInDegreesLat = calculatedDistance / latDegree;
+    const distanceInDegreesLng =
+      calculatedDistance /
+      (latDegree * Math.cos((latInDegrees * Math.PI) / 180));
+    setLeftLat(latInDegrees - distanceInDegreesLat);
+    setLeftLng(lngInDegrees - distanceInDegreesLng);
+    setRightLat(latInDegrees + distanceInDegreesLat);
+    setRightLng(lngInDegrees + distanceInDegreesLng);
     setTrigger(true);
   };
 
@@ -59,7 +74,6 @@ function LocationSearch() {
       checkQuota();
     }
   }, [trigger, leftLat, leftLng, rightLat, rightLng]);
-
   const checkQuota = async (pageToken = "") => {
     const token = window.localStorage.getItem("token");
     //! kota kontrol isteği
@@ -77,24 +91,24 @@ function LocationSearch() {
       if (e.response.status === 429) {
         Notify.failure("Çok Fazla İstek Göndermeye Çalıştınız");
         Loading.remove();
-      } if (e.response.status === 403) {
+      }
+      if (e.response.status === 403) {
         if (e.response.data.err) {
           Notify.failure("Kotanız Bulunmamaktadır");
           Loading.remove();
         } else {
           Loading.remove();
         }
-      }
-      else{
+      } else {
         Notify.failure("Beklenmedik Bİr Hatayla Karşılaştık");
         Loading.remove();
       }
-      
     }
   };
 
   const fetchData = async (pageToken = "") => {
     try {
+      console.log(type)
       const response = await axios.post(
         "https://places.googleapis.com/v1/places:searchText",
         {
@@ -139,7 +153,9 @@ function LocationSearch() {
         }
       }
     } catch (error) {
+      
       Loading.remove();
+      Notify.failure("Yanlış Link")
       console.error("Error fetching places:", error);
     } finally {
       setTrigger(false);
@@ -175,37 +191,18 @@ function LocationSearch() {
   }, [temp]);
 
   return (
-    <div className="locationSearchContainer">
-      <div className="locationSearchContent">
-        <div className="locationSearchCoordinates">
-          {" "}
-          <input
-            placeholder="y koordinatı"
-            onBlur={(e) => setLat(parseFloat(e.target.value).toFixed(6))}
-          />
-          <input
-            placeholder="x koordinatı"
-            onBlur={(e) => setLng(parseFloat(e.target.value).toFixed(6))}
-          />
-        </div>
-        <div className="locationSearchDetail">
-          {" "}
-          <input
-            placeholder="aramak istediğiniz alan (m2)"
-            onBlur={(e) => setArea(e.target.value)}
-          />
-          <input
-            placeholder="aramak istediğiniz tür"
-            onBlur={(e) => setType(e.target.value)}
-          />
-        </div>
-        <div className="locationSearchButton">
-          {" "}
-          <button onClick={calculateCoordinate}>Koordinatla Arama</button>
-        </div>
+    <div className="linkSearchContainer">
+      <div className="linkSearchContent">
+        <input
+          placeholder="link"
+          onBlur={(e) => {
+            setUrl(e.target.value);
+          }}
+        />
+      </div>
+      <div className="linkSearchButton">
+        <button onClick={() => handleClick(url)}>Aramayı Tamamla</button>
       </div>
     </div>
   );
 }
-
-export default LocationSearch;

@@ -5,30 +5,32 @@ import { useMainContext } from "../MainContext";
 import { useAuth } from "../AuthContext";
 import axios from "axios";
 import { Loading } from "notiflix/build/notiflix-loading-aio";
+import { Notify } from "notiflix";
 export default function Profile() {
   const navigate = useNavigate();
-  const { setIsLogged, isLogged, isLoading } = useMainContext();
+  const { globalSearch, setGlobalSearch, globalAddress, setGlobalAddress } = useMainContext();
   const { validateToken } = useAuth();
   const backendurl = process.env.REACT_APP_BACKEND_URL;
   const [profileData, setProfileData] = useState("");
 
-  useEffect(() => {
-    /*  Loading.standard({ svgColor: "#00B4C4" }); */
-    const token = localStorage.getItem("token");
-
-    if (token) {
-      validateToken(token);
-    }
-  }, []);
+  
 
   const Logout = () => {
     try {
       Loading.standard({ svgColor: "#00B4C4" });
       window.localStorage.removeItem("token");
       validateToken(localStorage.getItem("token"));
-      console.log("Çıkış kontrol", isLogged);
+      setGlobalSearch("")
+      setGlobalAddress("")
     } catch (e) {
-      console.log(e);
+      console.log(e)
+      if (e.response.status === 429) {
+        Notify.failure("Çok Fazla İstek Göndermeye Çalıştınız");
+        Loading.remove();
+      } else {
+        Notify.failure("Beklenmeyen Bir Hata Oluştu");
+        Loading.remove();
+      }
     }
     finally{
       Loading.remove();
@@ -54,6 +56,7 @@ export default function Profile() {
   useEffect(() => {
     Loading.standard({ svgColor: "#00B4C4" });
     const token = localStorage.getItem("token");
+    validateToken(token);
     getUser(token);
   }, []);
 

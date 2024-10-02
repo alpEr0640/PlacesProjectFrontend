@@ -3,22 +3,24 @@ import "../CSS/ManuelSearch.css";
 import axios from "axios";
 import { Loading, Notify } from "notiflix";
 import { useMainContext } from "../MainContext";
-
+import { useAuth } from "../AuthContext";
 export default function ManuelSearch() {
-  const [country, setCountry] = useState("Türkiye");
   const [city, setCity] = useState("");
-  const [state, setState] = useState("");
-  const [adress, setAdress] = useState("");
   const [type, setType] = useState("");
-  const [locationX, setLocationX] = useState(null);
-  const [locationY, setLocationY] = useState(null);
-  const [tempArray, setTempArray] = useState("");
-  const [nextPageToken, setNextPageToken] = useState("");
+  const [state, setState] = useState("");
   const [temp, setTemp] = useState(false);
-  const [trigger, setTrigger] = useState(false);
-  const { setGlobalSearch, globalSearch } = useMainContext();
+  const [adress, setAdress] = useState("");
   const apiKey = process.env.REACT_APP_APIKEY;
+  const [trigger, setTrigger] = useState(false);
+  const [tempArray, setTempArray] = useState("");
+  const [locationY, setLocationY] = useState(null);
+  const [locationX, setLocationX] = useState(null);
+  const [country, setCountry] = useState("Türkiye");
   const backendurl = process.env.REACT_APP_BACKEND_URL;
+  const [nextPageToken, setNextPageToken] = useState("");
+  const { setGlobalSearch, globalSearch, globalAddress, setGlobalAddress } =
+    useMainContext();
+  const { validateToken } = useAuth();
   useEffect(() => {
     if (locationX !== null && locationY !== null) {
       checkQuota();
@@ -26,6 +28,7 @@ export default function ManuelSearch() {
   }, [locationX, locationY, trigger]);
   const handleGeocode = async () => {
     const fullAdress = country + " " + city + " " + state + " " + adress;
+    setGlobalAddress(fullAdress);
     try {
       const response = await axios.get(
         `https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURIComponent(
@@ -44,6 +47,7 @@ export default function ManuelSearch() {
         alert("Adres bulunamadı.");
       }
     } catch (e) {
+      Loading.remove();
       console.log(e);
     }
   };
@@ -62,7 +66,25 @@ export default function ManuelSearch() {
         handleTextSearch();
       }
     } catch (e) {
-      Notify.failure("Kotanız Bulunmamaktadır");
+      if (e.response.status === 429) {
+        Notify.failure("Çok Fazla İstek Göndermeye Çalıştınız");
+        Loading.remove();
+      }
+      if (e.response.status === 403) {
+        if (e.response.data.err) {
+          Notify.failure("Kotanız Bulunmamaktadır");
+          Loading.remove();
+        } else {
+          Loading.remove();
+        }
+      }
+      if (e.response.status === 402) {
+        Notify.failure("Aboneliğiniz Bulunmamaktadır");
+        Loading.remove();
+      } else {
+        Notify.failure("Beklenmedik Bİr Hatayla Karşılaştık");
+        Loading.remove();
+      }
     }
   };
 
@@ -87,7 +109,7 @@ export default function ManuelSearch() {
             "Content-Type": "application/json",
             "X-Goog-Api-Key": apiKey,
             "X-Goog-FieldMask":
-              "places.displayName,places.formattedAddress,places.userRatingCount,nextPageToken,places.websiteUri",
+              "places.displayName,places.formattedAddress,places.userRatingCount,nextPageToken,places.websiteUri,places.internationalPhoneNumber",
           },
         }
       );
@@ -95,6 +117,7 @@ export default function ManuelSearch() {
       if (response.data.places) {
         const newPlaces = response.data.places;
         setTempArray((tempArray) => [...tempArray, ...newPlaces]);
+        setGlobalSearch("")
       } else {
         Notify.failure("Sonuç Bulunamadı");
       }
@@ -108,6 +131,7 @@ export default function ManuelSearch() {
         }
       }
     } catch (e) {
+      Loading.remove();
       console.log(e);
     }
   };
@@ -129,6 +153,7 @@ export default function ManuelSearch() {
       Notify.info("Arama Tamamlandı");
       console.log("kota azaltma", decreaseQuotaRes);
     } catch (e) {
+      Loading.remove();
       Notify.failure("Beklenmeyen Bir Hata Oluştu");
     }
   };
@@ -140,7 +165,9 @@ export default function ManuelSearch() {
   }, [temp]);
 
   const handleButtonClick = async () => {
-    Loading.standard({svgColor:"#00B4C4"})
+    const token = window.localStorage.getItem("token");
+    validateToken(token);
+    Loading.standard({ svgColor: "#00B4C4" });
     await handleGeocode();
     setTrigger((prev) => !prev);
   };
