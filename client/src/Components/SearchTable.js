@@ -2,15 +2,17 @@ import React, { useEffect, useState } from "react";
 import "../CSS/SearchTable.css";
 import { useMainContext } from "../MainContext";
 import { Confirm } from "notiflix/build/notiflix-confirm-aio";
-import { Notify } from "notiflix";
+import { Loading, Notify } from "notiflix";
 import axios from "axios";
 import { useAuth } from "../AuthContext";
+import SaveFileModal from "./SaveFileModal";
 
 export default function SearchTable() {
   const pageNumbers = [];
-  const { globalSearch, setGlobalSearch } = useMainContext();
+  const { globalSearch, setGlobalSearch, globalAddress, setGlobalAddress } =
+    useMainContext();
   const [currentPage, setCurrentPage] = useState(1);
-  const [dataPerPage, setDataPerPage] = useState(7);
+  const [dataPerPage, setDataPerPage] = useState(20);
   const backendurl = process.env.REACT_APP_BACKEND_URL;
   const totalPages = Math.ceil(globalSearch.length / dataPerPage);
   const { validateToken } = useAuth();
@@ -18,7 +20,7 @@ export default function SearchTable() {
   const firstIndex = lastIndex - dataPerPage;
   const currentData = globalSearch.slice(firstIndex, lastIndex);
   const [deneme, setDeneme] = useState(window.innerWidth);
-
+  const [showModal, setShowModal] = useState(false);
   const GoForward = () => {
     if (currentPage < totalPages) {
       setCurrentPage(currentPage + 1);
@@ -34,44 +36,81 @@ export default function SearchTable() {
     setDeneme(window.innerWidth);
   };
 
-  const getVisiblePageNumbers = () => {
-    const maxVisiblePages = deneme < 900 ? 3 : 9;
+ 
 
-    if (totalPages <= maxVisiblePages) {
-      return Array.from({ length: totalPages }, (_, i) => i + 1);
+  const renderPageNumbers = () => {
+    
+  
+    for (let i = 1; i <= totalPages; i++) {
+      pageNumbers.push(
+        <li
+          key={i}
+          id={i}
+          className={currentPage === i ? "activePage" : null}
+          onClick={() => setCurrentPage(i)}
+        >
+          {i}
+        </li>
+      );
     }
-
-    let startPage = Math.max(currentPage - Math.floor(maxVisiblePages / 2), 1);
-    let endPage = Math.min(
-      currentPage + Math.floor(maxVisiblePages / 2),
-      totalPages
-    );
-
-    if (endPage - startPage + 1 < maxVisiblePages) {
-      endPage = Math.min(startPage + maxVisiblePages - 1, totalPages);
-    }
-
-    if (endPage === totalPages && endPage - startPage + 1 < maxVisiblePages) {
-      startPage = Math.max(totalPages - maxVisiblePages + 1, 1);
-    }
-
-    const visiblePageNumbers = [];
-    for (let i = startPage; i <= endPage; i++) {
-      visiblePageNumbers.push(i);
-    }
-    return visiblePageNumbers;
+  
+    return pageNumbers;
   };
 
-  const renderPageNumbers = getVisiblePageNumbers().map((number) => (
-    <li
-      key={number}
-      id={number}
-      className={currentPage === number ? "activePage" : null}
-      onClick={() => setCurrentPage(number)}
-    >
-      {number}
-    </li>
-  ));
+  //Dosya Kaydetme Başlangıç
+  const checkFileExists = async (fileName) => {
+    console.log(fileName);
+    const token = window.localStorage.getItem("token");
+    try {
+      const response = await axios.get(
+        `https://j69tz9g9-3000.euw.devtunnels.ms/home/checkFileExists/${fileName}`,
+        
+        {
+          headers: {
+            Authorization: token,
+          },
+          
+        }
+      );
+      if (response.data.result === false) {
+        saveData(fileName);
+      }
+      else{
+        Notify.failure("Dosya İsmi Mevcut")
+      }
+      console.log(response);
+    } catch (e) {
+      console.log(e.response.data);
+    }
+  };
+
+  const saveData = async (fileName) => {
+    const token = window.localStorage.getItem("token");
+   
+    try {
+      const response = await axios.post(
+        `${backendurl}home/saveSearchResults`,
+        { address: globalAddress, name: fileName, data: globalSearch },
+        {
+          headers: {
+            Authorization: token,
+          },
+        }
+      );
+      console.log(response);
+      setShowModal(false)
+      Notify.success("Kaydetme Başarılı");
+    } catch (e) {
+      if(e.response.status===403){
+        Notify.failure("En Fazla 10 Dosya Kaydedebilirsiniz");
+        setShowModal(false)
+      }
+    }
+  };
+  //Dosya Kaydetme Bitiş
+
+  //Dosya İndirme Başlangıç
+
   const downloadData = async () => {
     const payload = {
       data: globalSearch,
@@ -97,9 +136,19 @@ export default function SearchTable() {
       link.remove();
       console.log(res);
     } catch (e) {
+      if(e.response.status === 429){
+        Notify.failure("İstek Limitini Aştınız");
+      }
+      else{
+        Notify.failure("İndirme İşlemi Başarısız");
+      }
+        
       console.log(e);
     }
   };
+  //dosya indirme bitiş
+
+  //veri temizleme başlangıç
   const clearData = () => {
     Confirm.show(
       "UYARI",
@@ -121,9 +170,20 @@ export default function SearchTable() {
       }
     );
   };
+
+  //veri temizleme bitiş
   return (
     <div className="tableContainer">
       <div className="searchTableContainer">
+        <button
+          className="searchTableButton"
+          onClick={() => {
+            setShowModal(true);
+          }}
+        >
+          {" "}
+          Kaydet
+        </button>
         <button className="searchTableButton" onClick={clearData}>
           Temizle
         </button>
@@ -146,10 +206,15 @@ export default function SearchTable() {
               <tr key={index}>
                 <td className="searchLocationTd">{type.displayName.text}</td>
                 <td className="searchLocationTd">{type.formattedAddress}</td>
-                <td className="searchLocationTd">{type.websiteUri}</td>
-                <td className="searchLocationTd">{type.internationalPhoneNumber}</td>
-                {/* <td className="searchLocationTd">{type.currentOpeningHours.openNow===true ?"Açık":"Kapalı"}</td> */}
-                
+                <td className="searchLocationTd">
+                  <a href={type.websiteUri} target="_blank">
+                    {" "}
+                    {type.websiteUri}
+                  </a>
+                </td>
+                <td className="searchLocationTd">
+                  {type.internationalPhoneNumber}
+                </td>
               </tr>
             ))}
           </tbody>
@@ -162,7 +227,7 @@ export default function SearchTable() {
           >
             {"<"}
           </button>
-          <ul className="pageNumbersUl">{renderPageNumbers}</ul>
+          <ul className="pageNumbersUl">{renderPageNumbers()}</ul>
           <button
             className="paginationButton"
             onClick={GoForward}
@@ -172,6 +237,18 @@ export default function SearchTable() {
           </button>
         </div>
       </div>
+
+      {showModal === true ? (
+        <SaveFileModal
+          showModal={showModal}
+          setShowModal={setShowModal}
+          saveData={saveData}
+          checkFileExists={checkFileExists}
+        />
+      ) : null}
+      
     </div>
-  );
+    
+);
+  
 }

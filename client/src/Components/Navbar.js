@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "../CSS/Navbar.css";
 import logo from "../images/logo.png";
 import { NavLink, useNavigate } from "react-router-dom";
@@ -8,17 +8,21 @@ export default function Navbar() {
   const navigate = useNavigate();
   const { setIsLogged } = useMainContext();
   const [isSidebarVisible, setIsSidebarVisible] = useState(false);
-
+ 
   const goProfile = () => {
     navigate("/profile");
     setIsSidebarVisible(false);
   };
-  const goHomepage = ()=>{
+  const goHomepage = () => {
     navigate("/homepage");
     setIsSidebarVisible(false);
-  }
+  };
   const goLocation = () => {
     navigate("/location");
+    setIsSidebarVisible(false);
+  };
+  const goMyData = () => {
+    navigate("/data");
     setIsSidebarVisible(false);
   };
 
@@ -31,13 +35,19 @@ export default function Navbar() {
       <nav className="navBar">
         <div className="navLeft">
           <img className="navImage" src={logo} alt="Logo" />
+          <p> Sector Scout</p>
         </div>
         <div className="navRight">
           <ul className="navItems">
             <NavLink className="navItems-Item" to="/homepage">
               Anasayfa
             </NavLink>
-            <NavLink className="navItems-Item" to="/location">Konum Ara</NavLink>
+            <NavLink className="navItems-Item" to="/location">
+              Konum Ara
+            </NavLink>
+            <NavLink className="navItems-Item" to="/data">
+              Geçmiş Aramalar
+            </NavLink>
             <li className="navItems-Item" onClick={goProfile}>
               Profil
             </li>
@@ -56,7 +66,12 @@ export default function Navbar() {
             <li className="sideBar-Item" onClick={goHomepage}>
               Anasayfa
             </li>
-            <li className="sideBar-Item" onClick={goLocation}>Konum Ara</li>
+            <li className="sideBar-Item" onClick={goLocation}>
+              Konum Ara
+            </li>
+            <li className="sideBar-Item" onClick={goMyData}>
+              Geçmiş Aramalar
+            </li>
             <li className="sideBar-Item" onClick={goProfile}>
               Profil
             </li>

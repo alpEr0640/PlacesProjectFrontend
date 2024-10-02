@@ -1,6 +1,7 @@
 import axios from "axios";
 import { createContext, useContext, useEffect, useState } from "react";
 import { useMainContext } from "./MainContext";
+import { Loading, Notify } from "notiflix";
 
 const AuthContext = createContext(null);
 
@@ -8,7 +9,7 @@ export const AuthProvider = ({ children }) => {
   const { setIsLogged, isLogged } = useMainContext();
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [token, setToken] = useState(null);
-  const [isLoading, setIsLoading] = useState(true);  
+  const [isLoading, setIsLoading] = useState(true);
   const backendurl = process.env.REACT_APP_BACKEND_URL;
 
   useEffect(() => {
@@ -17,7 +18,7 @@ export const AuthProvider = ({ children }) => {
       setToken(savedToken);
       validateToken(savedToken);
     } else {
-      setIsLoading(false);  
+      setIsLoading(false);
     }
   }, []);
 
@@ -42,11 +43,13 @@ export const AuthProvider = ({ children }) => {
         setToken(null);
       }
     } catch (error) {
+      Loading.remove();
+      Notify.failure("Oturum Sonlandı");
       setIsAuthenticated(false);
       localStorage.removeItem("token");
       setToken(null);
     } finally {
-      setIsLoading(false);  
+      setIsLoading(false);
     }
   };
 

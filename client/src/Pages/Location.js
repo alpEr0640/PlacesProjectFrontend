@@ -5,6 +5,7 @@ import SearchTable from "../Components/SearchTable";
 import "../CSS/Location.css";
 import { useMainContext } from "../MainContext";
 import ManuelSearch from "../Components/ManuelSearch";
+import LinkSearch from "../Components/LinkSearch";
 export default function Location() {
   const [showTextSearch, setShowTextSearch] = useState(true);
   const [showLocationSearch, setShowLocationSearch] = useState(false);
@@ -38,6 +39,14 @@ export default function Location() {
           </button>
           <button
             className={`locationButton ${
+              activeButton === "linkSearch" ? "active" : ""
+            }`}
+            onClick={() => handleButtonClick("linkSearch")}
+          >
+            Linkle Arama
+          </button>
+          <button
+            className={`locationButton ${
               activeButton === "manuelSearch" ? "active" : ""
             }`}
             onClick={() => handleButtonClick("manuelSearch")}
@@ -63,6 +72,7 @@ export default function Location() {
           {activeButton === "textSearch" && <TextSearch />}
           {activeButton === "locationSearch" && <LocationSearch />}
           {activeButton=== "manuelSearch"&& <ManuelSearch/>}
+          {activeButton=== "linkSearch"&& <LinkSearch/>}
         </div>
         {globalSearch.length > 0 && <SearchTable />}
       </div>

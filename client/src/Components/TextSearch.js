@@ -3,7 +3,7 @@ import axios from "axios";
 import "../CSS/TextSearch.css";
 import { useMainContext } from "../MainContext";
 import { Loading, Notify } from "notiflix";
-
+import { useAuth } from "../AuthContext";
 const TextSearch = () => {
   const [city, setCity] = useState([]);
   const [selectedCity, setSelectedCity] = useState("");
@@ -19,12 +19,13 @@ const TextSearch = () => {
   const [type, setType] = useState("");
   const [trigger, setTrigger] = useState(false);
   const [nextPageToken, setNextPageToken] = useState("");
-  const { setGlobalSearch, globalSearch } = useMainContext();
+  const { setGlobalSearch, globalSearch, globalAddress, setGlobalAddress } =
+    useMainContext();
   const [tempArray, setTempArray] = useState("");
   const [temp, setTemp] = useState(false);
   const apiKey = process.env.REACT_APP_APIKEY;
   const backendurl = process.env.REACT_APP_BACKEND_URL;
-  
+  const { validateToken } = useAuth();
   useEffect(() => {
     const fetchCities = async () => {
       try {
@@ -32,6 +33,7 @@ const TextSearch = () => {
         const cityNames = res.data.data.map((type) => type.name);
         setCity(cityNames);
       } catch (e) {
+        Loading.remove();
         console.log(e);
       }
     };
@@ -49,6 +51,7 @@ const TextSearch = () => {
         const districts = response.data.data[0].districts;
         setState(districts);
       } catch (e) {
+        Loading.remove();
         console.log(e);
       }
     };
@@ -65,6 +68,7 @@ const TextSearch = () => {
           );
           setNeighborhoods(response.data.data.neighborhoods);
         } catch (e) {
+          Loading.remove();
           console.log(e);
         }
       };
@@ -87,10 +91,9 @@ const TextSearch = () => {
       selectedNeighborhoods +
       " " +
       detail;
-
+    setGlobalAddress(fullAddress);
     setPayload(fullAddress);
-    console.log(fullAddress);
-    console.log(selectedState);
+
     try {
       const response = await axios.get(
         `https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURIComponent(
@@ -105,12 +108,11 @@ const TextSearch = () => {
         setLocationX(location.lat);
         setLocationY(location.lng);
         console.log(locationX, " ", locationY);
-        /* setTrigger(prev => !prev);  */
       } else {
-        Loading.remove();
         alert("Adres bulunamadı.");
       }
     } catch (e) {
+      Loading.remove();
       console.log(e);
     }
   };
@@ -129,7 +131,22 @@ const TextSearch = () => {
         handleTextSearch();
       }
     } catch (e) {
-      Notify.failure("Kotanız Bulunmamaktadır");
+      console.log(e.response.status);
+      if (e.response.status === 429) {
+        Notify.failure("İstek Limitini Aştınız");
+        Loading.remove();
+      }
+      if (e.response.status === 403) {
+        if (e.response.data.err) {
+          Notify.failure("Kotanız Bulunmamaktadır");
+          Loading.remove();
+        } else {
+          Loading.remove();
+        }
+      } else {
+        Loading.remove();
+        Notify.failure("Beklenmedik Bir Hatayla Karşılaştık");
+      }
     }
   };
 
@@ -154,7 +171,7 @@ const TextSearch = () => {
             "Content-Type": "application/json",
             "X-Goog-Api-Key": apiKey,
             "X-Goog-FieldMask":
-              "places.displayName,places.formattedAddress,places.currentOpeningHours,nextPageToken,places.websiteUri,places.nationalPhoneNumber,places.internationalPhoneNumber,places.location,places.regularOpeningHours",
+              "places.displayName,places.formattedAddress,nextPageToken,places.websiteUri,places.internationalPhoneNumber",
           },
         }
       );
@@ -162,6 +179,7 @@ const TextSearch = () => {
       if (response.data.places) {
         const newPlaces = response.data.places;
         setTempArray((tempArray) => [...tempArray, ...newPlaces]);
+        setGlobalSearch("");
       } else {
         Notify.failure("Sonuç Bulunamadı");
       }
@@ -175,6 +193,7 @@ const TextSearch = () => {
         }
       }
     } catch (e) {
+      Loading.remove();
       console.log(e);
     }
   };
@@ -196,12 +215,13 @@ const TextSearch = () => {
       Notify.info("Arama Tamamlandı");
       console.log("kota azaltma", decreaseQuotaRes);
     } catch (e) {
+      Loading.remove();
       Notify.failure("Beklenmeyen Bir Hata Oluştu");
     }
   };
   useEffect(() => {
     setGlobalSearch((globalSearch) => [...globalSearch, ...tempArray]);
-    console.log(globalSearch)
+    console.log(globalSearch);
     Loading.remove();
     setTempArray("");
   }, [temp]);
@@ -209,7 +229,10 @@ const TextSearch = () => {
     console.log(globalSearch);
   }, [globalSearch]);
   const handleButtonClick = async () => {
-    Loading.standard({svgColor:"#00B4C4"})
+    const token = window.localStorage.getItem("token");
+    validateToken(token);
+
+    Loading.standard({ svgColor: "#00B4C4" });
     await HandleGeocode();
     setTrigger((prev) => !prev);
   };
