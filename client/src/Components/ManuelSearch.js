@@ -28,7 +28,7 @@ export default function ManuelSearch() {
   }, [locationX, locationY, trigger]);
   const handleGeocode = async () => {
     const fullAdress = country + " " + city + " " + state + " " + adress;
-    setGlobalAddress(fullAdress);
+    setGlobalAddress(fullAdress +", " + type);
     try {
       const response = await axios.get(
         `https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURIComponent(

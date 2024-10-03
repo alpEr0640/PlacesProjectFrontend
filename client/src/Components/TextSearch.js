@@ -91,7 +91,7 @@ const TextSearch = () => {
       selectedNeighborhoods +
       " " +
       detail;
-    setGlobalAddress(fullAddress);
+    setGlobalAddress(fullAddress +", "+ type);
     setPayload(fullAddress);
 
     try {

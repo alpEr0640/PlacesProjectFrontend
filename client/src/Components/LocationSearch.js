@@ -18,12 +18,13 @@ function LocationSearch() {
   const apiKey = process.env.REACT_APP_APIKEY;
   const [trigger, setTrigger] = useState(false);
   const [nextPageToken, setNextPageToken] = useState("");
-  const { setGlobalSearch, globalSearch } = useMainContext();
+  const { setGlobalSearch, globalSearch,globalAddress, setGlobalAddress } = useMainContext();
   const backendurl = process.env.REACT_APP_BACKEND_URL;
   const [tempArray, setTempArray] = useState("");
   const [temp, setTemp] = useState(false);
   const { validateToken } = useAuth();
   const calculateCoordinate = () => {
+    
     const token = window.localStorage.getItem("token");
     validateToken(token)
     Loading.standard({ svgColor: "#00B4C4" });
@@ -41,9 +42,25 @@ function LocationSearch() {
       setLeftLng(lngInDegrees - distanceInDegreesLng);
       setRightLat(latInDegrees + distanceInDegreesLat);
       setRightLng(lngInDegrees + distanceInDegreesLng);
+      const fullAdress= lat + ", " + lng + ", " + area +", "+ type
+      setGlobalAddress(fullAdress)
     } else {
+      const calculatedDistance = Math.sqrt(16) / 2;
       setDistance(4);
-      setArea(16);
+      const latInDegrees = parseFloat(lat);
+      const lngInDegrees = parseFloat(lng);
+      const distanceInDegreesLat = calculatedDistance / latDegree;
+      const distanceInDegreesLng =
+        calculatedDistance /
+        (latDegree * Math.cos((latInDegrees * Math.PI) / 180));
+      setLeftLat(latInDegrees - distanceInDegreesLat);
+      setLeftLng(lngInDegrees - distanceInDegreesLng);
+      setRightLat(latInDegrees + distanceInDegreesLat);
+      setRightLng(lngInDegrees + distanceInDegreesLng);
+      const fullAdress= lat + ", " + lng + ", " + area +", "+ type
+      setGlobalAddress(fullAdress)
+      /* setDistance(4);
+      setArea(16); */
     }
     setTrigger(true);
   };
@@ -120,7 +137,7 @@ function LocationSearch() {
             "Content-Type": "application/json",
             "X-Goog-Api-Key": apiKey,
             "X-Goog-FieldMask":
-              "places.displayName,places.formattedAddress,places.priceLevel,nextPageToken",
+              "places.displayName,places.formattedAddress,nextPageToken,places.websiteUri,places.internationalPhoneNumber",
           },
         }
       );
@@ -140,6 +157,7 @@ function LocationSearch() {
       }
     } catch (error) {
       Loading.remove();
+      Notify.failure("Tür Boş Olamaz")
       console.error("Error fetching places:", error);
     } finally {
       setTrigger(false);
@@ -191,7 +209,7 @@ function LocationSearch() {
         <div className="locationSearchDetail">
           {" "}
           <input
-            placeholder="aramak istediğiniz alan (m2)"
+            placeholder="aramak istediğiniz alan (km2) (Varsayılan 16 Km2)"
             onBlur={(e) => setArea(e.target.value)}
           />
           <input

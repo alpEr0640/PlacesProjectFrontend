@@ -17,7 +17,7 @@ export default function LinkSearch() {
   const backendurl = process.env.REACT_APP_BACKEND_URL;
   const apiKey = process.env.REACT_APP_APIKEY;
   const [nextPageToken, setNextPageToken] = useState("");
-  const { setGlobalSearch, globalSearch } = useMainContext();
+  const { setGlobalSearch, globalSearch,setGlobalAddress, } = useMainContext();
   const [temp, setTemp] = useState(false);
   const handleClick = (url) => {
     //arama tipini bulmak için
@@ -39,6 +39,8 @@ export default function LinkSearch() {
     console.log("zoom: ", zoom);
     //calculate zoom to km
     const C = 40075016;
+    const fullAdress= latitude + ", " + longitude + ", " + zoom +", " + searchTerm
+      setGlobalAddress(fullAdress)
     const width =
       (38000 / Math.pow(2, zoom - 3)) * Math.cos((latitude * Math.PI) / 180);
     calculateCoordinate(latitude, longitude, width);
@@ -61,6 +63,7 @@ export default function LinkSearch() {
     setRightLat(latInDegrees + distanceInDegreesLat);
     setRightLng(lngInDegrees + distanceInDegreesLng);
     setTrigger(true);
+    
   };
 
   useEffect(() => {
@@ -134,7 +137,7 @@ export default function LinkSearch() {
             "Content-Type": "application/json",
             "X-Goog-Api-Key": apiKey,
             "X-Goog-FieldMask":
-              "places.displayName,places.formattedAddress,places.priceLevel,nextPageToken",
+              "places.displayName,places.formattedAddress,nextPageToken,places.websiteUri,places.internationalPhoneNumber",
           },
         }
       );

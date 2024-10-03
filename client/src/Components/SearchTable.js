@@ -62,8 +62,9 @@ export default function SearchTable() {
     console.log(fileName);
     const token = window.localStorage.getItem("token");
     try {
+      console.log("response")
       const response = await axios.get(
-        `https://j69tz9g9-3000.euw.devtunnels.ms/home/checkFileExists/${fileName}`,
+        `${backendurl}home/checkFileExists/${fileName}`,
         
         {
           headers: {
@@ -74,13 +75,15 @@ export default function SearchTable() {
       );
       if (response.data.result === false) {
         saveData(fileName);
+        console.log("asdf")
       }
       else{
         Notify.failure("Dosya İsmi Mevcut")
+        
       }
       console.log(response);
     } catch (e) {
-      console.log(e.response.data);
+      console.log(e.response);
     }
   };
 
@@ -104,6 +107,9 @@ export default function SearchTable() {
       if(e.response.status===403){
         Notify.failure("En Fazla 10 Dosya Kaydedebilirsiniz");
         setShowModal(false)
+      }
+      else{
+        console.log(e)
       }
     }
   };

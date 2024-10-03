@@ -10,12 +10,11 @@ import ManageUsers from "./Pages/Admin/ManageUsers";
 import { AuthProvider, useAuth } from "./AuthContext";
 import RegisterUser from "./Pages/Admin/RegisterUser";
 import { MainProvider, useMainContext } from "./MainContext";
-import { Loading } from 'notiflix/build/notiflix-loading-aio';
+import { Loading } from "notiflix/build/notiflix-loading-aio";
 import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import DataHistory from "./Pages/DataHistory";
 import MyDataContent from "./Pages/MyDataContent";
 /* import { useMainContext } from "../MainContext"; */
-
 
 function App() {
   return (
@@ -34,11 +33,11 @@ const AppContent = () => {
   const currentLocation = useLocation();
   const { myData, setMyData } = useMainContext();
 
-useEffect(() => {
+  useEffect(() => {
     Loading.remove();
   }, [currentLocation.pathname]);
 
-  const { isAuthenticated, validateToken,isLoading } = useAuth();
+  const { isAuthenticated, validateToken, isLoading, isAdmin } = useAuth();
   if (isLoading) {
     return <Loads />;
   }
@@ -51,27 +50,75 @@ useEffect(() => {
           path="/homepage"
           element={isAuthenticated ? <Homepage /> : <Login />}
         />
-        
-        <Route path="/"  element={!isAuthenticated ? <Login/> : <Homepage /> }/>
-        <Route path="/profile"  element={isAuthenticated ? <Profile/> : <Login />}/>
-        <Route path="/data"  element={isAuthenticated ? <DataHistory/> : <Login />}/>
-        <Route path="/myData"  element={isAuthenticated ? (myData.length>0 ? <MyDataContent/>:<DataHistory/>)  : <Login />}/>
-        <Route path="/location" element={isAuthenticated ? <Location/> : <Login/>}/>
+
+        <Route path="/" element={!isAuthenticated ? <Login /> : <Homepage />} />
+        <Route
+          path="/profile"
+          element={isAuthenticated ? <Profile /> : <Login />}
+        />
+        <Route
+          path="/data"
+          element={isAuthenticated ? <DataHistory /> : <Login />}
+        />
+        <Route
+          path="/myData"
+          element={
+            isAuthenticated ? (
+              myData.length > 0 ? (
+                <MyDataContent />
+              ) : (
+                <DataHistory />
+              )
+            ) : (
+              <Login />
+            )
+          }
+        />
+        <Route
+          path="/location"
+          element={isAuthenticated ? <Location /> : <Login />}
+        />
         {/* Admin routes */}
         <Route
           path="/admin/home"
-          element={isAuthenticated ? <AdminHomepage /> : <Login />}
+          element={
+            isAuthenticated ? (
+              isAdmin ? (
+                < AdminHomepage/>
+              ) : (
+                <Homepage/>
+              )
+            ) : (
+              <Login/>
+            )}
         />
         <Route
           path="/admin/registerUser"
-          element={isAuthenticated ? <RegisterUser /> : <Login />}
+          element={
+            isAuthenticated ? (
+              isAdmin ? (
+                <RegisterUser />
+              ) : (
+                <Homepage/>
+              )
+            ) : (
+              <Login/>
+            )}
         />
         <Route
           path="/admin/manageUsers"
-          element={isAuthenticated ? <ManageUsers /> : <Login />}
+          element={
+            isAuthenticated ? (
+              isAdmin ? (
+                <ManageUsers />
+              ) : (
+                <Homepage/>
+              )
+            ) : (
+              <Login/>
+            )
+          }
         />
-
-       
       </Routes>
     </div>
   );
