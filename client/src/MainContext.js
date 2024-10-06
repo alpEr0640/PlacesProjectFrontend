@@ -4,7 +4,7 @@ const MainContext = createContext(null);
 
 export const MainProvider = ({ children }) => {
   const [globalSearch, setGlobalSearch] = useState(
-    JSON.parse(window.localStorage.getItem("mySearch"))
+    () => JSON.parse(window.localStorage.getItem("mySearch")) || ""
   );
   const [globalAddress, setGlobalAddress] = useState(
     window.localStorage.getItem("myAddress")
