@@ -15,11 +15,12 @@ export default function ManuelSearch() {
   const [tempArray, setTempArray] = useState("");
   const [locationY, setLocationY] = useState(null);
   const [locationX, setLocationX] = useState(null);
-  const [country, setCountry] = useState("Türkiye");
+  const [country, setCountry] = useState("");
   const backendurl = process.env.REACT_APP_BACKEND_URL;
   const [nextPageToken, setNextPageToken] = useState("");
   const { setGlobalSearch, globalSearch, globalAddress, setGlobalAddress } =
     useMainContext();
+  const [emailCheckTemp, setEmailCheckTemp] = useState(false);
   const { validateToken } = useAuth();
   useEffect(() => {
     if (locationX !== null && locationY !== null) {
@@ -28,7 +29,7 @@ export default function ManuelSearch() {
   }, [locationX, locationY, trigger]);
   const handleGeocode = async () => {
     const fullAdress = country + " " + city + " " + state + " " + adress;
-    setGlobalAddress(fullAdress +", " + type);
+    setGlobalAddress(fullAdress + ", " + type);
     try {
       const response = await axios.get(
         `https://maps.googleapis.com/maps/api/geocode/json?address=${encodeURIComponent(
@@ -41,10 +42,12 @@ export default function ManuelSearch() {
 
         setLocationX(location.lat);
         setLocationY(location.lng);
-        console.log(locationX, " ", locationY);
+
         /* setTrigger(prev => !prev);  */
       } else {
-        alert("Adres bulunamadı.");
+        Notify.failure("Adres Bulunamadı")
+        Loading.remove();
+        throw new Error();
       }
     } catch (e) {
       Loading.remove();
@@ -61,7 +64,7 @@ export default function ManuelSearch() {
           Authorization: token,
         },
       });
-      console.log("kota kontrol: ", checkQuotaRes.data.result);
+
       if (checkQuotaRes.data.result === true) {
         handleTextSearch();
       }
@@ -113,11 +116,12 @@ export default function ManuelSearch() {
           },
         }
       );
-      console.log("status kontrol: ", response.status);
+
       if (response.data.places) {
         const newPlaces = response.data.places;
         setTempArray((tempArray) => [...tempArray, ...newPlaces]);
-        setGlobalSearch("")
+        setGlobalSearch("");
+        setEmailCheckTemp(false);
       } else {
         Notify.failure("Sonuç Bulunamadı");
       }
@@ -127,19 +131,53 @@ export default function ManuelSearch() {
       } else {
         setNextPageToken("");
         if (response.status === 200) {
-          decreaseQuota();
+          setEmailCheckTemp(true);
         }
       }
     } catch (e) {
+      if (e.response) {
+        if (e.response.status === 400) {
+          Notify.failure("Arama Tipi Boş Olamaz");
+        }
+      } else {
+        Notify.failure("Server Hatası");
+      }
+
       Loading.remove();
+    }
+  };
+  useEffect(() => {
+    if (emailCheckTemp) {
+      checkEmail(tempArray);
+    }
+  }, [emailCheckTemp]);
+
+  const checkEmail = async (tempArray) => {
+    const token = window.localStorage.getItem("token");
+    try {
+      const response = await axios.post(
+        `${backendurl}home/getEmails`,
+        { data: tempArray },
+        {
+          headers: {
+            Authorization: token,
+          },
+        }
+      );
+      if (response.status === 200) {
+        setTempArray(response.data.data); //responseyi kontrol et oraya dizi göndermen gerekiyor
+
+        decreaseQuota();
+      }
+    } catch (e) {
       console.log(e);
+      Loading.remove();
     }
   };
 
   const decreaseQuota = async () => {
     const token = window.localStorage.getItem("token");
     try {
-      console.log(token);
       const decreaseQuotaRes = await axios.put(
         `${backendurl}home/decreaseQuota`,
         {},
@@ -151,7 +189,6 @@ export default function ManuelSearch() {
       );
       setTemp(!temp);
       Notify.info("Arama Tamamlandı");
-      console.log("kota azaltma", decreaseQuotaRes);
     } catch (e) {
       Loading.remove();
       Notify.failure("Beklenmeyen Bir Hata Oluştu");
@@ -163,6 +200,10 @@ export default function ManuelSearch() {
     Loading.remove();
     setTempArray("");
   }, [temp]);
+  useEffect(() => {
+    window.localStorage.setItem("mySearch", JSON.stringify(globalSearch));
+    window.localStorage.setItem("myAddress", globalAddress);
+  }, [globalSearch]);
 
   const handleButtonClick = async () => {
     const token = window.localStorage.getItem("token");

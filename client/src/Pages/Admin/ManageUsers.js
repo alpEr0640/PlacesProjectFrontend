@@ -23,8 +23,7 @@ export default function ManageUsers() {
         },
       });
       setUsers(res.data.users);
-      setLoading(false);
-      console.log(users);
+        setLoading(false);
     } catch (e) {
       console.log(e);
       setLoading(false);

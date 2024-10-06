@@ -17,8 +17,10 @@ export default function LinkSearch() {
   const backendurl = process.env.REACT_APP_BACKEND_URL;
   const apiKey = process.env.REACT_APP_APIKEY;
   const [nextPageToken, setNextPageToken] = useState("");
-  const { setGlobalSearch, globalSearch,setGlobalAddress, } = useMainContext();
+  const { setGlobalSearch, globalSearch, setGlobalAddress, globalAddress } =
+    useMainContext();
   const [temp, setTemp] = useState(false);
+  const [emailCheckTemp, setEmailCheckTemp] = useState(false);
   const handleClick = (url) => {
     //arama tipini bulmak için
     const searchTermMatch = url.match(/\/search\/(.*?)\//);
@@ -26,21 +28,19 @@ export default function LinkSearch() {
       ? decodeURIComponent(searchTermMatch[1])
       : null;
     setType(searchTerm);
-    console.log("arama tipi:", searchTerm);
 
     //lat lng bulmak için
     const coordsMatch = url.match(/@(-?\d+.\d+),(-?\d+.\d+)/);
     const latitude = coordsMatch ? parseFloat(coordsMatch[1]) : null;
     const longitude = coordsMatch ? parseFloat(coordsMatch[2]) : null;
-    console.log("lat:", latitude, " lng:", longitude);
     //zoom değerini bulmak için
     const zoomMatch = url.match(/,(\d+(\.\d+)?)z/);
     const zoom = zoomMatch ? parseFloat(zoomMatch[1]) : null;
-    console.log("zoom: ", zoom);
     //calculate zoom to km
     const C = 40075016;
-    const fullAdress= latitude + ", " + longitude + ", " + zoom +", " + searchTerm
-      setGlobalAddress(fullAdress)
+    const fullAdress =
+      latitude + ", " + longitude + ", " + zoom + ", " + searchTerm;
+    setGlobalAddress(fullAdress);
     const width =
       (38000 / Math.pow(2, zoom - 3)) * Math.cos((latitude * Math.PI) / 180);
     calculateCoordinate(latitude, longitude, width);
@@ -63,7 +63,6 @@ export default function LinkSearch() {
     setRightLat(latInDegrees + distanceInDegreesLat);
     setRightLng(lngInDegrees + distanceInDegreesLng);
     setTrigger(true);
-    
   };
 
   useEffect(() => {
@@ -86,7 +85,6 @@ export default function LinkSearch() {
           Authorization: token,
         },
       });
-      console.log("kota kontrol: ", checkQuotaRes.data.result);
       if (checkQuotaRes.data.result === true) {
         fetchData();
       }
@@ -111,7 +109,6 @@ export default function LinkSearch() {
 
   const fetchData = async (pageToken = "") => {
     try {
-      console.log(type)
       const response = await axios.post(
         "https://places.googleapis.com/v1/places:searchText",
         {
@@ -145,30 +142,73 @@ export default function LinkSearch() {
       if (Array.isArray(newPlaces)) {
         setTempArray((tempArray) => [...tempArray, ...newPlaces]);
         setGlobalSearch("");
+        window.localStorage.removeItem("mySearch");
+        window.localStorage.removeItem("myAddress");
+        setEmailCheckTemp(false);
       }
-      console.log(response.data);
       if (response.data.nextPageToken && newPlaces.length !== 0) {
         fetchData(response.data.nextPageToken);
       } else {
         setNextPageToken("");
+        console.log(response.status);
         if (response.status === 200) {
-          decreaseQuota();
+          setEmailCheckTemp(true);
         }
       }
     } catch (error) {
-      
       Loading.remove();
-      Notify.failure("Yanlış Link")
+      Notify.failure("Yanlış Link");
       console.error("Error fetching places:", error);
     } finally {
       setTrigger(false);
     }
   };
+  useEffect(() => {
+    if (emailCheckTemp) {
+      checkEmail(tempArray);
+    }
+  }, [emailCheckTemp]);
 
+  const checkEmail = async (tempArray) => {
+    const token = window.localStorage.getItem("token");
+
+    try {
+      const response = await axios.post(
+        `${backendurl}home/getEmails`,
+        { data: tempArray },
+        {
+          headers: {
+            Authorization: token,
+          },
+          timeout: 120000, // 120 saniye (120,000 milisaniye) timeout
+        }
+      );
+
+      if (response.status === 200) {
+        setTempArray(response.data.data); //responseyi kontrol et oraya dizi göndermen gerekiyor
+
+        decreaseQuota();
+      }
+    } catch (e) {
+      console.log(e);
+      if (e.code) {
+        if (e.code === "ECONNABORTED") {
+          Notify.failure("Veriler Getirilemedi");
+          Loading.remove();
+        } else {
+          if (e.response.status === 400) {
+            Notify.failure("Veri Bulunamadı");
+            decreaseQuota();
+          }
+          Loading.remove();
+        }
+      }
+      Loading.remove();
+    }
+  };
   const decreaseQuota = async () => {
     const token = window.localStorage.getItem("token");
     try {
-      console.log(token);
       const decreaseQuotaRes = await axios.put(
         `${backendurl}home/decreaseQuota`,
         {},
@@ -180,7 +220,6 @@ export default function LinkSearch() {
       );
       setTemp(!temp);
       Notify.info("Arama Tamamlandı");
-      console.log("kota azaltma", decreaseQuotaRes);
     } catch (e) {
       Loading.remove();
       Notify.failure("Beklenmeyen Bir Hata Oluştu");
@@ -192,6 +231,10 @@ export default function LinkSearch() {
     Loading.remove();
     setTempArray("");
   }, [temp]);
+  useEffect(() => {
+    window.localStorage.setItem("mySearch", JSON.stringify(globalSearch));
+    window.localStorage.setItem("myAddress", globalAddress);
+  }, [globalSearch]);
 
   return (
     <div className="linkSearchContainer">

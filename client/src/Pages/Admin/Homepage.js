@@ -24,7 +24,6 @@ export default function Homepage() {
           Authorization: `${token}`,
         },
       });
-      console.log(res.data.usersCount);
       setUsersCount(res.data.usersCount);
     } catch (e) {
       console.log(e);

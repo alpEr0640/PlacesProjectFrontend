@@ -6,7 +6,7 @@ import { useAuth } from "../AuthContext";
 import axios from "axios";
 import { Loading, Notify } from "notiflix";
 export default function MyDataContent() {
-  const myDataPageNumbers = [];
+    const myDataPageNumbers = [];
   const { myData, setMyData } = useMainContext();
   const [currentPage, setCurrentPage] = useState(1);
   const [dataPerPage, setDataPerPage] = useState(20);
@@ -17,11 +17,6 @@ export default function MyDataContent() {
   const navigate = useNavigate();
   const backendurl = process.env.REACT_APP_BACKEND_URL;
   const { validateToken } = useAuth();
-
-  useEffect(() => {
-    console.log(myData);
-    console.log(myData.length);
-  }, []);
 
   const GoForward = () => {
     if (currentPage < totalPages) {
@@ -75,7 +70,6 @@ export default function MyDataContent() {
       document.body.appendChild(link);
       link.click();
       link.remove();
-      console.log(res);
     } catch (e) {
       if (e.response.status === 429) {
         Notify.failure("İstek Limitini Aştınız");
@@ -100,6 +94,7 @@ export default function MyDataContent() {
               <th className="myDataTh">Adres </th>
               <th className="myDataTh">Web Sitesi</th>
               <th className="myDataTh">Telefon Numarası</th>
+              <th className="myDataTh">E-posta</th>
             </tr>
           </thead>
           <tbody>
@@ -114,6 +109,7 @@ export default function MyDataContent() {
                   </a>
                 </td>
                 <td className="myDataTd"> {index.internationalPhoneNumber}</td>
+                <td className="myDataTd"> {index.emails}</td>
               </tr>
             ))}
           </tbody>

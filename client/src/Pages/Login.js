@@ -25,7 +25,6 @@ export default function Login() {
       Loading.standard({ svgColor: "#00B4C4" });
       const res = await axios.post(`${backendurl}login/signin`, payload);
       setErrorMessage("");
-      console.log(res.data.data);
       window.localStorage.setItem("token", res.data.data);
       validateToken(res.data.data);
       navigation("/homepage");
@@ -34,8 +33,7 @@ export default function Login() {
       console.log(e);
       if (e.code === "ERR_NETWORK") {
         setErrorMessage("Server Hatası");
-      }
-      else{
+      } else {
         if (e.response.status === 400) {
           setErrorMessage("Mail Veya Şifre Gerekli");
         }
@@ -45,7 +43,7 @@ export default function Login() {
         if (e.response.status === 401) {
           setErrorMessage("Hatalı Şifre Girdiniz");
         }
-        if(e.response.status ===429){
+        if (e.response.status === 429) {
           Loading.remove();
           setErrorMessage("İstek Limitini Aştınız");
         }
@@ -54,7 +52,6 @@ export default function Login() {
           Loading.remove();
         }
       }
-      
     } finally {
       Loading.remove();
     }

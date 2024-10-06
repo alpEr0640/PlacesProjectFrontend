@@ -18,15 +18,16 @@ function LocationSearch() {
   const apiKey = process.env.REACT_APP_APIKEY;
   const [trigger, setTrigger] = useState(false);
   const [nextPageToken, setNextPageToken] = useState("");
-  const { setGlobalSearch, globalSearch,globalAddress, setGlobalAddress } = useMainContext();
+  const { setGlobalSearch, globalSearch, globalAddress, setGlobalAddress } =
+    useMainContext();
   const backendurl = process.env.REACT_APP_BACKEND_URL;
   const [tempArray, setTempArray] = useState("");
   const [temp, setTemp] = useState(false);
   const { validateToken } = useAuth();
+  const [emailCheckTemp, setEmailCheckTemp] = useState(false);
   const calculateCoordinate = () => {
-    
     const token = window.localStorage.getItem("token");
-    validateToken(token)
+    validateToken(token);
     Loading.standard({ svgColor: "#00B4C4" });
     const num = parseFloat(area);
     if (!isNaN(num)) {
@@ -42,8 +43,8 @@ function LocationSearch() {
       setLeftLng(lngInDegrees - distanceInDegreesLng);
       setRightLat(latInDegrees + distanceInDegreesLat);
       setRightLng(lngInDegrees + distanceInDegreesLng);
-      const fullAdress= lat + ", " + lng + ", " + area +", "+ type
-      setGlobalAddress(fullAdress)
+      const fullAdress = lat + ", " + lng + ", " + area + ", " + type;
+      setGlobalAddress(fullAdress);
     } else {
       const calculatedDistance = Math.sqrt(16) / 2;
       setDistance(4);
@@ -57,8 +58,8 @@ function LocationSearch() {
       setLeftLng(lngInDegrees - distanceInDegreesLng);
       setRightLat(latInDegrees + distanceInDegreesLat);
       setRightLng(lngInDegrees + distanceInDegreesLng);
-      const fullAdress= lat + ", " + lng + ", " + area +", "+ type
-      setGlobalAddress(fullAdress)
+      const fullAdress = lat + ", " + lng + ", " + area + ", " + type;
+      setGlobalAddress(fullAdress);
       /* setDistance(4);
       setArea(16); */
     }
@@ -86,7 +87,7 @@ function LocationSearch() {
           Authorization: token,
         },
       });
-      console.log("kota kontrol: ", checkQuotaRes.data.result);
+
       if (checkQuotaRes.data.result === true) {
         fetchData();
       }
@@ -94,24 +95,26 @@ function LocationSearch() {
       if (e.response.status === 429) {
         Notify.failure("Çok Fazla İstek Göndermeye Çalıştınız");
         Loading.remove();
-      } if (e.response.status === 403) {
+      }
+      if (e.response.status === 403) {
         if (e.response.data.err) {
           Notify.failure("Kotanız Bulunmamaktadır");
           Loading.remove();
         } else {
           Loading.remove();
         }
-      }
-      else{
+      } else {
         Notify.failure("Beklenmedik Bİr Hatayla Karşılaştık");
         Loading.remove();
       }
-      
     }
   };
 
   const fetchData = async (pageToken = "") => {
     try {
+      if (lat === null || lng === null || isNaN(lng) || isNaN(lat)) {
+        throw new Error("NULLCOORDINATE");
+      }
       const response = await axios.post(
         "https://places.googleapis.com/v1/places:searchText",
         {
@@ -145,29 +148,76 @@ function LocationSearch() {
       if (Array.isArray(newPlaces)) {
         setTempArray((tempArray) => [...tempArray, ...newPlaces]);
         setGlobalSearch("");
+        setEmailCheckTemp(false);
       }
-      console.log(response.data);
+
       if (response.data.nextPageToken && newPlaces.length !== 0) {
         fetchData(response.data.nextPageToken);
       } else {
         setNextPageToken("");
+
         if (response.status === 200) {
-          decreaseQuota();
+          setEmailCheckTemp(true);
         }
       }
     } catch (error) {
+      if (error.message === "NULLCOORDINATE") {
+        Notify.failure("koodinatlar Boş Olamaz");
+        } else {
+        Notify.failure("Arama Tipi Boş Olamaz");
+        console.error("Error fetching places:", error);
+      }
       Loading.remove();
-      Notify.failure("Tür Boş Olamaz")
-      console.error("Error fetching places:", error);
     } finally {
       setTrigger(false);
     }
   };
+  useEffect(() => {
+    if (emailCheckTemp) {
+      checkEmail(tempArray);
+    }
+  }, [emailCheckTemp]);
 
+  const checkEmail = async (tempArray) => {
+    const token = window.localStorage.getItem("token");
+
+    try {
+      const response = await axios.post(
+        `${backendurl}home/getEmails`,
+        { data: tempArray },
+        {
+          headers: {
+            Authorization: token,
+          },
+          timeout: 120000,
+        }
+      );
+
+      if (response.status === 200) {
+        setTempArray(response.data.data);
+
+        decreaseQuota();
+      }
+    } catch (e) {
+      console.log(e);
+      if (e.code) {
+        if (e.code === "ECONNABORTED") {
+          Notify.failure("Veriler Getirilemedi");
+          Loading.remove();
+        } else {
+          if (e.response.status === 400) {
+            Notify.failure("Veri Bulunamadı");
+            decreaseQuota();
+          }
+          Loading.remove();
+        }
+      }
+      Loading.remove();
+    }
+  };
   const decreaseQuota = async () => {
     const token = window.localStorage.getItem("token");
     try {
-      console.log(token);
       const decreaseQuotaRes = await axios.put(
         `${backendurl}home/decreaseQuota`,
         {},
@@ -179,7 +229,6 @@ function LocationSearch() {
       );
       setTemp(!temp);
       Notify.info("Arama Tamamlandı");
-      console.log("kota azaltma", decreaseQuotaRes);
     } catch (e) {
       Loading.remove();
       Notify.failure("Beklenmeyen Bir Hata Oluştu");
@@ -191,6 +240,10 @@ function LocationSearch() {
     Loading.remove();
     setTempArray("");
   }, [temp]);
+  useEffect(() => {
+    window.localStorage.setItem("mySearch", JSON.stringify(globalSearch));
+    window.localStorage.setItem("myAddress", globalAddress);
+  }, [globalSearch]);
 
   return (
     <div className="locationSearchContainer">

@@ -52,12 +52,13 @@
   padding-right: 3rem;
 }
 .profileContentBody-Left p {
-  width: 40%;
+  width: 50%;
   height: 15%;
   display: flex;
   justify-content: end;
   align-items: center;
 }
+
 .profileContentBody-Left p span {
   right: 0;
 }
@@ -77,6 +78,7 @@
   display: flex;
   align-items: center;
 }
+
 
 .logutContainer {
   height: 20%;

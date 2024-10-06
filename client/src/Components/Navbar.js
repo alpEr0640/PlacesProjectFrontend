@@ -9,6 +9,26 @@ export default function Navbar() {
   const { setIsLogged } = useMainContext();
   const [isSidebarVisible, setIsSidebarVisible] = useState(false);
   const { isAdmin } = useAuth();
+  const [showNavbar, setShowNavbar] = useState(true);
+  const [lastScrollY, setLastScrollY] = useState(0); 
+
+  useEffect(() => {
+    window.addEventListener("scroll", controlNavbar); // Scroll eventini dinle
+
+    return () => {
+      window.removeEventListener("scroll", controlNavbar); // Component unmount olduğunda listener'ı kaldır
+    };
+  }, [lastScrollY]);
+
+  const controlNavbar = () => {
+    if (window.scrollY > lastScrollY) {  
+      setShowNavbar(false);
+    } else {
+      setShowNavbar(true);
+    }
+    setLastScrollY(window.scrollY); // Son kaydırma pozisyonunu güncelle
+  };
+
   const goProfile = () => {
     navigate("/profile");
     setIsSidebarVisible(false);
@@ -30,12 +50,12 @@ export default function Navbar() {
     setIsSidebarVisible(!isSidebarVisible);
   };
   const goAdmin = ()=>{
-    navigate("/home/admin");
+    navigate("/admin/home");
     setIsSidebarVisible(false);
   }
 
   return isAdmin ? (
-    <header className="NavBarContainer">
+    <header className={`NavBarContainer ${showNavbar ? "visible" : "hidden"} `} >
       <nav className="navBar">
         <div className="navLeft">
           <img className="navImage" src={logo} alt="Logo" />

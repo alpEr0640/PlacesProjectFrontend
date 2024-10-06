@@ -79,10 +79,11 @@ export default function SearchTable() {
       }
       else{
         Notify.failure("Dosya İsmi Mevcut")
-        
+        Loading.remove();
       }
       console.log(response);
     } catch (e) {
+      Loading.remove();
       console.log(e.response);
     }
   };
@@ -104,14 +105,19 @@ export default function SearchTable() {
       setShowModal(false)
       Notify.success("Kaydetme Başarılı");
     } catch (e) {
-      if(e.response.status===403){
-        Notify.failure("En Fazla 10 Dosya Kaydedebilirsiniz");
-        setShowModal(false)
+      if(e.response){
+
+        if(e.response.status===403){
+          Notify.failure("En Fazla 10 Dosya Kaydedebilirsiniz");
+          setShowModal(false)
+        }
+        else{
+          console.log(e)
+        }
+      }else{
+        Notify.failure("Beklenmeyen Bir Hata Oluştu")
       }
-      else{
-        console.log(e)
-      }
-    }
+    }finally{Loading.remove();}
   };
   //Dosya Kaydetme Bitiş
 
@@ -140,14 +146,20 @@ export default function SearchTable() {
       document.body.appendChild(link);
       link.click();
       link.remove();
-      console.log(res);
     } catch (e) {
-      if(e.response.status === 429){
-        Notify.failure("İstek Limitini Aştınız");
+      if(e.response){
+        if(e.response.status === 429){
+          Notify.failure("İstek Limitini Aştınız");
+        }
+        else{
+          Notify.failure("İndirme İşlemi Başarısız");
+        }
       }
       else{
-        Notify.failure("İndirme İşlemi Başarısız");
+        console.log(e)
+        Notify.failure("Beklenmeyen Bir Hata Oluştu")
       }
+      
         
       console.log(e);
     }
@@ -205,6 +217,7 @@ export default function SearchTable() {
               <th className="SearchLocationTh">Adres</th>
               <th className="SearchLocationTh">Web Sitesi</th>
               <th className="SearchLocationTh">Telefon Numarası</th>
+              <th className="SearchLocationTh">E-posta</th>
             </tr>
           </thead>
           <tbody>
@@ -220,6 +233,9 @@ export default function SearchTable() {
                 </td>
                 <td className="searchLocationTd">
                   {type.internationalPhoneNumber}
+                </td>
+                <td className="searchLocationTd">
+                  {type.emails}
                 </td>
               </tr>
             ))}

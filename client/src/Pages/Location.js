@@ -11,11 +11,13 @@ export default function Location() {
   const [showLocationSearch, setShowLocationSearch] = useState(false);
   const [showSearchBody, setShowSearchBody] = useState(true);
   const [activeButton, setActiveButton] = useState("textSearch");
-  const { globalSearch } = useMainContext();
+  const { globalSearch,setGlobalSearch ,setGlobalAddress} = useMainContext();
   const handleButtonClick = (buttonType) => {
     setActiveButton(buttonType);
     setShowSearchBody(true);
   };
+
+  
 
   return (
     <div className="locationContainer">

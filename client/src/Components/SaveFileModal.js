@@ -1,10 +1,12 @@
 import React, { useState } from "react";
 import "../CSS/saveFileModal.css";
+import { Loading } from "notiflix";
 export default function SaveFileModal(props) {
   const { setShowModal, showModal, saveData,checkFileExists } = props;
   const [fileName, setFileName] = useState("");
 
   const handleSave = () => {
+    Loading.standard({ svgColor: "#00B4C4" });
     checkFileExists(fileName);
   };
   return (

@@ -14,7 +14,7 @@ export const AuthProvider = ({ children }) => {
   const [isAdmin, setIsAdmin] = useState(false);
   const backendurl = process.env.REACT_APP_BACKEND_URL;
 
-  useEffect(async () => {
+  useEffect( () => {
     const savedToken = localStorage.getItem("token");
     if (savedToken) {
       setToken(savedToken);
@@ -39,7 +39,6 @@ export const AuthProvider = ({ children }) => {
 
       if (response.status === 200) {
         setIsAuthenticated(true);
-        console.log("Doğrulandı");
       } else {
         setIsAuthenticated(false);
         localStorage.removeItem("token");
