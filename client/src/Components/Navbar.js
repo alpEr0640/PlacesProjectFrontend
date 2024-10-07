@@ -109,7 +109,7 @@ export default function Navbar() {
         </div>
       </nav>
     </header>
-  ) : (<header className="NavBarContainer">
+  ) : (<header className={`NavBarContainer ${showNavbar ? "visible" : "hidden"} `}>
     <nav className="navBar">
       <div className="navLeft">
         <img className="navImage" src={logo} alt="Logo" />
