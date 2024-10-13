@@ -29,7 +29,7 @@ export default function Location() {
             }`}
             onClick={() => handleButtonClick("textSearch")}
           >
-            Metinle Arama
+            Kolay Arama
           </button>
           <button
             className={`locationButton ${
@@ -37,7 +37,7 @@ export default function Location() {
             }`}
             onClick={() => handleButtonClick("locationSearch")}
           >
-            Konumla Arama
+            Koordinatla Arama
           </button>
           <button
             className={`locationButton ${

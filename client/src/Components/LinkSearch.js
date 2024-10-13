@@ -17,6 +17,7 @@ export default function LinkSearch() {
   const backendurl = process.env.REACT_APP_BACKEND_URL;
   const apiKey = process.env.REACT_APP_APIKEY;
   const [nextPageToken, setNextPageToken] = useState("");
+  const [jobID, setJobID] = useState("0");
   const { setGlobalSearch, globalSearch, setGlobalAddress, globalAddress } =
     useMainContext();
   const [temp, setTemp] = useState(false);
@@ -47,7 +48,10 @@ export default function LinkSearch() {
   };
 
   const calculateCoordinate = (lat, lng, area) => {
-    Loading.standard({ svgColor: "#00B4C4" });
+    Loading.standard("Sayfayı Yenilemeyin, Sizin İçin Araştırma Yapıyoruz", {
+      svgColor: "#00B4C4",
+      messageMaxLength: "70",
+    });
     const num = parseFloat(area);
 
     const calculatedDistance = num / 2;
@@ -180,14 +184,12 @@ export default function LinkSearch() {
           headers: {
             Authorization: token,
           },
-          timeout: 120000, // 120 saniye (120,000 milisaniye) timeout
+          timeout: 300000,
         }
       );
 
       if (response.status === 200) {
-        setTempArray(response.data.data); //responseyi kontrol et oraya dizi göndermen gerekiyor
-
-        decreaseQuota();
+        setJobID(response.data.jobId);
       }
     } catch (e) {
       console.log(e);
@@ -195,15 +197,57 @@ export default function LinkSearch() {
         if (e.code === "ECONNABORTED") {
           Notify.failure("Veriler Getirilemedi");
           Loading.remove();
-        } else {
+        }
+      } else {
+        if (e.response) {
           if (e.response.status === 400) {
             Notify.failure("Veri Bulunamadı");
             decreaseQuota();
           }
+          if (e.response.status === 403) {
+            Notify.failure(
+              "Sistem Yoğun Kısa Bir Süre Bekleyip Tekrar Deneyin"
+            );
+            Loading.remove();
+          } else {
+            Notify.failure("Beklenmeyen Bir Hatayla Karşılaştık");
+            Loading.remove();
+          }
+        } else {
+          Notify.failure("Beklenmeyen Bir Hatayla Karşılaştık");
           Loading.remove();
         }
       }
-      Loading.remove();
+    }
+  };
+
+  useEffect(() => {
+    scrapStatus(jobID);
+    console.log("JobId UseEffect: ", jobID);
+  }, [jobID]);
+
+  const scrapStatus = async (jobId) => {
+    const token = window.localStorage.getItem("token");
+   
+    try {
+      const response = await axios.get(
+        `${backendurl}home/getScrapStatus/${jobId}`,
+        {
+          headers: {
+            Authorization: token,
+          },
+        }
+      );
+      if (!response.data.result) {
+        setTimeout(() => scrapStatus(jobId), 5000);
+        console.log("merhaba");
+      } else {
+        setTempArray(response.data.result);
+        decreaseQuota();
+      }
+      
+    } catch (e) {
+      console.log(e);
     }
   };
   const decreaseQuota = async () => {

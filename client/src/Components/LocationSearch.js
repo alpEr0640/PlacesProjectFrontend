@@ -25,10 +25,14 @@ function LocationSearch() {
   const [temp, setTemp] = useState(false);
   const { validateToken } = useAuth();
   const [emailCheckTemp, setEmailCheckTemp] = useState(false);
+  const [jobID, setJobID] = useState("0");
   const calculateCoordinate = () => {
     const token = window.localStorage.getItem("token");
     validateToken(token);
-    Loading.standard({ svgColor: "#00B4C4" });
+    Loading.standard("Sayfayı Yenilemeyin, Sizin İçin Araştırma Yapıyoruz", {
+      svgColor: "#00B4C4",
+      messageMaxLength: "70",
+    });
     const num = parseFloat(area);
     if (!isNaN(num)) {
       const calculatedDistance = Math.sqrt(num) / 2;
@@ -161,9 +165,12 @@ function LocationSearch() {
         }
       }
     } catch (error) {
-      if (error.message === "NULLCOORDINATE") {
-        Notify.failure("koodinatlar Boş Olamaz");
-        } else {
+      if(error.message){
+        if (error.message === "NULLCOORDINATE") {
+          Notify.failure("koodinatlar Boş Olamaz");
+        }
+      }
+       else {
         Notify.failure("Arama Tipi Boş Olamaz");
         console.error("Error fetching places:", error);
       }
@@ -194,9 +201,7 @@ function LocationSearch() {
       );
 
       if (response.status === 200) {
-        setTempArray(response.data.data);
-
-        decreaseQuota();
+        setJobID(response.data.jobId);
       }
     } catch (e) {
       console.log(e);
@@ -204,15 +209,57 @@ function LocationSearch() {
         if (e.code === "ECONNABORTED") {
           Notify.failure("Veriler Getirilemedi");
           Loading.remove();
-        } else {
+        }
+      } else {
+        if (e.response) {
           if (e.response.status === 400) {
             Notify.failure("Veri Bulunamadı");
             decreaseQuota();
           }
+          if (e.response.status === 403) {
+            Notify.failure(
+              "Sistem Yoğun Kısa Bir Süre Bekleyip Tekrar Deneyin"
+            );
+            Loading.remove();
+          } else {
+            Notify.failure("Beklenmeyen Bir Hatayla Karşılaştık");
+            Loading.remove();
+          }
+        } else {
+          Notify.failure("Beklenmeyen Bir Hatayla Karşılaştık");
           Loading.remove();
         }
       }
-      Loading.remove();
+    }
+  };
+
+  useEffect(() => {
+    scrapStatus(jobID);
+    console.log("JobId UseEffect: ", jobID);
+  }, [jobID]);
+
+  const scrapStatus = async (jobId) => {
+    const token = window.localStorage.getItem("token");
+    console.log("jobId: ", jobId);
+    try {
+      const response = await axios.get(
+        `${backendurl}home/getScrapStatus/${jobId}`,
+        {
+          headers: {
+            Authorization: token,
+          },
+        }
+      );
+      if (!response.data.result) {
+        setTimeout(() => scrapStatus(jobId), 5000);
+        console.log("merhaba");
+      } else {
+        setTempArray(response.data.result); //responseyi kontrol et oraya dizi göndermen gerekiyor
+        decreaseQuota();
+      }
+      console.log(response);
+    } catch (e) {
+      console.log(e);
     }
   };
   const decreaseQuota = async () => {

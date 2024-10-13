@@ -27,6 +27,7 @@ const TextSearch = () => {
   const backendurl = process.env.REACT_APP_BACKEND_URL;
   const { validateToken } = useAuth();
   const [emailCheckTemp, setEmailCheckTemp] = useState(false);
+  const [jobID, setJobID] = useState("0");
   useEffect(() => {
     const fetchCities = async () => {
       try {
@@ -200,12 +201,11 @@ const TextSearch = () => {
         if (e.response.status === 400) {
           Notify.failure("Arama Tipi Boş Olamaz");
         }
-      }else{
+      } else {
         Notify.failure("Server Hatası");
       }
 
       Loading.remove();
-      
     }
   };
   useEffect(() => {
@@ -224,17 +224,55 @@ const TextSearch = () => {
           headers: {
             Authorization: token,
           },
+          timeout: 300000,
         }
       );
 
       if (response.status === 200) {
-        setTempArray(response.data.data); //responseyi kontrol et oraya dizi göndermen gerekiyor
-
-        decreaseQuota();
+        console.log(response.data.jobId);
+        setJobID(response.data.jobId);
       }
     } catch (e) {
+      if (e.response) {
+        if (e.response.status === 403) {
+          Notify.failure("Sistem Yoğun Kısa Bir Süre Bekleyip Tekrar Deneyin");
+          Loading.remove();
+        }
+        else {
+          Notify.failure("Beklenmeyen Bir Hatayla Karşılaşıldı");
+          Loading.remove();
+        }
+      } else {
+        Notify.failure("Beklenmeyen Bir Hatayla Karşılaşıldı");
+        Loading.remove();
+      }
+    }
+  };
+  useEffect(() => {
+    scrapStatus(jobID);
+    console.log("JobId UseEffect: ", jobID);
+  }, [jobID]);
+
+  const scrapStatus = async (jobId) => {
+    const token = window.localStorage.getItem("token");
+    try {
+      const response = await axios.get(
+        `${backendurl}home/getScrapStatus/${jobId}`,
+        {
+          headers: {
+            Authorization: token,
+          },
+        }
+      );
+      if (response.data.finishedAt) {
+        setTempArray(response.data.result); //responseyi kontrol et oraya dizi göndermen gerekiyor
+        decreaseQuota();
+      } else {
+        setTimeout(() => scrapStatus(jobId), 5000);
+      }
+      console.log(response);
+    } catch (e) {
       console.log(e);
-      Loading.remove();
     }
   };
 
@@ -270,8 +308,15 @@ const TextSearch = () => {
   const handleButtonClick = async () => {
     const token = window.localStorage.getItem("token");
     validateToken(token);
-
-    Loading.standard({ svgColor: "#00B4C4" });
+    /* if (checkQueryState === false) {
+      checkQuery();
+    } else {
+      
+    } */
+    Loading.standard("Sayfayı Yenilemeyin, Sizin İçin Araştırma Yapıyoruz", {
+      svgColor: "#00B4C4",
+      messageMaxLength: "70",
+    });
     await HandleGeocode();
     setTrigger((prev) => !prev);
   };
@@ -282,7 +327,7 @@ const TextSearch = () => {
         <div className="selectContent">
           <select
             onChange={(e) => {
-                          setSelectedCity(e.target.value);
+              setSelectedCity(e.target.value);
               if (selectedCity) {
                 setSelectedNeighborhoods("");
                 setSelectedState("");

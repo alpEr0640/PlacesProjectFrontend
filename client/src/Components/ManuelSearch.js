@@ -22,6 +22,7 @@ export default function ManuelSearch() {
     useMainContext();
   const [emailCheckTemp, setEmailCheckTemp] = useState(false);
   const { validateToken } = useAuth();
+  const [jobID, setJobID] = useState("0");
   useEffect(() => {
     if (locationX !== null && locationY !== null) {
       checkQuota();
@@ -45,12 +46,14 @@ export default function ManuelSearch() {
 
         /* setTrigger(prev => !prev);  */
       } else {
-        Notify.failure("Adres Bulunamadı")
+        Notify.failure("Adres Bulunamadı");
         Loading.remove();
         throw new Error();
       }
     } catch (e) {
       Loading.remove();
+      Notify.failure("Server Hatası");
+
       console.log(e);
     }
   };
@@ -162,16 +165,54 @@ export default function ManuelSearch() {
           headers: {
             Authorization: token,
           },
+          timeout: 300000,
         }
       );
       if (response.status === 200) {
-        setTempArray(response.data.data); //responseyi kontrol et oraya dizi göndermen gerekiyor
-
-        decreaseQuota();
+        setJobID(response.data.jobId);
       }
     } catch (e) {
+      if (e.response) {
+        if (e.response.status === 400) {
+          Notify.failure("Sistem Yoğun Kısa Bir Süre Bekleyip Tekrar Deneyin");
+          Loading.remove();
+        } else {
+          Notify.failure("Beklenmeyen Bir Hatayla Karşılaşıldı");
+          Loading.remove();
+        }
+      } else {
+        Notify.failure("Beklenmeyen Bir Hatayla Karşılaşıldı");
+        Loading.remove();
+      }
+    }
+  };
+  useEffect(() => {
+    scrapStatus(jobID);
+    console.log("JobId UseEffect: ", jobID);
+  }, [jobID]);
+
+  const scrapStatus = async (jobId) => {
+    const token = window.localStorage.getItem("token");
+    console.log("jobId: ", jobId);
+    try {
+      const response = await axios.get(
+        `${backendurl}home/getScrapStatus/${jobId}`,
+        {
+          headers: {
+            Authorization: token,
+          },
+        }
+      );
+      if (!response.data.result) {
+        setTimeout(() => scrapStatus(jobId), 5000);
+        console.log("merhaba");
+      } else {
+        setTempArray(response.data.result); //responseyi kontrol et oraya dizi göndermen gerekiyor
+        decreaseQuota();
+      }
+      console.log(response);
+    } catch (e) {
       console.log(e);
-      Loading.remove();
     }
   };
 
@@ -208,7 +249,11 @@ export default function ManuelSearch() {
   const handleButtonClick = async () => {
     const token = window.localStorage.getItem("token");
     validateToken(token);
-    Loading.standard({ svgColor: "#00B4C4" });
+    Loading.standard("Sayfayı Yenilemeyin, Sizin İçin Araştırma Yapıyoruz", {
+      svgColor: "#00B4C4",
+      messageMaxLength: "70",
+    });
+
     await handleGeocode();
     setTrigger((prev) => !prev);
   };
