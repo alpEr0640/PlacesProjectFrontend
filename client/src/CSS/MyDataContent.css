@@ -10,7 +10,8 @@
   justify-content: center;
 }
 .myDataContainer {
-  width: 80%;
+  width: 100%;
+  padding: 0 4rem;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -56,15 +57,15 @@
 .myDataTh,
 .myDataTd {
   width: 20%;
-  max-width: 400px;
   color: white;
   height: 3rem;
   padding: 0rem 1rem;
+  max-width: 390px;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
   border-right: gray 1px solid;
-  text-overflow: ellipsis;
+
   font-size: 1rem;
 }
 .myDataTh:last-child,
@@ -75,6 +76,9 @@
   text-decoration: none;
   color: white;
   font-size: 1rem;
+}
+.myDataTd a:visited{
+  color: #00b4c4;
 }
 
 .myDataPagination {

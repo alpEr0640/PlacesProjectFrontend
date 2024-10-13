@@ -10,7 +10,7 @@ export default function Navbar() {
   const [isSidebarVisible, setIsSidebarVisible] = useState(false);
   const { isAdmin } = useAuth();
   const [showNavbar, setShowNavbar] = useState(true);
-  const [lastScrollY, setLastScrollY] = useState(0); 
+  const [lastScrollY, setLastScrollY] = useState(0);
 
   useEffect(() => {
     window.addEventListener("scroll", controlNavbar); // Scroll eventini dinle
@@ -21,7 +21,7 @@ export default function Navbar() {
   }, [lastScrollY]);
 
   const controlNavbar = () => {
-    if (window.scrollY > lastScrollY) {  
+    if (window.scrollY > lastScrollY) {
       setShowNavbar(false);
     } else {
       setShowNavbar(true);
@@ -49,13 +49,13 @@ export default function Navbar() {
   const toggleSidebar = () => {
     setIsSidebarVisible(!isSidebarVisible);
   };
-  const goAdmin = ()=>{
+  const goAdmin = () => {
     navigate("/admin/home");
     setIsSidebarVisible(false);
-  }
+  };
 
   return isAdmin ? (
-    <header className={`NavBarContainer ${showNavbar ? "visible" : "hidden"} `} >
+    <header className={`NavBarContainer ${showNavbar ? "visible" : "hidden"} `}>
       <nav className="navBar">
         <div className="navLeft">
           <img className="navImage" src={logo} alt="Logo" />
@@ -64,19 +64,19 @@ export default function Navbar() {
         <div className="navRight">
           <ul className="navItems">
             <NavLink className="navItems-Item" to="/homepage">
-              Anasayfa
+              <a> Anasayfa</a>
             </NavLink>
             <NavLink className="navItems-Item" to="/location">
-              Konum Ara
+              <a> Konum Ara</a>
             </NavLink>
             <NavLink className="navItems-Item" to="/data">
-              Geçmiş Aramalar
+              <a> Geçmiş Aramalar</a>
             </NavLink>
             <NavLink className="navItems-Item" to="/admin/home">
-              Admin
+              <a> Admin</a>
             </NavLink>
             <li className="navItems-Item" onClick={goProfile}>
-              Profil
+              <a> Profil</a>
             </li>
             <NavLink className="menuButton" onClick={toggleSidebar}>
               {isSidebarVisible ? (
@@ -91,70 +91,76 @@ export default function Navbar() {
         <div className={`sideBarContainer ${isSidebarVisible ? "open" : ""}`}>
           <ul className="navSideBar">
             <li className="sideBar-Item" onClick={goHomepage}>
-              Anasayfa
+              <a>Anasayfa</a>
             </li>
             <li className="sideBar-Item" onClick={goLocation}>
-              Konum Ara
+              <a>Konum Ara</a>
             </li>
             <li className="sideBar-Item" onClick={goMyData}>
-              Geçmiş Aramalar
+              <a>Geçmiş Aramalar</a>
             </li>
             <li className="sideBar-Item" onClick={goAdmin}>
-              Admin
+              <a> Admin</a>
             </li>
             <li className="sideBar-Item" onClick={goProfile}>
-              Profil
+              <a>Profil</a>
             </li>
           </ul>
         </div>
       </nav>
     </header>
-  ) : (<header className={`NavBarContainer ${showNavbar ? "visible" : "hidden"} `}>
-    <nav className="navBar">
-      <div className="navLeft">
-        <img className="navImage" src={logo} alt="Logo" />
-        <p> Sector Scout</p>
-      </div>
-      <div className="navRight">
-        <ul className="navItems">
-          <NavLink className="navItems-Item" to="/homepage">
-            Anasayfa
-          </NavLink>
-          <NavLink className="navItems-Item" to="/location">
-            Konum Ara
-          </NavLink>
-          <NavLink className="navItems-Item" to="/data">
-            Geçmiş Aramalar
-          </NavLink>
-          <li className="navItems-Item" onClick={goProfile}>
-            Profil
-          </li>
-          <NavLink className="menuButton" onClick={toggleSidebar}>
-            {isSidebarVisible ? (
-              <i className="fa-solid fa-x menuBar"></i>
-            ) : (
-              <i className="fa-solid fa-bars menuBarfeci"></i>
-            )}
-          </NavLink>
-        </ul>
-      </div>
+  ) : (
+    <header className={`NavBarContainer ${showNavbar ? "visible" : "hidden"} `}>
+      <nav className="navBar">
+        <div className="navLeft">
+          <img className="navImage" src={logo} alt="Logo" />
+          <p> Sector Scout</p>
+        </div>
+        <div className="navRight">
+          <ul className="navItems">
+            <NavLink className="navItems-Item" to="/homepage">
+              <a>Anasayfa</a>
+            </NavLink>
+            <NavLink className="navItems-Item" to="/location">
+              <a>Konum Ara</a>
+            </NavLink>
+            <NavLink className="navItems-Item" to="/data">
+              <a>Geçmiş Aramalar</a>
+            </NavLink>
+            <li className="navItems-Item" onClick={goProfile}>
+              <a>Profil</a>
+            </li>
+            <NavLink className="menuButton" onClick={toggleSidebar}>
+              {isSidebarVisible ? (
+                <i className="fa-solid fa-x menuBar"></i>
+              ) : (
+                <i className="fa-solid fa-bars menuBarfeci"></i>
+              )}
+            </NavLink>
+          </ul>
+        </div>
 
-      <div className={`sideBarContainer ${isSidebarVisible ? "open" : ""}`}>
-        <ul className="navSideBar">
-          <li className="sideBar-Item" onClick={goHomepage}>
-            Anasayfa
-          </li>
-          <li className="sideBar-Item" onClick={goLocation}>
-            Konum Ara
-          </li>
-          <li className="sideBar-Item" onClick={goMyData}>
-            Geçmiş Aramalar
-          </li>
-          <li className="sideBar-Item" onClick={goProfile}>
-            Profil
-          </li>
-        </ul>
-      </div>
-    </nav>
-  </header>);
+        <div
+          className={`sideBarContainer visible ${
+            isSidebarVisible ? "open" : ""
+          }`}
+        >
+          <ul className="navSideBar">
+            <li className="sideBar-Item" onClick={goHomepage}>
+              <a>Anasayfa</a>
+            </li>
+            <li className="sideBar-Item" onClick={goLocation}>
+              <a>Konum Ara</a>
+            </li>
+            <li className="sideBar-Item" onClick={goMyData}>
+              <a>Geçmiş Aramalar</a>
+            </li>
+            <li className="sideBar-Item" onClick={goProfile}>
+              <a>Profil</a>
+            </li>
+          </ul>
+        </div>
+      </nav>
+    </header>
+  );
 }

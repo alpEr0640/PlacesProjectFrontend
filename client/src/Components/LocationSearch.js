@@ -251,11 +251,11 @@ function LocationSearch() {
         <div className="locationSearchCoordinates">
           {" "}
           <input
-            placeholder="y koordinatı"
+            placeholder="Enlem"
             onBlur={(e) => setLat(parseFloat(e.target.value).toFixed(6))}
           />
           <input
-            placeholder="x koordinatı"
+            placeholder="Boylam"
             onBlur={(e) => setLng(parseFloat(e.target.value).toFixed(6))}
           />
         </div>

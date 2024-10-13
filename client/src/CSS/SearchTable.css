@@ -59,7 +59,7 @@
   color: white;
   height: 3rem;
   padding: 0rem 1rem;
-  max-width: 400px;
+  max-width: 353px;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -76,6 +76,9 @@
   text-decoration: none;
   color: white;
   font-size: 1rem;
+}
+.searchLocationTd a:visited{
+  color: #00b4c4;
 }
 
 .Pagination {

@@ -11,9 +11,14 @@ export default function Login() {
   const [username, setUsername] = useState();
   const [password, setPassword] = useState();
   const [errorMessage, setErrorMessage] = useState("");
-  const navigation = useNavigate();
+  const navigate = useNavigate();
   const { validateToken } = useAuth();
   const backendurl = process.env.REACT_APP_BACKEND_URL;
+
+  const goForgotPassword = () => {
+    navigate("/forgotPassowrd");
+  };
+
   const submit = async (e) => {
     e.preventDefault();
     const payload = {
@@ -27,7 +32,7 @@ export default function Login() {
       setErrorMessage("");
       window.localStorage.setItem("token", res.data.data);
       validateToken(res.data.data);
-      navigation("/homepage");
+      navigate("/homepage");
       Notify.info("Giriş Başarılı");
     } catch (e) {
       console.log(e);
@@ -44,12 +49,10 @@ export default function Login() {
           setErrorMessage("Hatalı Şifre Girdiniz");
         }
         if (e.response.status === 429) {
-          Loading.remove();
           setErrorMessage("İstek Limitini Aştınız");
         }
         if (e.response.status === 500) {
           setErrorMessage("Server Hatası");
-          Loading.remove();
         }
       }
     } finally {
@@ -84,7 +87,9 @@ export default function Login() {
             </div>
             <div className="btnCover">
               <button className="btn"> Giriş Yap </button>
-              <a className="loginContact">Şifremi Unuttum</a>
+              <a className="loginContact" onClick={() => goForgotPassword()}>
+                Şifremi Unuttum
+              </a>
             </div>
           </form>
         </div>

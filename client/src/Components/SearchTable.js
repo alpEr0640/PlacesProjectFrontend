@@ -171,8 +171,8 @@ export default function SearchTable() {
     Confirm.show(
       "UYARI",
       "Arama geçmişini temizlemek istiyor musunuz?",
-      "Yes",
-      "No",
+      "Evet",
+      "Hayır",
       () => {
         Notify.info("Başarılı");
         setGlobalSearch("");

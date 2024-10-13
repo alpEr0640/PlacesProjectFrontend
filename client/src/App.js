@@ -14,6 +14,8 @@ import { Loading } from "notiflix/build/notiflix-loading-aio";
 import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import DataHistory from "./Pages/DataHistory";
 import MyDataContent from "./Pages/MyDataContent";
+import ForgotPassword from "./Pages/ForgotPassword";
+import ResetPassword from "./Pages/ResetPassword";
 /* import { useMainContext } from "../MainContext"; */
 
 function App() {
@@ -60,6 +62,14 @@ const AppContent = () => {
           path="/data"
           element={isAuthenticated ? <DataHistory /> : <Login />}
         />
+         <Route
+          path="/forgotPassowrd"
+          element={<ForgotPassword/>}
+        />
+        <Route
+          path="/resetPassword/:token"
+          element={<ResetPassword/>}
+        />
         <Route
           path="/myData"
           element={
@@ -84,13 +94,14 @@ const AppContent = () => {
           element={
             isAuthenticated ? (
               isAdmin ? (
-                < AdminHomepage/>
+                <AdminHomepage />
               ) : (
-                <Homepage/>
+                <Homepage />
               )
             ) : (
-              <Login/>
-            )}
+              <Login />
+            )
+          }
         />
         <Route
           path="/admin/registerUser"
@@ -99,11 +110,12 @@ const AppContent = () => {
               isAdmin ? (
                 <RegisterUser />
               ) : (
-                <Homepage/>
+                <Homepage />
               )
             ) : (
-              <Login/>
-            )}
+              <Login />
+            )
+          }
         />
         <Route
           path="/admin/manageUsers"
@@ -112,10 +124,10 @@ const AppContent = () => {
               isAdmin ? (
                 <ManageUsers />
               ) : (
-                <Homepage/>
+                <Homepage />
               )
             ) : (
-              <Login/>
+              <Login />
             )
           }
         />

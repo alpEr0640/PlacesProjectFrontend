@@ -85,21 +85,21 @@ export default function Profile() {
               <>
                 <div className="profileContentBody-Left">
                   <p>
-                    Ad<span>:</span>
+                    Ad <span> : </span>
                   </p>
                   <p>
-                    Soyad <span>:</span>
+                    Soyad <span> : </span>
                   </p>
                   <p>
-                    E-Posta<span>:</span>
+                    E-Posta <span> : </span>
                   </p>
                   <p>
-                    Telefon<span>:</span>
+                    Telefon <span> : </span>
                   </p>
                   <p>
-                    Kalan Hak<span>:</span>
+                    Kalan Hak <span> : </span>
                   </p>
-                  <p> Abonelik Bitiş Tarihi <span>:</span></p>
+                  <p> Abonelik Bitiş Tarihi <span>: </span></p>
                 </div>
                 <div className="profileContentBody-Right">
                   <p> {profileData.firstname}</p>

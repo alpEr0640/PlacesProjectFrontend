@@ -8,7 +8,7 @@
 }
 .profileContent {
   position: relative;
-  top: 12rem;
+  margin-top: 12rem;
   height: 60%;
   width: 50%;
   border-radius: 10px;
@@ -49,7 +49,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: end;
-  padding-right: 3rem;
+  padding-right: 0.5rem;
 }
 .profileContentBody-Left p {
   width: 50%;
@@ -71,6 +71,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: start;
+  padding-left: 0.5rem;
 }
 .profileContentBody-Right p {
   width: 100%;
@@ -119,4 +120,9 @@
     word-break: break-all; 
   }
 
+}
+@media (max-height:600px){
+  .profileContent{
+    margin-top: 8rem;
+  }
 }
