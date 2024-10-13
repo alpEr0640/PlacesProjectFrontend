@@ -69,7 +69,7 @@ export default function Login() {
             <div className="loginField">
               {errorMessage && <div className="error">{errorMessage}</div>}
               <input
-                placeholder="Kullanıcı Adı"
+                placeholder="E-posta"
                 required
                 type="text"
                 onChange={(e) => {
@@ -77,7 +77,7 @@ export default function Login() {
                 }}
               />
               <input
-                placeholder="Password"
+                placeholder="Şifre"
                 type="password"
                 required
                 onChange={(e) => {

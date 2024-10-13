@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "../CSS/Navbar.css";
-import logo from "../images/logo2.png";
+import logo from "../images/Logos.png";
 import { NavLink, useNavigate } from "react-router-dom";
 import { useMainContext } from "../MainContext";
 import { AuthProvider, useAuth } from "../AuthContext";
