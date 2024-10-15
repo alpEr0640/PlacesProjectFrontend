@@ -1,6 +1,6 @@
 import React, { Children, useContext, useState } from "react";
 import "../CSS/Login.css";
-import image from "../images/logo.png";
+import logo from "../images/Logo.png";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useMainContext } from "../MainContext";
@@ -64,7 +64,7 @@ export default function Login() {
     <div className="loginContainer">
       <div className="loginContent">
         <div className="loginRightContent">
-          <div className="rightContentHeader">Sector Scout</div>
+          <div className="rightContentHeader"><img src={logo}/>Sector Scout</div>
           <form className="rightContentBody" onSubmit={submit}>
             <div className="loginField">
               {errorMessage && <div className="error">{errorMessage}</div>}

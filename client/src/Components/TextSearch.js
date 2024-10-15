@@ -28,6 +28,7 @@ const TextSearch = () => {
   const { validateToken } = useAuth();
   const [emailCheckTemp, setEmailCheckTemp] = useState(false);
   const [jobID, setJobID] = useState("0");
+  const [jobIDCheck, setJobIDCheck] = useState(false);
   useEffect(() => {
     const fetchCities = async () => {
       try {
@@ -184,6 +185,7 @@ const TextSearch = () => {
         setTempArray((tempArray) => [...tempArray, ...newPlaces]);
         setGlobalSearch("");
         setEmailCheckTemp(false);
+        setJobIDCheck(false)
       } else {
         Notify.failure("Sonuç Bulunamadı");
       }
@@ -194,6 +196,7 @@ const TextSearch = () => {
         setNextPageToken("");
         if (response.status === 200) {
           setEmailCheckTemp(true);
+          setJobIDCheck(true);
         }
       }
     } catch (e) {
@@ -229,16 +232,15 @@ const TextSearch = () => {
       );
 
       if (response.status === 200) {
-        console.log(response.data.jobId);
         setJobID(response.data.jobId);
+        setJobIDCheck(true);
       }
     } catch (e) {
       if (e.response) {
         if (e.response.status === 403) {
           Notify.failure("Sistem Yoğun Kısa Bir Süre Bekleyip Tekrar Deneyin");
           Loading.remove();
-        }
-        else {
+        } else {
           Notify.failure("Beklenmeyen Bir Hatayla Karşılaşıldı");
           Loading.remove();
         }
@@ -249,8 +251,10 @@ const TextSearch = () => {
     }
   };
   useEffect(() => {
-    scrapStatus(jobID);
-    console.log("JobId UseEffect: ", jobID);
+    if (jobIDCheck) {
+      scrapStatus(jobID);
+      
+    }
   }, [jobID]);
 
   const scrapStatus = async (jobId) => {
@@ -270,7 +274,6 @@ const TextSearch = () => {
       } else {
         setTimeout(() => scrapStatus(jobId), 5000);
       }
-      console.log(response);
     } catch (e) {
       console.log(e);
     }

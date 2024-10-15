@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import "../CSS/Navbar.css";
-import logo from "../images/Logos.png";
+import logo from "../images/Logo.png";
 import { NavLink, useNavigate } from "react-router-dom";
+
 import { useMainContext } from "../MainContext";
 import { AuthProvider, useAuth } from "../AuthContext";
 export default function Navbar() {
@@ -59,7 +60,7 @@ export default function Navbar() {
       <nav className="navBar">
         <div className="navLeft">
           <img className="navImage" src={logo} alt="Logo" />
-          <p> Sector Scout</p>
+          {<p> Sector Scout</p>}
         </div>
         <div className="navRight">
           <ul className="navItems">

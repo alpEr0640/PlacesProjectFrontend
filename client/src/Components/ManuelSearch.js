@@ -18,11 +18,14 @@ export default function ManuelSearch() {
   const [country, setCountry] = useState("");
   const backendurl = process.env.REACT_APP_BACKEND_URL;
   const [nextPageToken, setNextPageToken] = useState("");
+
   const { setGlobalSearch, globalSearch, globalAddress, setGlobalAddress } =
     useMainContext();
   const [emailCheckTemp, setEmailCheckTemp] = useState(false);
   const { validateToken } = useAuth();
   const [jobID, setJobID] = useState("0");
+  const [jobIDCheck, setJobIDCheck] = useState(false);
+
   useEffect(() => {
     if (locationX !== null && locationY !== null) {
       checkQuota();
@@ -125,6 +128,7 @@ export default function ManuelSearch() {
         setTempArray((tempArray) => [...tempArray, ...newPlaces]);
         setGlobalSearch("");
         setEmailCheckTemp(false);
+        setJobIDCheck(false)
       } else {
         Notify.failure("Sonuç Bulunamadı");
       }
@@ -135,6 +139,7 @@ export default function ManuelSearch() {
         setNextPageToken("");
         if (response.status === 200) {
           setEmailCheckTemp(true);
+          setJobIDCheck(true)
         }
       }
     } catch (e) {
@@ -187,8 +192,9 @@ export default function ManuelSearch() {
     }
   };
   useEffect(() => {
-    scrapStatus(jobID);
-    console.log("JobId UseEffect: ", jobID);
+    if (jobIDCheck) {
+      scrapStatus(jobID);
+    }
   }, [jobID]);
 
   const scrapStatus = async (jobId) => {

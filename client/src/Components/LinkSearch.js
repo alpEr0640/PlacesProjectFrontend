@@ -22,6 +22,8 @@ export default function LinkSearch() {
     useMainContext();
   const [temp, setTemp] = useState(false);
   const [emailCheckTemp, setEmailCheckTemp] = useState(false);
+  const [jobIDCheck, setJobIDCheck] = useState(false);
+
   const handleClick = (url) => {
     //arama tipini bulmak için
     const searchTermMatch = url.match(/\/search\/(.*?)\//);
@@ -149,6 +151,7 @@ export default function LinkSearch() {
         window.localStorage.removeItem("mySearch");
         window.localStorage.removeItem("myAddress");
         setEmailCheckTemp(false);
+        setJobIDCheck(false)
       }
       if (response.data.nextPageToken && newPlaces.length !== 0) {
         fetchData(response.data.nextPageToken);
@@ -157,6 +160,7 @@ export default function LinkSearch() {
         console.log(response.status);
         if (response.status === 200) {
           setEmailCheckTemp(true);
+          setJobIDCheck(true)
         }
       }
     } catch (error) {
@@ -222,13 +226,14 @@ export default function LinkSearch() {
   };
 
   useEffect(() => {
-    scrapStatus(jobID);
-    console.log("JobId UseEffect: ", jobID);
+    if (jobIDCheck) {
+      scrapStatus(jobID);
+    }
   }, [jobID]);
 
   const scrapStatus = async (jobId) => {
     const token = window.localStorage.getItem("token");
-   
+
     try {
       const response = await axios.get(
         `${backendurl}home/getScrapStatus/${jobId}`,
@@ -245,7 +250,6 @@ export default function LinkSearch() {
         setTempArray(response.data.result);
         decreaseQuota();
       }
-      
     } catch (e) {
       console.log(e);
     }

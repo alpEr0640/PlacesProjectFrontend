@@ -26,6 +26,7 @@ function LocationSearch() {
   const { validateToken } = useAuth();
   const [emailCheckTemp, setEmailCheckTemp] = useState(false);
   const [jobID, setJobID] = useState("0");
+  const [jobIDCheck, setJobIDCheck] = useState(false);
   const calculateCoordinate = () => {
     const token = window.localStorage.getItem("token");
     validateToken(token);
@@ -153,6 +154,7 @@ function LocationSearch() {
         setTempArray((tempArray) => [...tempArray, ...newPlaces]);
         setGlobalSearch("");
         setEmailCheckTemp(false);
+        setJobIDCheck(false)
       }
 
       if (response.data.nextPageToken && newPlaces.length !== 0) {
@@ -162,15 +164,15 @@ function LocationSearch() {
 
         if (response.status === 200) {
           setEmailCheckTemp(true);
+          setJobIDCheck(true)
         }
       }
     } catch (error) {
-      if(error.message){
+      if (error.message) {
         if (error.message === "NULLCOORDINATE") {
           Notify.failure("koodinatlar Boş Olamaz");
         }
-      }
-       else {
+      } else {
         Notify.failure("Arama Tipi Boş Olamaz");
         console.error("Error fetching places:", error);
       }
@@ -234,10 +236,10 @@ function LocationSearch() {
   };
 
   useEffect(() => {
-    scrapStatus(jobID);
-    console.log("JobId UseEffect: ", jobID);
+    if (jobIDCheck) {
+      scrapStatus(jobID);
+    }
   }, [jobID]);
-
   const scrapStatus = async (jobId) => {
     const token = window.localStorage.getItem("token");
     console.log("jobId: ", jobId);
