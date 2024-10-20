@@ -151,19 +151,21 @@ export default function LinkSearch() {
         window.localStorage.removeItem("mySearch");
         window.localStorage.removeItem("myAddress");
         setEmailCheckTemp(false);
-        setJobIDCheck(false)
+        setJobIDCheck(false);
       }
       if (response.data.nextPageToken && newPlaces.length !== 0) {
         fetchData(response.data.nextPageToken);
       } else {
         setNextPageToken("");
-        console.log(response.status);
+
         if (response.status === 200) {
           setEmailCheckTemp(true);
-          setJobIDCheck(true)
+          setJobIDCheck(true);
         }
       }
     } catch (error) {
+      setEmailCheckTemp(false);
+      setJobIDCheck(false);
       Loading.remove();
       Notify.failure("Yanlış Link");
       console.error("Error fetching places:", error);
@@ -196,31 +198,28 @@ export default function LinkSearch() {
         setJobID(response.data.jobId);
       }
     } catch (e) {
-      console.log(e);
+      setEmailCheckTemp(false);
+      setJobIDCheck(false);
       if (e.code) {
         if (e.code === "ECONNABORTED") {
           Notify.failure("Veriler Getirilemedi");
           Loading.remove();
         }
-      } else {
-        if (e.response) {
-          if (e.response.status === 400) {
-            Notify.failure("Veri Bulunamadı");
-            decreaseQuota();
-          }
-          if (e.response.status === 403) {
-            Notify.failure(
-              "Sistem Yoğun Kısa Bir Süre Bekleyip Tekrar Deneyin"
-            );
-            Loading.remove();
-          } else {
-            Notify.failure("Beklenmeyen Bir Hatayla Karşılaştık");
-            Loading.remove();
-          }
+      }
+      if (e.response) {
+        if (e.response.status === 400) {
+          Notify.failure("Veri Bulunamadı");
+          decreaseQuota();
+        } else if (e.response.status === 403) {
+          Notify.failure("Sistem Yoğun Kısa Bir Süre Bekleyip Tekrar Deneyin");
+          Loading.remove();
         } else {
           Notify.failure("Beklenmeyen Bir Hatayla Karşılaştık");
           Loading.remove();
         }
+      } else {
+        Notify.failure("Beklenmeyen Bir Hatayla Karşılaştık");
+        Loading.remove();
       }
     }
   };
@@ -245,13 +244,16 @@ export default function LinkSearch() {
       );
       if (!response.data.result) {
         setTimeout(() => scrapStatus(jobId), 5000);
-        console.log("merhaba");
       } else {
         setTempArray(response.data.result);
         decreaseQuota();
       }
     } catch (e) {
       console.log(e);
+      Notify.failure("Beklenmedik Bir Hatayla Karşılaştık")
+      Loading.remove();
+      setEmailCheckTemp(false);
+      setJobIDCheck(false);
     }
   };
   const decreaseQuota = async () => {
@@ -271,6 +273,8 @@ export default function LinkSearch() {
     } catch (e) {
       Loading.remove();
       Notify.failure("Beklenmeyen Bir Hata Oluştu");
+      setEmailCheckTemp(false);
+      setJobIDCheck(false);
     }
   };
 

@@ -154,7 +154,7 @@ function LocationSearch() {
         setTempArray((tempArray) => [...tempArray, ...newPlaces]);
         setGlobalSearch("");
         setEmailCheckTemp(false);
-        setJobIDCheck(false)
+        setJobIDCheck(false);
       }
 
       if (response.data.nextPageToken && newPlaces.length !== 0) {
@@ -164,10 +164,12 @@ function LocationSearch() {
 
         if (response.status === 200) {
           setEmailCheckTemp(true);
-          setJobIDCheck(true)
+          setJobIDCheck(true);
         }
       }
     } catch (error) {
+      setEmailCheckTemp(false);
+      setJobIDCheck(false);
       if (error.message) {
         if (error.message === "NULLCOORDINATE") {
           Notify.failure("koodinatlar Boş Olamaz");
@@ -206,31 +208,29 @@ function LocationSearch() {
         setJobID(response.data.jobId);
       }
     } catch (e) {
+      setEmailCheckTemp(false);
+      setJobIDCheck(false);
       console.log(e);
       if (e.code) {
         if (e.code === "ECONNABORTED") {
           Notify.failure("Veriler Getirilemedi");
           Loading.remove();
         }
-      } else {
-        if (e.response) {
-          if (e.response.status === 400) {
-            Notify.failure("Veri Bulunamadı");
-            decreaseQuota();
-          }
-          if (e.response.status === 403) {
-            Notify.failure(
-              "Sistem Yoğun Kısa Bir Süre Bekleyip Tekrar Deneyin"
-            );
-            Loading.remove();
-          } else {
-            Notify.failure("Beklenmeyen Bir Hatayla Karşılaştık");
-            Loading.remove();
-          }
+      }
+      if (e.response) {
+        if (e.response.status === 400) {
+          Notify.failure("Veri Bulunamadı");
+          decreaseQuota();
+        } else if (e.response.status === 403) {
+          Notify.failure("Sistem Yoğun Kısa Bir Süre Bekleyip Tekrar Deneyin");
+          Loading.remove();
         } else {
           Notify.failure("Beklenmeyen Bir Hatayla Karşılaştık");
           Loading.remove();
         }
+      } else {
+        Notify.failure("Beklenmeyen Bir Hatayla Karşılaştık");
+        Loading.remove();
       }
     }
   };
@@ -254,14 +254,18 @@ function LocationSearch() {
       );
       if (!response.data.result) {
         setTimeout(() => scrapStatus(jobId), 5000);
-        console.log("merhaba");
+      
       } else {
         setTempArray(response.data.result); //responseyi kontrol et oraya dizi göndermen gerekiyor
         decreaseQuota();
       }
-      console.log(response);
+      
     } catch (e) {
       console.log(e);
+      Notify.failure("Beklenmedik Bir Hatayla Karşılaştık")
+      Loading.remove();
+      setEmailCheckTemp(false);
+      setJobIDCheck(false);
     }
   };
   const decreaseQuota = async () => {
@@ -281,6 +285,8 @@ function LocationSearch() {
     } catch (e) {
       Loading.remove();
       Notify.failure("Beklenmeyen Bir Hata Oluştu");
+      setEmailCheckTemp(false);
+      setJobIDCheck(false);
     }
   };
 
@@ -321,7 +327,7 @@ function LocationSearch() {
         </div>
         <div className="locationSearchButton">
           {" "}
-          <button onClick={calculateCoordinate}>Koordinatla Arama</button>
+          <button onClick={calculateCoordinate}>Aramayı Tamamla</button>
         </div>
       </div>
     </div>

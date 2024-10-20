@@ -128,7 +128,7 @@ export default function ManuelSearch() {
         setTempArray((tempArray) => [...tempArray, ...newPlaces]);
         setGlobalSearch("");
         setEmailCheckTemp(false);
-        setJobIDCheck(false)
+        setJobIDCheck(false);
       } else {
         Notify.failure("Sonuç Bulunamadı");
       }
@@ -139,10 +139,12 @@ export default function ManuelSearch() {
         setNextPageToken("");
         if (response.status === 200) {
           setEmailCheckTemp(true);
-          setJobIDCheck(true)
+          setJobIDCheck(true);
         }
       }
     } catch (e) {
+      setEmailCheckTemp(false);
+      setJobIDCheck(false);
       if (e.response) {
         if (e.response.status === 400) {
           Notify.failure("Arama Tipi Boş Olamaz");
@@ -177,6 +179,8 @@ export default function ManuelSearch() {
         setJobID(response.data.jobId);
       }
     } catch (e) {
+      setEmailCheckTemp(false);
+      setJobIDCheck(false);
       if (e.response) {
         if (e.response.status === 400) {
           Notify.failure("Sistem Yoğun Kısa Bir Süre Bekleyip Tekrar Deneyin");
@@ -218,6 +222,8 @@ export default function ManuelSearch() {
       }
       console.log(response);
     } catch (e) {
+      setEmailCheckTemp(false);
+      setJobIDCheck(false);
       console.log(e);
     }
   };
@@ -237,6 +243,8 @@ export default function ManuelSearch() {
       setTemp(!temp);
       Notify.info("Arama Tamamlandı");
     } catch (e) {
+      setEmailCheckTemp(false);
+      setJobIDCheck(false);
       Loading.remove();
       Notify.failure("Beklenmeyen Bir Hata Oluştu");
     }
@@ -288,7 +296,7 @@ export default function ManuelSearch() {
             placeholder="Aramak İstediğiniz Tür"
             onBlur={(e) => setType(e.target.value)}
           />{" "}
-          <button onClick={handleButtonClick}>Manuel Arama</button>
+          <button onClick={handleButtonClick}>Aramayı Tamamla</button>
         </div>
       </div>
     </div>

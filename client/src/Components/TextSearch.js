@@ -188,6 +188,7 @@ const TextSearch = () => {
         setJobIDCheck(false)
       } else {
         Notify.failure("Sonuç Bulunamadı");
+        Loading.remove();
       }
 
       if (response.data.nextPageToken) {
@@ -200,6 +201,8 @@ const TextSearch = () => {
         }
       }
     } catch (e) {
+      setEmailCheckTemp(false);
+      setJobIDCheck(false);
       if (e.response) {
         if (e.response.status === 400) {
           Notify.failure("Arama Tipi Boş Olamaz");
@@ -236,6 +239,8 @@ const TextSearch = () => {
         setJobIDCheck(true);
       }
     } catch (e) {
+      setEmailCheckTemp(false);
+      setJobIDCheck(false);
       if (e.response) {
         if (e.response.status === 403) {
           Notify.failure("Sistem Yoğun Kısa Bir Süre Bekleyip Tekrar Deneyin");
@@ -275,7 +280,10 @@ const TextSearch = () => {
         setTimeout(() => scrapStatus(jobId), 5000);
       }
     } catch (e) {
+      setEmailCheckTemp(false);
+      setJobIDCheck(false);
       console.log(e);
+      Loading.remove();
     }
   };
 
@@ -294,6 +302,8 @@ const TextSearch = () => {
       setTemp(!temp);
       Notify.info("Arama Tamamlandı");
     } catch (e) {
+      setEmailCheckTemp(false);
+      setJobIDCheck(false);
       Loading.remove();
       Notify.failure("Beklenmeyen Bir Hata Oluştu");
     }
@@ -400,7 +410,7 @@ const TextSearch = () => {
             />
           </div>
           <div className="searchButton">
-            <button onClick={handleButtonClick}>Metinle Arama</button>
+            <button onClick={handleButtonClick}>Aramayı Tamamla</button>
           </div>
         </div>
       </div>
