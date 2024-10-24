@@ -25,6 +25,8 @@ export default function LinkSearch() {
   const [jobIDCheck, setJobIDCheck] = useState(false);
 
   const handleClick = (url) => {
+    setEmailCheckTemp(false);
+    setJobIDCheck(false);
     //arama tipini bulmak için
     const searchTermMatch = url.match(/\/search\/(.*?)\//);
     const searchTerm = searchTermMatch
@@ -150,8 +152,6 @@ export default function LinkSearch() {
         setGlobalSearch("");
         window.localStorage.removeItem("mySearch");
         window.localStorage.removeItem("myAddress");
-        setEmailCheckTemp(false);
-        setJobIDCheck(false);
       }
       if (response.data.nextPageToken && newPlaces.length !== 0) {
         fetchData(response.data.nextPageToken);
@@ -250,7 +250,7 @@ export default function LinkSearch() {
       }
     } catch (e) {
       console.log(e);
-      Notify.failure("Beklenmedik Bir Hatayla Karşılaştık")
+      Notify.failure("Beklenmedik Bir Hatayla Karşılaştık");
       Loading.remove();
       setEmailCheckTemp(false);
       setJobIDCheck(false);

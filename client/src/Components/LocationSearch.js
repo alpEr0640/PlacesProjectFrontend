@@ -28,6 +28,8 @@ function LocationSearch() {
   const [jobID, setJobID] = useState("0");
   const [jobIDCheck, setJobIDCheck] = useState(false);
   const calculateCoordinate = () => {
+    setEmailCheckTemp(false);
+    setJobIDCheck(false);
     const token = window.localStorage.getItem("token");
     validateToken(token);
     Loading.standard("Sayfayı Yenilemeyin, Sizin İçin Araştırma Yapıyoruz", {
@@ -153,8 +155,6 @@ function LocationSearch() {
       if (Array.isArray(newPlaces)) {
         setTempArray((tempArray) => [...tempArray, ...newPlaces]);
         setGlobalSearch("");
-        setEmailCheckTemp(false);
-        setJobIDCheck(false);
       }
 
       if (response.data.nextPageToken && newPlaces.length !== 0) {
@@ -254,15 +254,13 @@ function LocationSearch() {
       );
       if (!response.data.result) {
         setTimeout(() => scrapStatus(jobId), 5000);
-      
       } else {
         setTempArray(response.data.result); //responseyi kontrol et oraya dizi göndermen gerekiyor
         decreaseQuota();
       }
-      
     } catch (e) {
       console.log(e);
-      Notify.failure("Beklenmedik Bir Hatayla Karşılaştık")
+      Notify.failure("Beklenmedik Bir Hatayla Karşılaştık");
       Loading.remove();
       setEmailCheckTemp(false);
       setJobIDCheck(false);

@@ -98,16 +98,18 @@ export default function ManuelSearch() {
   };
 
   const handleTextSearch = async (pageToken) => {
+    console.log(locationX, " ", locationY);
     try {
       const response = await axios.post(
         "https://places.googleapis.com/v1/places:searchText",
         {
           textQuery: type,
-
+          languageCode:"uz",
+          /* regionCode: "uz", */
           locationBias: {
             circle: {
               center: { latitude: locationX, longitude: locationY },
-              radius: 500.0,
+              radius: 50000,
             },
           },
           rankPreference: "DISTANCE",
@@ -127,8 +129,6 @@ export default function ManuelSearch() {
         const newPlaces = response.data.places;
         setTempArray((tempArray) => [...tempArray, ...newPlaces]);
         setGlobalSearch("");
-        setEmailCheckTemp(false);
-        setJobIDCheck(false);
       } else {
         Notify.failure("Sonuç Bulunamadı");
       }
@@ -143,6 +143,7 @@ export default function ManuelSearch() {
         }
       }
     } catch (e) {
+      console.log(e);
       setEmailCheckTemp(false);
       setJobIDCheck(false);
       if (e.response) {
@@ -163,6 +164,7 @@ export default function ManuelSearch() {
   }, [emailCheckTemp]);
 
   const checkEmail = async (tempArray) => {
+    console.log("deneme 2");
     const token = window.localStorage.getItem("token");
     try {
       const response = await axios.post(
@@ -183,6 +185,8 @@ export default function ManuelSearch() {
       setJobIDCheck(false);
       if (e.response) {
         if (e.response.status === 400) {
+          Loading.remove();
+        } else if (e.response.status === 403) {
           Notify.failure("Sistem Yoğun Kısa Bir Süre Bekleyip Tekrar Deneyin");
           Loading.remove();
         } else {
@@ -202,6 +206,7 @@ export default function ManuelSearch() {
   }, [jobID]);
 
   const scrapStatus = async (jobId) => {
+    console.log("deneme 3");
     const token = window.localStorage.getItem("token");
     console.log("jobId: ", jobId);
     try {
@@ -229,6 +234,7 @@ export default function ManuelSearch() {
   };
 
   const decreaseQuota = async () => {
+    console.log("deneme 4");
     const token = window.localStorage.getItem("token");
     try {
       const decreaseQuotaRes = await axios.put(
@@ -261,6 +267,8 @@ export default function ManuelSearch() {
   }, [globalSearch]);
 
   const handleButtonClick = async () => {
+    setEmailCheckTemp(false);
+    setJobIDCheck(false);
     const token = window.localStorage.getItem("token");
     validateToken(token);
     Loading.standard("Sayfayı Yenilemeyin, Sizin İçin Araştırma Yapıyoruz", {

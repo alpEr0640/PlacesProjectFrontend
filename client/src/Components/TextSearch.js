@@ -184,8 +184,6 @@ const TextSearch = () => {
         const newPlaces = response.data.places;
         setTempArray((tempArray) => [...tempArray, ...newPlaces]);
         setGlobalSearch("");
-        setEmailCheckTemp(false);
-        setJobIDCheck(false)
       } else {
         Notify.failure("Sonuç Bulunamadı");
         Loading.remove();
@@ -258,7 +256,6 @@ const TextSearch = () => {
   useEffect(() => {
     if (jobIDCheck) {
       scrapStatus(jobID);
-      
     }
   }, [jobID]);
 
@@ -319,6 +316,8 @@ const TextSearch = () => {
     window.localStorage.setItem("myAddress", globalAddress);
   }, [globalSearch]);
   const handleButtonClick = async () => {
+    setEmailCheckTemp(false);
+    setJobIDCheck(false);
     const token = window.localStorage.getItem("token");
     validateToken(token);
     /* if (checkQueryState === false) {
