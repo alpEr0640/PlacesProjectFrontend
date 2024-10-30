@@ -108,10 +108,11 @@ export default function SearchTable() {
       if(e.response){
 
         if(e.response.status===403){
-          Notify.failure("En Fazla 10 Dosya Kaydedebilirsiniz");
+          Notify.failure("Kaydetme Limitini Aştınız");
           setShowModal(false)
         }
         else{
+          Notify.failure("Beklenmeyen Bir Hata Oluştu")
           console.log(e)
         }
       }else{

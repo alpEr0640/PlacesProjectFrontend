@@ -52,7 +52,8 @@ function LocationSearch() {
       setRightLng(lngInDegrees + distanceInDegreesLng);
       const fullAdress = lat + ", " + lng + ", " + area + ", " + type;
       setGlobalAddress(fullAdress);
-    } else {
+    } 
+    else {
       const calculatedDistance = Math.sqrt(16) / 2;
       setDistance(4);
       const latInDegrees = parseFloat(lat);

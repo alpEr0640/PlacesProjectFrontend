@@ -9,7 +9,8 @@
   align-items: center;
 }
 
-.manuelSearchCoordinates input {
+.manuelSearchCoordinates input,
+.manuelSearchCoordinates select {
   width: 48%;
   height: 3rem;
   border: none;
@@ -18,41 +19,42 @@
   text-indent: 0.5rem;
 }
 
-.manuelSearchDetail{
-    display: flex;
-    justify-content: center;
-    align-items: center;
+.manuelSearchDetail {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-.manuelSearchDetail input{
-    width: 48%;
-    height: 3rem;
-    border: none;
-    border-radius: 10px;
-    margin: 10px 1%;
-    text-indent: 0.5rem;
+.manuelSearchDetail input,
+.manuelSearchDetail select {
+  width: 48%;
+  height: 3rem;
+  border: none;
+  border-radius: 10px;
+  margin: 10px 1%;
+  text-indent: 0.5rem;
 }
 
-.manuelSearchButton{
-    display: flex;
-    margin-bottom: 1rem;
+.manuelSearchButton {
+  display: flex;
+  margin-bottom: 1rem;
 }
-.manuelSearchButton input{
-    width: 48%;
-    height: 3rem;
-    border: none;
-    border-radius: 10px;
-    margin: 10px 1%;
-    text-indent: 0.5rem;
+.manuelSearchButton input {
+  width: 48%;
+  height: 3rem;
+  border: none;
+  border-radius: 10px;
+  margin: 10px 1%;
+  text-indent: 0.5rem;
 }
-.manuelSearchButton button{
-    width: 30%;
-    height: 3rem;
-    border: none;
-    border-radius: 10px;
-    margin: 10px 1%;
-    text-indent: 0.5rem;
-    background-color: #00B4C4;
-    color: white;
-    cursor: pointer;
+.manuelSearchButton button {
+  width: 30%;
+  height: 3rem;
+  border: none;
+  border-radius: 10px;
+  margin: 10px 1%;
+  text-indent: 0.5rem;
+  background-color: #00b4c4;
+  color: white;
+  cursor: pointer;
 }

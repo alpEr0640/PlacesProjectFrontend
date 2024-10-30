@@ -6,18 +6,23 @@ import "../CSS/Location.css";
 import { useMainContext } from "../MainContext";
 import ManuelSearch from "../Components/ManuelSearch";
 import LinkSearch from "../Components/LinkSearch";
+import { Loading } from "notiflix";
 export default function Location() {
   const [showTextSearch, setShowTextSearch] = useState(true);
   const [showLocationSearch, setShowLocationSearch] = useState(false);
   const [showSearchBody, setShowSearchBody] = useState(true);
   const [activeButton, setActiveButton] = useState("textSearch");
-  const { globalSearch,setGlobalSearch ,setGlobalAddress} = useMainContext();
+  const {
+    globalSearch,
+    setGlobalSearch,
+    setGlobalAddress,
+    isSearchContinue,
+    setIsSearchContinue,
+  } = useMainContext();
   const handleButtonClick = (buttonType) => {
     setActiveButton(buttonType);
     setShowSearchBody(true);
   };
-
-  
 
   return (
     <div className="locationContainer">
@@ -56,6 +61,7 @@ export default function Location() {
             Manuel Arama
           </button>
         </div>
+            {/* {isSearchContinue ? Loading.standard() :() } */}
         <div className="locationContentBody">
           <div className="closeSearch">
             {showSearchBody === true ? (
@@ -73,8 +79,8 @@ export default function Location() {
 
           {activeButton === "textSearch" && <TextSearch />}
           {activeButton === "locationSearch" && <LocationSearch />}
-          {activeButton=== "manuelSearch"&& <ManuelSearch/>}
-          {activeButton=== "linkSearch"&& <LinkSearch/>}
+          {activeButton === "manuelSearch" && <ManuelSearch />}
+          {activeButton === "linkSearch" && <LinkSearch />}
         </div>
         {globalSearch.length > 0 && <SearchTable />}
       </div>

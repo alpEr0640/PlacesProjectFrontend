@@ -4,33 +4,184 @@ import axios from "axios";
 import { Loading, Notify } from "notiflix";
 import { useMainContext } from "../MainContext";
 import { useAuth } from "../AuthContext";
+import { Block } from "notiflix/build/notiflix-block-aio";
+import countries from "../Json/regionCodes.json";
 export default function ManuelSearch() {
+  const [country, setCountry] = useState("");
   const [city, setCity] = useState("");
   const [type, setType] = useState("");
   const [state, setState] = useState("");
-  const [temp, setTemp] = useState(false);
   const [adress, setAdress] = useState("");
   const apiKey = process.env.REACT_APP_APIKEY;
   const [trigger, setTrigger] = useState(false);
-  const [tempArray, setTempArray] = useState("");
-  const [locationY, setLocationY] = useState(null);
-  const [locationX, setLocationX] = useState(null);
-  const [country, setCountry] = useState("");
+  /* const [tempArray, setTempArray] = useState(""); */
+
   const backendurl = process.env.REACT_APP_BACKEND_URL;
   const [nextPageToken, setNextPageToken] = useState("");
-
-  const { setGlobalSearch, globalSearch, globalAddress, setGlobalAddress } =
-    useMainContext();
-  const [emailCheckTemp, setEmailCheckTemp] = useState(false);
+  const {
+    setGlobalSearch,
+    globalSearch,
+    globalAddress,
+    setGlobalAddress,
+    divide2,
+    edge,
+    setEdge,
+    smallObject,
+    divideTrigger,
+    setDivideTrigger,
+    isSearchContinue,
+    setIsSearchContinue,
+    dataCount,
+    setDataCount,
+    divide1,
+    divide4,
+    middleObject,
+  } = useMainContext();
   const { validateToken } = useAuth();
-  const [jobID, setJobID] = useState("0");
-  const [jobIDCheck, setJobIDCheck] = useState(false);
+  let tempArray = [];
+  let tempLength = 0;
+
+  const wait = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
   useEffect(() => {
-    if (locationX !== null && locationY !== null) {
-      checkQuota();
+    setDivideTrigger(false);
+  }, []);
+
+  useEffect(() => {
+    if (divideTrigger) {
+      const normalArama = async () => {
+        try {
+          const array = Object.entries(smallObject);
+          const rightLat = array[0][1].right[1];
+          const rightLng = array[0][1].right[0];
+          const leftLat = array[0][1].left[1];
+          const leftLng = array[0][1].left[0];
+          await checkQuota(parseInt(1));
+          await handleTextSearch("", rightLat, rightLng, leftLat, leftLng);
+          const Id = await checkEmail(tempArray);
+          const root = await scrapStatus(Id);
+          const quotaResponse = await decreaseQuota();
+          setGlobalSearch((globalSearch) => [...globalSearch, ...root]);
+
+          console.log("global search Uzunluğu:", globalSearch.length);
+          Loading.remove();
+          if (globalSearch.length === 0) {
+            Notify.failure("Veri Bulunamadı");
+          }
+          tempArray = [];
+        } catch (error) {
+          Loading.remove();
+        }
+
+        setIsSearchContinue(false);
+      };
+      const ikiyeBol = async () => {
+        try {
+          for (const index of Object.entries(smallObject)) {
+            const rightLat = index[1].right[1];
+            const rightLng = index[1].right[0];
+            const leftLat = index[1].left[1];
+            const leftLng = index[1].left[0];
+            await checkQuota(parseInt(2));
+            await handleTextSearch("", rightLat, rightLng, leftLat, leftLng);
+            const Id = await checkEmail(tempArray);
+            const root = await scrapStatus(Id);
+            const quotaResponse = await decreaseQuota();
+            setGlobalSearch((globalSearch) => [...globalSearch, ...root]);
+            tempLength += root.length;
+            Loading.remove();
+            if (isSearchContinue) {
+              Block.dots(
+                ".locationContentBody",
+                "Lütfen Sayfayı Yenilemeyin Sizin İçin Arama Yapmaya Devam Ediyoruz ",
+                {
+                  backgroundColor: "#000000cc",
+                  cssAnimationDuration: 500,
+                  svgColor: "#00b4c4",
+                  messageMaxLength: "100",
+                  svgSize: "100px",
+                  messageFontSize: "15px",
+                  messageColor: "#FFF",
+                }
+              );
+            }
+            if (globalSearch.length === 0) {
+              Notify.failure("Veri Bulunamadı");
+            }
+            tempArray = [];
+          }
+          const increment = 2 - Math.ceil(tempLength / 60);
+          const increaseResponse = increaseQuota(parseInt(increment));
+        } catch (error) {
+          Loading.remove();
+          Block.remove(".locationContentBody");
+        }
+
+        setIsSearchContinue(false);
+        Block.remove(".locationContentBody");
+      };
+      const dordeBol = async () => {
+        console.log("3");
+
+        console.log("if kontrol");
+        try {
+          for (const index of Object.entries(middleObject)) {
+            const rightLat = index[1].right[1];
+            const rightLng = index[1].right[0];
+            const leftLat = index[1].left[1];
+            const leftLng = index[1].left[0];
+            await checkQuota(parseInt(4));
+            await handleTextSearch("", rightLat, rightLng, leftLat, leftLng);
+            const Id = await checkEmail(tempArray);
+            const root = await scrapStatus(Id);
+            const quotaResponse = await decreaseQuota();
+            setGlobalSearch((globalSearch) => [...globalSearch, ...root]);
+            tempLength += root.length;
+            Loading.remove();
+            if (isSearchContinue) {
+              Block.dots(
+                ".locationContentBody",
+                "Lütfen Sayfayı Yenilemeyin Sizin İçin Arama Yapmaya Devam Ediyoruz ",
+                {
+                  backgroundColor: "#000000cc",
+                  cssAnimationDuration: 500,
+                  svgColor: "#00b4c4",
+                  messageMaxLength: "100",
+                  svgSize: "100px",
+                  messageFontSize: "15px",
+                  messageColor: "#FFF",
+                }
+              );
+            }
+            if (globalSearch.length === 0) {
+              Notify.failure("Veri Bulunamadı");
+            }
+            tempArray = [];
+          }
+          const increment = 4 - Math.ceil(tempLength / 60);
+          const increaseResponse = increaseQuota(parseInt(increment));
+        } catch (error) {
+          Loading.remove();
+          Block.remove(".locationContentBody");
+        }
+
+        setIsSearchContinue(false);
+        Block.remove(".locationContentBody");
+      };
+
+      if (dataCount === "60") {
+        normalArama();
+      }
+      if (dataCount === "120") {
+        ikiyeBol();
+      }
+      if (dataCount === "240") {
+        dordeBol();
+      }
     }
-  }, [locationX, locationY, trigger]);
+    setDivideTrigger(false);
+  }, [divideTrigger]);
+
   const handleGeocode = async () => {
     const fullAdress = country + " " + city + " " + state + " " + adress;
     setGlobalAddress(fullAdress + ", " + type);
@@ -42,110 +193,120 @@ export default function ManuelSearch() {
       );
       const data = response.data;
       if (data.results.length > 0) {
+        console.log(data);
         const location = data.results[0].geometry.location;
 
-        setLocationX(location.lat);
-        setLocationY(location.lng);
-
-        /* setTrigger(prev => !prev);  */
+        return {
+          lat: location.lat,
+          lng: location.lng,
+        };
       } else {
-        Notify.failure("Adres Bulunamadı");
         Loading.remove();
         throw new Error();
       }
     } catch (e) {
       Loading.remove();
-      Notify.failure("Server Hatası");
-
       console.log(e);
+      throw e;
     }
   };
 
-  const checkQuota = async (pageToken = "") => {
+  const checkQuota = async (count) => {
     const token = window.localStorage.getItem("token");
     //! kota kontrol isteği
     try {
-      const checkQuotaRes = await axios.get(`${backendurl}home/checkQuota`, {
-        headers: {
-          Authorization: token,
-        },
-      });
-
-      if (checkQuotaRes.data.result === true) {
-        handleTextSearch();
-      }
+      const checkQuotaRes = await axios.get(
+        `${backendurl}home/checkQuota/${count}`,
+        {
+          headers: {
+            Authorization: token,
+          },
+        }
+      );
     } catch (e) {
       if (e.response.status === 429) {
         Notify.failure("Çok Fazla İstek Göndermeye Çalıştınız");
         Loading.remove();
-      }
-      if (e.response.status === 403) {
+      } else if (e.response.status === 403) {
         if (e.response.data.err) {
           Notify.failure("Kotanız Bulunmamaktadır");
           Loading.remove();
         } else {
           Loading.remove();
         }
-      }
-      if (e.response.status === 402) {
+      } else if (e.response.status === 402) {
         Notify.failure("Aboneliğiniz Bulunmamaktadır");
         Loading.remove();
       } else {
         Notify.failure("Beklenmedik Bİr Hatayla Karşılaştık");
         Loading.remove();
       }
+      throw e;
     }
   };
 
-  const handleTextSearch = async (pageToken) => {
-    console.log(locationX, " ", locationY);
+  const handleTextSearch = async (
+    pageToken,
+    rightLat,
+    rightLng,
+    leftLat,
+    leftLng
+  ) => {
     try {
       const response = await axios.post(
         "https://places.googleapis.com/v1/places:searchText",
         {
+          regionCode: "uz",
           textQuery: type,
-          languageCode:"uz",
-          /* regionCode: "uz", */
-          locationBias: {
-            circle: {
-              center: { latitude: locationX, longitude: locationY },
-              radius: 50000,
+          locationRestriction: {
+            rectangle: {
+              low: {
+                latitude: leftLat,
+                longitude: leftLng,
+              },
+              high: {
+                latitude: rightLat,
+                longitude: rightLng,
+              },
             },
           },
-          rankPreference: "DISTANCE",
+          pageSize: 20,
           pageToken: pageToken,
+          rankPreference: "RELEVANCE",
         },
         {
           headers: {
             "Content-Type": "application/json",
             "X-Goog-Api-Key": apiKey,
             "X-Goog-FieldMask":
-              "places.displayName,places.formattedAddress,places.userRatingCount,nextPageToken,places.websiteUri,places.internationalPhoneNumber",
+              "places.displayName,places.formattedAddress,nextPageToken,places.websiteUri,places.internationalPhoneNumber",
           },
         }
       );
 
       if (response.data.places) {
         const newPlaces = response.data.places;
-        setTempArray((tempArray) => [...tempArray, ...newPlaces]);
-        setGlobalSearch("");
-      } else {
-        Notify.failure("Sonuç Bulunamadı");
+        response.data.places.map((index) => {
+          tempArray.push(index);
+        });
       }
 
       if (response.data.nextPageToken) {
-        handleTextSearch((pageToken = response.data.nextPageToken));
+        console.log("next page geldi");
+        await handleTextSearch(
+          response.data.nextPageToken,
+          rightLat,
+          rightLng,
+          leftLat,
+          leftLng
+        );
       } else {
+        console.log("next Page gelmedi");
         setNextPageToken("");
-        if (response.status === 200) {
-          setEmailCheckTemp(true);
-          setJobIDCheck(true);
-        }
       }
     } catch (e) {
       console.log(e);
-      setEmailCheckTemp(false);
-      setJobIDCheck(false);
+
       if (e.response) {
         if (e.response.status === 400) {
           Notify.failure("Arama Tipi Boş Olamaz");
@@ -157,14 +318,8 @@ export default function ManuelSearch() {
       Loading.remove();
     }
   };
-  useEffect(() => {
-    if (emailCheckTemp) {
-      checkEmail(tempArray);
-    }
-  }, [emailCheckTemp]);
 
   const checkEmail = async (tempArray) => {
-    console.log("deneme 2");
     const token = window.localStorage.getItem("token");
     try {
       const response = await axios.post(
@@ -177,12 +332,15 @@ export default function ManuelSearch() {
           timeout: 300000,
         }
       );
-      if (response.status === 200) {
-        setJobID(response.data.jobId);
+
+      if (response.data.jobId) {
+        return response.data.jobId;
+      } else {
+        throw new Error();
       }
     } catch (e) {
-      setEmailCheckTemp(false);
-      setJobIDCheck(false);
+      console.log(e);
+
       if (e.response) {
         if (e.response.status === 400) {
           Loading.remove();
@@ -197,44 +355,37 @@ export default function ManuelSearch() {
         Notify.failure("Beklenmeyen Bir Hatayla Karşılaşıldı");
         Loading.remove();
       }
+      throw e;
     }
   };
-  useEffect(() => {
-    if (jobIDCheck) {
-      scrapStatus(jobID);
-    }
-  }, [jobID]);
 
   const scrapStatus = async (jobId) => {
-    console.log("deneme 3");
     const token = window.localStorage.getItem("token");
-    console.log("jobId: ", jobId);
+    let result = null;
     try {
-      const response = await axios.get(
-        `${backendurl}home/getScrapStatus/${jobId}`,
-        {
-          headers: {
-            Authorization: token,
-          },
+      do {
+        console.log("asdfg");
+        const response = await axios.get(
+          `${backendurl}home/getScrapStatus/${jobId}`,
+          {
+            headers: {
+              Authorization: token,
+            },
+          }
+        );
+        if (response.data.result) {
+          result = response.data.result;
+          return result;
         }
-      );
-      if (!response.data.result) {
-        setTimeout(() => scrapStatus(jobId), 5000);
-        console.log("merhaba");
-      } else {
-        setTempArray(response.data.result); //responseyi kontrol et oraya dizi göndermen gerekiyor
-        decreaseQuota();
-      }
-      console.log(response);
+        await wait(5000);
+      } while (!result);
     } catch (e) {
-      setEmailCheckTemp(false);
-      setJobIDCheck(false);
       console.log(e);
+      throw e;
     }
   };
 
   const decreaseQuota = async () => {
-    console.log("deneme 4");
     const token = window.localStorage.getItem("token");
     try {
       const decreaseQuotaRes = await axios.put(
@@ -246,56 +397,95 @@ export default function ManuelSearch() {
           },
         }
       );
-      setTemp(!temp);
-      Notify.info("Arama Tamamlandı");
+      return true;
     } catch (e) {
-      setEmailCheckTemp(false);
-      setJobIDCheck(false);
       Loading.remove();
       Notify.failure("Beklenmeyen Bir Hata Oluştu");
+      throw e;
+    }
+  };
+
+  const increaseQuota = async (increment = 0) => {
+    const token = window.localStorage.getItem("token");
+    try {
+      const response = await axios.put(
+        `${backendurl}home/increaseQuota`,
+        {
+          increment: increment,
+        },
+        {
+          headers: {
+            Authorization: token,
+          },
+        }
+      );
+      return true;
+    } catch (e) {
+      Loading.remove();
+      Notify.failure("Beklenmeyen Bir Hata Oluştu");
+      throw e;
     }
   };
 
   useEffect(() => {
-    setGlobalSearch((globalSearch) => [...globalSearch, ...tempArray]);
-    Loading.remove();
-    setTempArray("");
-  }, [temp]);
-  useEffect(() => {
     window.localStorage.setItem("mySearch", JSON.stringify(globalSearch));
     window.localStorage.setItem("myAddress", globalAddress);
+    console.log("globalSearch", globalSearch);
   }, [globalSearch]);
 
   const handleButtonClick = async () => {
-    setEmailCheckTemp(false);
-    setJobIDCheck(false);
+    tempLength = 0;
+    tempArray = [];
+    setIsSearchContinue(true);
+    setDivideTrigger(false);
     const token = window.localStorage.getItem("token");
     validateToken(token);
     Loading.standard("Sayfayı Yenilemeyin, Sizin İçin Araştırma Yapıyoruz", {
       svgColor: "#00B4C4",
       messageMaxLength: "70",
     });
-
-    await handleGeocode();
-    setTrigger((prev) => !prev);
+    setGlobalSearch("");
+    try {
+      const coordinates = await handleGeocode();
+      if (dataCount === "60") divide1(coordinates);
+      if (dataCount === "120") divide2(coordinates);
+      if (dataCount === "240") divide4(coordinates);
+    } catch (error) {
+      Notify.failure("Adres Bulunamadı");
+    }
   };
+  useEffect(() => {
+    console.log(country);
+  }, [country]);
   return (
     <div className="manuelSearchContainer">
-      <div className="manuelSearchContent">
+      <div className="manuelSearchContent" id="test">
         <div className="manuelSearchCoordinates">
-          {" "}
-          <input
-            placeholder="Ülke"
-            onBlur={(e) => setCountry(e.target.value)}
-          />
-          <input placeholder="Şehir" onBlur={(e) => setCity(e.target.value)} />
+          <select
+            onChange={(e) => setCountry(e.target.selectedOptions[0].text)}
+          >
+            <option value={""}>-Ülke Seçin-</option>
+            {countries.map((index, key) => (
+              <option key={key} value={index.kod}>
+                {index.Ülkeler}
+              </option>
+            ))}
+          </select>
+          <input placeholder="Adres" onBlur={(e) => setCity(e.target.value)} />
         </div>
         <div className="manuelSearchDetail">
           {" "}
-          <input placeholder="İlçe" onBlur={(e) => setState(e.target.value)} />
+          <select onChange={(e) => setDataCount(e.target.value)}>
+            <option value={60}>-Getirilecek Veri Sayısı-</option>
+            <option value={60}>60</option>
+            <option value={120}>120</option>
+            <option value={240}>240</option>
+          </select>
           <input
-            placeholder="Adres"
-            onBlur={(e) => setAdress(e.target.value)}
+            placeholder="Aranacak Alan Km2"
+            onBlur={(e) => {
+              if (!isNaN(e.target.value)) setEdge(Math.sqrt(e.target.value));
+            }}
           />
         </div>
         <div className="manuelSearchButton">

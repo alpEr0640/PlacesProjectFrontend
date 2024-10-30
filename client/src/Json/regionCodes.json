@@ -1,0 +1,942 @@
+[
+    {
+        "kod": "ad",
+        "Ülkeler": "Andora"
+    },
+    {
+        "kod": "ae",
+        "Ülkeler": "Birleşik Arap Emirlikleri"
+    },
+    {
+        "kod": "af",
+        "Ülkeler": "Afganistan"
+    },
+    {
+        "kod": "ag",
+        "Ülkeler": "Antigua ve Barbuda"
+    },
+    {
+        "kod": "ai",
+        "Ülkeler": "Anguilla"
+    },
+    {
+        "kod": "al",
+        "Ülkeler": "Arnavutluk"
+    },
+    {
+        "kod": "am",
+        "Ülkeler": "Ermenistan"
+    },
+    {
+        "kod": "an",
+        "Ülkeler": "Hollanda Antilleri"
+    },
+    {
+        "kod": "ao",
+        "Ülkeler": "Angola"
+    },
+    {
+        "kod": "aq",
+        "Ülkeler": "Antartika"
+    },
+    {
+        "kod": "ar",
+        "Ülkeler": "Arjantin"
+    },
+    {
+        "kod": "as",
+        "Ülkeler": "Amerikan Samoası"
+    },
+    {
+        "kod": "at",
+        "Ülkeler": "Avusturya"
+    },
+    {
+        "kod": "au",
+        "Ülkeler": "Avustralya"
+    },
+    {
+        "kod": "aw",
+        "Ülkeler": "Aruba"
+    },
+    {
+        "kod": "az",
+        "Ülkeler": "Azerbaycan"
+    },
+    {
+        "kod": "ba",
+        "Ülkeler": "Bosna ve Hersek"
+    },
+    {
+        "kod": "bb",
+        "Ülkeler": "Barbados"
+    },
+    {
+        "kod": "bd",
+        "Ülkeler": "Bangladeş"
+    },
+    {
+        "kod": "be",
+        "Ülkeler": "Belçika"
+    },
+    {
+        "kod": "bf",
+        "Ülkeler": "Burkina Faso"
+    },
+    {
+        "kod": "bg",
+        "Ülkeler": "Bulgaristan"
+    },
+    {
+        "kod": "bh",
+        "Ülkeler": "Bahreyn"
+    },
+    {
+        "kod": "bi",
+        "Ülkeler": "Burundi"
+    },
+    {
+        "kod": "bj",
+        "Ülkeler": "Benin"
+    },
+    {
+        "kod": "bm",
+        "Ülkeler": "Bermuda"
+    },
+    {
+        "kod": "bn",
+        "Ülkeler": "Brunei Darussalam"
+    },
+    {
+        "kod": "bo",
+        "Ülkeler": "Bolivya"
+    },
+    {
+        "kod": "br",
+        "Ülkeler": "Brezilya"
+    },
+    {
+        "kod": "bs",
+        "Ülkeler": "Bahamalar"
+    },
+    {
+        "kod": "bt",
+        "Ülkeler": "Bhutan"
+    },
+    {
+        "kod": "bv",
+        "Ülkeler": "Bouvet Adası"
+    },
+    {
+        "kod": "bw",
+        "Ülkeler": "Botsvana"
+    },
+    {
+        "kod": "by",
+        "Ülkeler": "Belarus"
+    },
+    {
+        "kod": "bz",
+        "Ülkeler": "Belize"
+    },
+    {
+        "kod": "ca",
+        "Ülkeler": "Kanada"
+    },
+    {
+        "kod": "cc",
+        "Ülkeler": "Kokos (Keeling) Adaları"
+    },
+    {
+        "kod": "cd",
+        "Ülkeler": "Kongo, Demokratik Cumhuriyeti"
+    },
+    {
+        "kod": "cf",
+        "Ülkeler": "Orta Afrika Cumhuriyeti"
+    },
+    {
+        "kod": "cg",
+        "Ülkeler": "Kongo"
+    },
+    {
+        "kod": "ch",
+        "Ülkeler": "İsviçre"
+    },
+    {
+        "kod": "ci",
+        "Ülkeler": "Fildişi Sahili"
+    },
+    {
+        "kod": "ck",
+        "Ülkeler": "Cook Adaları"
+    },
+    {
+        "kod": "cl",
+        "Ülkeler": "Şili"
+    },
+    {
+        "kod": "cm",
+        "Ülkeler": "Kamerun"
+    },
+    {
+        "kod": "cn",
+        "Ülkeler": "Çin (Halk Cumhuriyeti)"
+    },
+    {
+        "kod": "co",
+        "Ülkeler": "Kolombiya"
+    },
+    {
+        "kod": "cr",
+        "Ülkeler": "Kosta Rika"
+    },
+    {
+        "kod": "cu",
+        "Ülkeler": "Küba"
+    },
+    {
+        "kod": "cv",
+        "Ülkeler": "Cape Verde"
+    },
+    {
+        "kod": "cx",
+        "Ülkeler": "Christmas Adası"
+    },
+    {
+        "kod": "cy",
+        "Ülkeler": "Kıbrıs Rum Kesimi"
+    },
+    {
+        "kod": "cz",
+        "Ülkeler": "Çek Cumhuriyeti"
+    },
+    {
+        "kod": "de",
+        "Ülkeler": "Almanya"
+    },
+    {
+        "kod": "dj",
+        "Ülkeler": "Cibuti"
+    },
+    {
+        "kod": "dk",
+        "Ülkeler": "Danimarka"
+    },
+    {
+        "kod": "dm",
+        "Ülkeler": "Dominika"
+    },
+    {
+        "kod": "do",
+        "Ülkeler": "Dominik Cumhuriyeti"
+    },
+    {
+        "kod": "dz",
+        "Ülkeler": "Cezayir"
+    },
+    {
+        "kod": "ec",
+        "Ülkeler": "Ekvator"
+    },
+    {
+        "kod": "ee",
+        "Ülkeler": "Estonya"
+    },
+    {
+        "kod": "eg",
+        "Ülkeler": "Mısır"
+    },
+    {
+        "kod": "er",
+        "Ülkeler": "Eritre"
+    },
+    {
+        "kod": "es",
+        "Ülkeler": "İspanya"
+    },
+    {
+        "kod": "et",
+        "Ülkeler": "Etiyopya"
+    },
+    {
+        "kod": "fi",
+        "Ülkeler": "Finlandiya"
+    },
+    {
+        "kod": "fj",
+        "Ülkeler": "Fiji"
+    },
+    {
+        "kod": "fk",
+        "Ülkeler": "Falkland Adaları"
+    },
+    {
+        "kod": "fm",
+        "Ülkeler": "Mikronezya (Federal Devletleri)"
+    },
+    {
+        "kod": "fo",
+        "Ülkeler": "Faroe Adaları"
+    },
+    {
+        "kod": "fr",
+        "Ülkeler": "Fransa"
+    },
+    {
+        "kod": "ga",
+        "Ülkeler": "Gabon"
+    },
+    {
+        "kod": "gb",
+        "Ülkeler": "Birleşik Krallık"
+    },
+    {
+        "kod": "gd",
+        "Ülkeler": "Grenada"
+    },
+    {
+        "kod": "ge",
+        "Ülkeler": "Gürcistan"
+    },
+    {
+        "kod": "gh",
+        "Ülkeler": "Gana"
+    },
+    {
+        "kod": "gi",
+        "Ülkeler": "Cebelitarık"
+    },
+    {
+        "kod": "gl",
+        "Ülkeler": "Grönland"
+    },
+    {
+        "kod": "gm",
+        "Ülkeler": "Gambiya"
+    },
+    {
+        "kod": "gn",
+        "Ülkeler": "Gine"
+    },
+    {
+        "kod": "gq",
+        "Ülkeler": "Ekvator Ginesi"
+    },
+    {
+        "kod": "gr",
+        "Ülkeler": "Yunanistan"
+    },
+    {
+        "kod": "gs",
+        "Ülkeler": "Güney Georgia ve Güney"
+    },
+    {
+        "kod": "gt",
+        "Ülkeler": "Guatemala"
+    },
+    {
+        "kod": "gu",
+        "Ülkeler": "Guam"
+    },
+    {
+        "kod": "gw",
+        "Ülkeler": "Gine-Bissau"
+    },
+    {
+        "kod": "gy",
+        "Ülkeler": "Guyana"
+    },
+    {
+        "kod": "hk",
+        "Ülkeler": "Hong Kong"
+    },
+    {
+        "kod": "hm",
+        "Ülkeler": "Heard Adası ve McDonald"
+    },
+    {
+        "kod": "hn",
+        "Ülkeler": "Honduras"
+    },
+    {
+        "kod": "hr",
+        "Ülkeler": "Hırvatistan"
+    },
+    {
+        "kod": "ht",
+        "Ülkeler": "Haiti"
+    },
+    {
+        "kod": "hu",
+        "Ülkeler": "Macaristan"
+    },
+    {
+        "kod": "id",
+        "Ülkeler": "Endonezya"
+    },
+    {
+        "kod": "ie",
+        "Ülkeler": "İrlanda"
+    },
+    {
+        "kod": "il",
+        "Ülkeler": "İsrail"
+    },
+    {
+        "kod": "in",
+        "Ülkeler": "Hindistan"
+    },
+    {
+        "kod": "io",
+        "Ülkeler": "İngiliz Hint Okyanusu Toprağı"
+    },
+    {
+        "kod": "iq",
+        "Ülkeler": "Irak"
+    },
+    {
+        "kod": "ir",
+        "Ülkeler": "İran, İslam Cumhuriyeti"
+    },
+    {
+        "kod": "is",
+        "Ülkeler": "İzlanda"
+    },
+    {
+        "kod": "it",
+        "Ülkeler": "İtalya"
+    },
+    {
+        "kod": "jm",
+        "Ülkeler": "Jamaika"
+    },
+    {
+        "kod": "jo",
+        "Ülkeler": "Ürdün"
+    },
+    {
+        "kod": "jp",
+        "Ülkeler": "Japonya"
+    },
+    {
+        "kod": "ke",
+        "Ülkeler": "Kenya"
+    },
+    {
+        "kod": "kg",
+        "Ülkeler": "Kırgızistan"
+    },
+    {
+        "kod": "kh",
+        "Ülkeler": "Kamboçya"
+    },
+    {
+        "kod": "ki",
+        "Ülkeler": "Kiribati"
+    },
+    {
+        "kod": "km",
+        "Ülkeler": "Komor"
+    },
+    {
+        "kod": "kn",
+        "Ülkeler": "St Kitts ve Nevis"
+    },
+    {
+        "kod": "kp",
+        "Ülkeler": "Kore, Demokratik Halk Cumhuriyeti"
+    },
+    {
+        "kod": "kr",
+        "Ülkeler": "Kore Cumhuriyeti"
+    },
+    {
+        "kod": "kw",
+        "Ülkeler": "Kuveyt"
+    },
+    {
+        "kod": "ky",
+        "Ülkeler": "Kayman Adaları"
+    },
+    {
+        "kod": "kz",
+        "Ülkeler": "Kazakistan"
+    },
+    {
+        "kod": "la",
+        "Ülkeler": "Laos Halk Demokratik Cumhuriyeti"
+    },
+    {
+        "kod": "lb",
+        "Ülkeler": "Lübnan"
+    },
+    {
+        "kod": "lc",
+        "Ülkeler": "St Lucia"
+    },
+    {
+        "kod": "li",
+        "Ülkeler": "Lihtenştayn"
+    },
+    {
+        "kod": "lk",
+        "Ülkeler": "Sri Lanka"
+    },
+    {
+        "kod": "lr",
+        "Ülkeler": "Liberya"
+    },
+    {
+        "kod": "ls",
+        "Ülkeler": "Lesotho"
+    },
+    {
+        "kod": "lt",
+        "Ülkeler": "Litvanya"
+    },
+    {
+        "kod": "lu",
+        "Ülkeler": "Lüksemburg"
+    },
+    {
+        "kod": "lv",
+        "Ülkeler": "Letonya"
+    },
+    {
+        "kod": "ly",
+        "Ülkeler": "Libya Cemahiriyesi"
+    },
+    {
+        "kod": "ma",
+        "Ülkeler": "Fas"
+    },
+    {
+        "kod": "md",
+        "Ülkeler": "Moldova Cumhuriyeti"
+    },
+    {
+        "kod": "me",
+        "Ülkeler": "Karadağ"
+    },
+    {
+        "kod": "mg",
+        "Ülkeler": "Madagaskar"
+    },
+    {
+        "kod": "mh",
+        "Ülkeler": "Marshall Adaları"
+    },
+    {
+        "kod": "mk",
+        "Ülkeler": "Makedonya Eski Yugoslav Cumhuriyeti"
+    },
+    {
+        "kod": "ml",
+        "Ülkeler": "Mali"
+    },
+    {
+        "kod": "mm",
+        "Ülkeler": "Myanmar"
+    },
+    {
+        "kod": "mn",
+        "Ülkeler": "Moğolistan"
+    },
+    {
+        "kod": "mo",
+        "Ülkeler": "Makao"
+    },
+    {
+        "kod": "mp",
+        "Ülkeler": "Kuzey Mariana Adaları"
+    },
+    {
+        "kod": "mr",
+        "Ülkeler": "Moritanya"
+    },
+    {
+        "kod": "ms",
+        "Ülkeler": "Montserrat"
+    },
+    {
+        "kod": "mt",
+        "Ülkeler": "Malta"
+    },
+    {
+        "kod": "mu",
+        "Ülkeler": "Mauritius"
+    },
+    {
+        "kod": "mv",
+        "Ülkeler": "Maldivler"
+    },
+    {
+        "kod": "mw",
+        "Ülkeler": "Malavi"
+    },
+    {
+        "kod": "mx",
+        "Ülkeler": "Meksika"
+    },
+    {
+        "kod": "my",
+        "Ülkeler": "Malezya"
+    },
+    {
+        "kod": "mz",
+        "Ülkeler": "Mozambik"
+    },
+    {
+        "kod": "na",
+        "Ülkeler": "Namibya"
+    },
+    {
+        "kod": "nc",
+        "Ülkeler": "Yeni Kaledonya"
+    },
+    {
+        "kod": "ne",
+        "Ülkeler": "Nijer"
+    },
+    {
+        "kod": "nf",
+        "Ülkeler": "Norfolk Adası"
+    },
+    {
+        "kod": "ng",
+        "Ülkeler": "Nijerya"
+    },
+    {
+        "kod": "ni",
+        "Ülkeler": "Nikaragua"
+    },
+    {
+        "kod": "nl",
+        "Ülkeler": "Hollanda"
+    },
+    {
+        "kod": "no",
+        "Ülkeler": "Norveç"
+    },
+    {
+        "kod": "np",
+        "Ülkeler": "Nepal"
+    },
+    {
+        "kod": "nr",
+        "Ülkeler": "Nauru"
+    },
+    {
+        "kod": "nu",
+        "Ülkeler": "Niue"
+    },
+    {
+        "kod": "nz",
+        "Ülkeler": "Yeni Zelanda"
+    },
+    {
+        "kod": "om",
+        "Ülkeler": "Umman"
+    },
+    {
+        "kod": "pa",
+        "Ülkeler": "Panama"
+    },
+    {
+        "kod": "pe",
+        "Ülkeler": "Peru"
+    },
+    {
+        "kod": "pf",
+        "Ülkeler": "Fransız Polinezyası"
+    },
+    {
+        "kod": "pg",
+        "Ülkeler": "Papua Yeni Gine"
+    },
+    {
+        "kod": "ph",
+        "Ülkeler": "Filipinler"
+    },
+    {
+        "kod": "pk",
+        "Ülkeler": "Pakistan"
+    },
+    {
+        "kod": "pl",
+        "Ülkeler": "Polonya"
+    },
+    {
+        "kod": "pm",
+        "Ülkeler": "Saint Pierre ve Mikelon"
+    },
+    {
+        "kod": "pn",
+        "Ülkeler": "Pitcairn"
+    },
+    {
+        "kod": "ps",
+        "Ülkeler": "İşgal altındaki Filistin Toprağı"
+    },
+    {
+        "kod": "pt",
+        "Ülkeler": "Portekiz"
+    },
+    {
+        "kod": "pw",
+        "Ülkeler": "Palau"
+    },
+    {
+        "kod": "py",
+        "Ülkeler": "Paraguay"
+    },
+    {
+        "kod": "qa",
+        "Ülkeler": "Katar"
+    },
+    {
+        "kod": "ro",
+        "Ülkeler": "Romanya"
+    },
+    {
+        "kod": "rs",
+        "Ülkeler": "Sırbistan"
+    },
+    {
+        "kod": "ru",
+        "Ülkeler": "Rusya Federasyonu"
+    },
+    {
+        "kod": "rw",
+        "Ülkeler": "Ruanda"
+    },
+    {
+        "kod": "sa",
+        "Ülkeler": "Suudi Arabistan"
+    },
+    {
+        "kod": "sb",
+        "Ülkeler": "Solomon Adaları"
+    },
+    {
+        "kod": "sc",
+        "Ülkeler": "Seyşeller"
+    },
+    {
+        "kod": "sd",
+        "Ülkeler": "Sudan"
+    },
+    {
+        "kod": "se",
+        "Ülkeler": "İsveç"
+    },
+    {
+        "kod": "sg",
+        "Ülkeler": "Singapur"
+    },
+    {
+        "kod": "sh",
+        "Ülkeler": "Saint Helena"
+    },
+    {
+        "kod": "si",
+        "Ülkeler": "Slovenya"
+    },
+    {
+        "kod": "sk",
+        "Ülkeler": "Slovakya"
+    },
+    {
+        "kod": "sl",
+        "Ülkeler": "Sierra Leone"
+    },
+    {
+        "kod": "sm",
+        "Ülkeler": "San Marino"
+    },
+    {
+        "kod": "sn",
+        "Ülkeler": "Senegal"
+    },
+    {
+        "kod": "so",
+        "Ülkeler": "Somali"
+    },
+    {
+        "kod": "sr",
+        "Ülkeler": "Surinam"
+    },
+    {
+        "kod": "ss",
+        "Ülkeler": "Güney Sudan"
+    },
+    {
+        "kod": "st",
+        "Ülkeler": "Sao Tome ve Principe"
+    },
+    {
+        "kod": "sv",
+        "Ülkeler": "El Salvador"
+    },
+    {
+        "kod": "sy",
+        "Ülkeler": "Suriye Arap Cumhuriyeti"
+    },
+    {
+        "kod": "sz",
+        "Ülkeler": "Svaziland"
+    },
+    {
+        "kod": "tc",
+        "Ülkeler": "Turks ve Caicos Adaları"
+    },
+    {
+        "kod": "td",
+        "Ülkeler": "Çad"
+    },
+    {
+        "kod": "tf",
+        "Ülkeler": "Fransız Güney Toprakları"
+    },
+    {
+        "kod": "tg",
+        "Ülkeler": "Togo"
+    },
+    {
+        "kod": "th",
+        "Ülkeler": "Tayland"
+    },
+    {
+        "kod": "tj",
+        "Ülkeler": "Tacikistan"
+    },
+    {
+        "kod": "tk",
+        "Ülkeler": "Tokelau"
+    },
+    {
+        "kod": "tl",
+        "Ülkeler": "Doğu Timor"
+    },
+    {
+        "kod": "tm",
+        "Ülkeler": "Türkmenistan"
+    },
+    {
+        "kod": "tn",
+        "Ülkeler": "Tunus"
+    },
+    {
+        "kod": "to",
+        "Ülkeler": "Tonga"
+    },
+    {
+        "kod": "tr",
+        "Ülkeler": "Türkiye"
+    },
+    {
+        "kod": "tt",
+        "Ülkeler": "Trinidad ve Tobago"
+    },
+    {
+        "kod": "tv",
+        "Ülkeler": "Tuvalu"
+    },
+    {
+        "kod": "tw",
+        "Ülkeler": "Tayvan"
+    },
+    {
+        "kod": "tz",
+        "Ülkeler": "Tanzanya Birleşik Cumhuriyeti"
+    },
+    {
+        "kod": "ua",
+        "Ülkeler": "Ukrayna"
+    },
+    {
+        "kod": "ug",
+        "Ülkeler": "Uganda"
+    },
+    {
+        "kod": "um",
+        "Ülkeler": "Birleşik Devletler Minor Outlying"
+    },
+    {
+        "kod": "us",
+        "Ülkeler": "Birleşik Devletler"
+    },
+    {
+        "kod": "uy",
+        "Ülkeler": "Uruguay"
+    },
+    {
+        "kod": "uz",
+        "Ülkeler": "Özbekistan"
+    },
+    {
+        "kod": "va",
+        "Ülkeler": "Vatikan"
+    },
+    {
+        "kod": "vc",
+        "Ülkeler": "St Vincent ve Grenadinler"
+    },
+    {
+        "kod": "ve",
+        "Ülkeler": "Venezuela"
+    },
+    {
+        "kod": "vg",
+        "Ülkeler": "Virjin Adaları (İngiliz)"
+    },
+    {
+        "kod": "vi",
+        "Ülkeler": "Virjin Adaları (ABD)"
+    },
+    {
+        "kod": "vn",
+        "Ülkeler": "Vietnam"
+    },
+    {
+        "kod": "vu",
+        "Ülkeler": "Vanuatu"
+    },
+    {
+        "kod": "wf",
+        "Ülkeler": "Wallis ve Futuna"
+    },
+    {
+        "kod": "ws",
+        "Ülkeler": "Samoa"
+    },
+    {
+        "kod": "xc",
+        "Ülkeler": "Septe"
+    },
+    {
+        "kod": "xl",
+        "Ülkeler": "Melilla"
+    },
+    {
+        "kod": "ye",
+        "Ülkeler": "Yemen"
+    },
+    {
+        "kod": "yt",
+        "Ülkeler": "Mayot"
+    },
+    {
+        "kod": "za",
+        "Ülkeler": "Güney Afrika"
+    },
+    {
+        "kod": "zm",
+        "Ülkeler": "Zambia"
+    },
+    {
+        "kod": "zw",
+        "Ülkeler": "Zimbabve"
+    }
+]
