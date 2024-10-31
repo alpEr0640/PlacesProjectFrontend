@@ -10,8 +10,6 @@ export default function RegisterUser() {
   const [lastname, setLastname] = useState();
   const [password, setPassword] = useState();
   const [phone, setPhone] = useState();
-  const [quota, setQuota] = useState();
-  const { validateToken } = useAuth();
   const backendurl = process.env.REACT_APP_BACKEND_URL;
 
   // useEffect(() => {
@@ -26,7 +24,6 @@ export default function RegisterUser() {
     setLastname("");
     setPassword("");
     setPhone("");
-    setQuota("");
   };
 
   const submit = async () => {
@@ -36,7 +33,6 @@ export default function RegisterUser() {
       lastname: lastname,
       password: password,
       phone: phone,
-      quota: quota,
     };
 
     const token = localStorage.getItem("token");
@@ -107,14 +103,6 @@ export default function RegisterUser() {
                 setPassword(e.target.value);
               }}
               value={password}
-            />
-            <input
-              placeholder="Kota"
-              type="number"
-              onChange={(e) => {
-                setQuota(e.target.value);
-              }}
-              value={quota}
             />
             <button onClick={submit}> Kaydet </button>
           </div>
