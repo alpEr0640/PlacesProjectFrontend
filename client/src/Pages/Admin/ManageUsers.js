@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 import { Confirm } from "notiflix/build/notiflix-confirm-aio";
 import { Notify } from "notiflix/build/notiflix-notify-aio";
 import EditUserQuotaModal from "./EditUserQuotaModal";
+import EditUserSubModal from "./EditUserSubModal";
 
 export default function ManageUsers() {
   const [users, setUsers] = useState();
@@ -13,6 +14,7 @@ export default function ManageUsers() {
   const [loading, setLoading] = useState(true);
   const [selectedUser, setSelectedUser] = useState(null);
   const [selectedUserQuota, setSelectedUserQuota] = useState(null);
+  const [selectedUserSub, setSelectedUserSub] = useState(null);
   const [editTrigger, setEditTrigger] = useState(false);
   const navigate = useNavigate();
   const getUsers = async (token) => {
@@ -135,10 +137,14 @@ export default function ManageUsers() {
     }
   };
 
-  const handleSubsUpdate = async (user, type) => {
+  const handleSubEditClick = (user) => {
+    setSelectedUserSub(user);
+  };
+
+  const handleSubsUpdate = async (user) => {
     Confirm.show(
       "Kullanıcı Aboneliği",
-      `Kullanıcıya ${type} abonelik tanımlamak istiyor musunuz?`,
+      `Kullanıcıya ${user.subscriptionType} abonelik tanımlamak istiyor musunuz?`,
       "Evet",
       "Hayır",
       // update user subs
@@ -147,7 +153,7 @@ export default function ManageUsers() {
         try {
           var res = await axios.put(
             `${backendurl}admin/updateUserSubscription`,
-            { uid: user.uid, subscriptionType: type },
+            { uid: user.uid, subscriptionType: user.subscriptionType },
             {
               headers: {
                 Authorization: `${token}`,
@@ -179,13 +185,13 @@ export default function ManageUsers() {
 
   const formatDate = (isoDate) => {
     const date = new Date(isoDate);
-    return date.toLocaleString('tr-TR', {
-      year: 'numeric',
-      month: 'long',
-      day: 'numeric',
-      hour: '2-digit',
-      minute: '2-digit',
-      second: '2-digit',
+    return date.toLocaleString("tr-TR", {
+      year: "numeric",
+      month: "long",
+      day: "numeric",
+      hour: "2-digit",
+      minute: "2-digit",
+      second: "2-digit",
     });
   };
 
@@ -248,18 +254,18 @@ export default function ManageUsers() {
                       </button>
                       <button
                         onClick={async () => {
-                          await handleSubsUpdate(user, "monthly");
+                          handleSubEditClick(user);
                         }}
                       >
-                        Aylık Abonelik Güncelle
+                        Abonelik Tanımlama
                       </button>
-                      <button
+                      {/* <button
                         onClick={async () => {
                           await handleSubsUpdate(user, "yearly");
                         }}
                       >
                         Yıllık Abonelik Güncelle
-                      </button>
+                      </button> */}
                     </td>
                   </tr>
                 ))
@@ -288,6 +294,15 @@ export default function ManageUsers() {
             user={selectedUserQuota}
             onClose={() => setSelectedUserQuota(null)}
             onSave={handleQuotaUpdate}
+          />
+        </div>
+      )}
+      {selectedUserSub && (
+        <div className="modal">
+          <EditUserSubModal
+            user={selectedUserSub}
+            onClose={() => setSelectedUserSub(null)}
+            onSave={handleSubsUpdate}
           />
         </div>
       )}
