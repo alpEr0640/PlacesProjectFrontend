@@ -39,7 +39,24 @@
   display: flex;
   margin-bottom: 1rem;
 }
-.manuelSearchButton input {
+.manuelSearchButton form {
+  width: 48%;
+  display: flex;
+}
+.manuelSearchButton label {
+  color: white;
+  width: 50%;
+  height: 3rem;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  margin: 10px 1%;
+  text-indent: 0.5rem;
+}
+
+.manuelSearchType {
   width: 48%;
   height: 3rem;
   border: none;
@@ -47,7 +64,13 @@
   margin: 10px 1%;
   text-indent: 0.5rem;
 }
-.manuelSearchButton button {
+.manuelSearchComplete{
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.manuelSearchComplete button {
   width: 30%;
   height: 3rem;
   border: none;

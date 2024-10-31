@@ -88,7 +88,7 @@ export default function LinkSearch() {
     const token = window.localStorage.getItem("token");
     //! kota kontrol isteği
     try {
-      const checkQuotaRes = await axios.get(`${backendurl}home/checkQuota`, {
+      const checkQuotaRes = await axios.get(`${backendurl}home/checkQuota/1`, {
         headers: {
           Authorization: token,
         },
@@ -142,7 +142,7 @@ export default function LinkSearch() {
             "Content-Type": "application/json",
             "X-Goog-Api-Key": apiKey,
             "X-Goog-FieldMask":
-              "places.displayName,places.formattedAddress,nextPageToken,places.websiteUri,places.internationalPhoneNumber",
+              "places.displayName,places.formattedAddress,nextPageToken,places.websiteUri,places.internationalPhoneNumber,places.rating,places.googleMapsUri",
           },
         }
       );

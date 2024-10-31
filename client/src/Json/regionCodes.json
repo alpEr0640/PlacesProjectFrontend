@@ -1,942 +1,1226 @@
 [
     {
-        "kod": "ad",
-        "Ülkeler": "Andora"
-    },
-    {
-        "kod": "ae",
-        "Ülkeler": "Birleşik Arap Emirlikleri"
-    },
-    {
         "kod": "af",
-        "Ülkeler": "Afganistan"
-    },
-    {
-        "kod": "ag",
-        "Ülkeler": "Antigua ve Barbuda"
-    },
-    {
-        "kod": "ai",
-        "Ülkeler": "Anguilla"
-    },
-    {
-        "kod": "al",
-        "Ülkeler": "Arnavutluk"
-    },
-    {
-        "kod": "am",
-        "Ülkeler": "Ermenistan"
-    },
-    {
-        "kod": "an",
-        "Ülkeler": "Hollanda Antilleri"
-    },
-    {
-        "kod": "ao",
-        "Ülkeler": "Angola"
-    },
-    {
-        "kod": "aq",
-        "Ülkeler": "Antartika"
-    },
-    {
-        "kod": "ar",
-        "Ülkeler": "Arjantin"
-    },
-    {
-        "kod": "as",
-        "Ülkeler": "Amerikan Samoası"
-    },
-    {
-        "kod": "at",
-        "Ülkeler": "Avusturya"
-    },
-    {
-        "kod": "au",
-        "Ülkeler": "Avustralya"
-    },
-    {
-        "kod": "aw",
-        "Ülkeler": "Aruba"
-    },
-    {
-        "kod": "az",
-        "Ülkeler": "Azerbaycan"
-    },
-    {
-        "kod": "ba",
-        "Ülkeler": "Bosna ve Hersek"
-    },
-    {
-        "kod": "bb",
-        "Ülkeler": "Barbados"
-    },
-    {
-        "kod": "bd",
-        "Ülkeler": "Bangladeş"
-    },
-    {
-        "kod": "be",
-        "Ülkeler": "Belçika"
-    },
-    {
-        "kod": "bf",
-        "Ülkeler": "Burkina Faso"
-    },
-    {
-        "kod": "bg",
-        "Ülkeler": "Bulgaristan"
-    },
-    {
-        "kod": "bh",
-        "Ülkeler": "Bahreyn"
-    },
-    {
-        "kod": "bi",
-        "Ülkeler": "Burundi"
-    },
-    {
-        "kod": "bj",
-        "Ülkeler": "Benin"
-    },
-    {
-        "kod": "bm",
-        "Ülkeler": "Bermuda"
-    },
-    {
-        "kod": "bn",
-        "Ülkeler": "Brunei Darussalam"
-    },
-    {
-        "kod": "bo",
-        "Ülkeler": "Bolivya"
-    },
-    {
-        "kod": "br",
-        "Ülkeler": "Brezilya"
-    },
-    {
-        "kod": "bs",
-        "Ülkeler": "Bahamalar"
-    },
-    {
-        "kod": "bt",
-        "Ülkeler": "Bhutan"
-    },
-    {
-        "kod": "bv",
-        "Ülkeler": "Bouvet Adası"
-    },
-    {
-        "kod": "bw",
-        "Ülkeler": "Botsvana"
-    },
-    {
-        "kod": "by",
-        "Ülkeler": "Belarus"
-    },
-    {
-        "kod": "bz",
-        "Ülkeler": "Belize"
-    },
-    {
-        "kod": "ca",
-        "Ülkeler": "Kanada"
-    },
-    {
-        "kod": "cc",
-        "Ülkeler": "Kokos (Keeling) Adaları"
-    },
-    {
-        "kod": "cd",
-        "Ülkeler": "Kongo, Demokratik Cumhuriyeti"
-    },
-    {
-        "kod": "cf",
-        "Ülkeler": "Orta Afrika Cumhuriyeti"
-    },
-    {
-        "kod": "cg",
-        "Ülkeler": "Kongo"
-    },
-    {
-        "kod": "ch",
-        "Ülkeler": "İsviçre"
-    },
-    {
-        "kod": "ci",
-        "Ülkeler": "Fildişi Sahili"
-    },
-    {
-        "kod": "ck",
-        "Ülkeler": "Cook Adaları"
-    },
-    {
-        "kod": "cl",
-        "Ülkeler": "Şili"
-    },
-    {
-        "kod": "cm",
-        "Ülkeler": "Kamerun"
-    },
-    {
-        "kod": "cn",
-        "Ülkeler": "Çin (Halk Cumhuriyeti)"
-    },
-    {
-        "kod": "co",
-        "Ülkeler": "Kolombiya"
-    },
-    {
-        "kod": "cr",
-        "Ülkeler": "Kosta Rika"
-    },
-    {
-        "kod": "cu",
-        "Ülkeler": "Küba"
-    },
-    {
-        "kod": "cv",
-        "Ülkeler": "Cape Verde"
-    },
-    {
-        "kod": "cx",
-        "Ülkeler": "Christmas Adası"
-    },
-    {
-        "kod": "cy",
-        "Ülkeler": "Kıbrıs Rum Kesimi"
-    },
-    {
-        "kod": "cz",
-        "Ülkeler": "Çek Cumhuriyeti"
+        "Ülkeler": "Afganistan",
+        "Dil": "Pashto",
+        "dilKodu": "ps"
     },
     {
         "kod": "de",
-        "Ülkeler": "Almanya"
+        "Ülkeler": "Almanya",
+        "Dil": "German",
+        "dilKodu": "de"
     },
     {
-        "kod": "dj",
-        "Ülkeler": "Cibuti"
+        "kod": "as",
+        "Ülkeler": "Amerikan Samoası",
+        "Dil": "Samoan",
+        "dilKodu": "sm"
     },
     {
-        "kod": "dk",
-        "Ülkeler": "Danimarka"
+        "kod": "ad",
+        "Ülkeler": "Andora",
+        "Dil": "Catalan",
+        "dilKodu": "ca"
     },
     {
-        "kod": "dm",
-        "Ülkeler": "Dominika"
+        "kod": "ao",
+        "Ülkeler": "Angola",
+        "Dil": "Portuguese",
+        "dilKodu": "pt"
     },
     {
-        "kod": "do",
-        "Ülkeler": "Dominik Cumhuriyeti"
+        "kod": "ai",
+        "Ülkeler": "Anguilla",
+        "Dil": "English",
+        "dilKodu": "en"
     },
     {
-        "kod": "dz",
-        "Ülkeler": "Cezayir"
+        "kod": "aq",
+        "Ülkeler": "Antartika",
+        "Dil": "English",
+        "dilKodu": "en"
     },
     {
-        "kod": "ec",
-        "Ülkeler": "Ekvator"
+        "kod": "ag",
+        "Ülkeler": "Antigua ve Barbuda",
+        "Dil": "English",
+        "dilKodu": "en"
     },
     {
-        "kod": "ee",
-        "Ülkeler": "Estonya"
+        "kod": "ar",
+        "Ülkeler": "Arjantin",
+        "Dil": "Spanish",
+        "dilKodu": "es"
     },
     {
-        "kod": "eg",
-        "Ülkeler": "Mısır"
+        "kod": "al",
+        "Ülkeler": "Arnavutluk",
+        "Dil": "Albanian",
+        "dilKodu": "sq"
     },
     {
-        "kod": "er",
-        "Ülkeler": "Eritre"
+        "kod": "au",
+        "Ülkeler": "Avustralya",
+        "Dil": "English",
+        "dilKodu": "en"
     },
     {
-        "kod": "es",
-        "Ülkeler": "İspanya"
+        "kod": "at",
+        "Ülkeler": "Avusturya",
+        "Dil": "German",
+        "dilKodu": "de"
     },
     {
-        "kod": "et",
-        "Ülkeler": "Etiyopya"
+        "kod": "az",
+        "Ülkeler": "Azerbaycan",
+        "Dil": "Azerbaijani",
+        "dilKodu": "az"
     },
     {
-        "kod": "fi",
-        "Ülkeler": "Finlandiya"
+        "kod": "bs",
+        "Ülkeler": "Bahamalar",
+        "Dil": "English",
+        "dilKodu": "en"
     },
     {
-        "kod": "fj",
-        "Ülkeler": "Fiji"
+        "kod": "bh",
+        "Ülkeler": "Bahreyn",
+        "Dil": "Arabic",
+        "dilKodu": "ar"
     },
     {
-        "kod": "fk",
-        "Ülkeler": "Falkland Adaları"
+        "kod": "bd",
+        "Ülkeler": "Bangladeş",
+        "Dil": "Bengali",
+        "dilKodu": "bn"
     },
     {
-        "kod": "fm",
-        "Ülkeler": "Mikronezya (Federal Devletleri)"
+        "kod": "bb",
+        "Ülkeler": "Barbados",
+        "Dil": "English",
+        "dilKodu": "en"
     },
     {
-        "kod": "fo",
-        "Ülkeler": "Faroe Adaları"
+        "kod": "by",
+        "Ülkeler": "Belarus",
+        "Dil": "Russian",
+        "dilKodu": "ru"
     },
     {
-        "kod": "fr",
-        "Ülkeler": "Fransa"
+        "kod": "be",
+        "Ülkeler": "Belçika",
+        "Dil": "Dutch",
+        "dilKodu": "nl"
     },
     {
-        "kod": "ga",
-        "Ülkeler": "Gabon"
+        "kod": "bz",
+        "Ülkeler": "Belize",
+        "Dil": "English",
+        "dilKodu": "en"
     },
     {
-        "kod": "gb",
-        "Ülkeler": "Birleşik Krallık"
+        "kod": "bj",
+        "Ülkeler": "Benin",
+        "Dil": "French",
+        "dilKodu": "fr"
     },
     {
-        "kod": "gd",
-        "Ülkeler": "Grenada"
+        "kod": "bm",
+        "Ülkeler": "Bermuda",
+        "Dil": "English",
+        "dilKodu": "en"
     },
     {
-        "kod": "ge",
-        "Ülkeler": "Gürcistan"
-    },
-    {
-        "kod": "gh",
-        "Ülkeler": "Gana"
-    },
-    {
-        "kod": "gi",
-        "Ülkeler": "Cebelitarık"
-    },
-    {
-        "kod": "gl",
-        "Ülkeler": "Grönland"
-    },
-    {
-        "kod": "gm",
-        "Ülkeler": "Gambiya"
-    },
-    {
-        "kod": "gn",
-        "Ülkeler": "Gine"
-    },
-    {
-        "kod": "gq",
-        "Ülkeler": "Ekvator Ginesi"
-    },
-    {
-        "kod": "gr",
-        "Ülkeler": "Yunanistan"
-    },
-    {
-        "kod": "gs",
-        "Ülkeler": "Güney Georgia ve Güney"
-    },
-    {
-        "kod": "gt",
-        "Ülkeler": "Guatemala"
-    },
-    {
-        "kod": "gu",
-        "Ülkeler": "Guam"
-    },
-    {
-        "kod": "gw",
-        "Ülkeler": "Gine-Bissau"
-    },
-    {
-        "kod": "gy",
-        "Ülkeler": "Guyana"
-    },
-    {
-        "kod": "hk",
-        "Ülkeler": "Hong Kong"
-    },
-    {
-        "kod": "hm",
-        "Ülkeler": "Heard Adası ve McDonald"
-    },
-    {
-        "kod": "hn",
-        "Ülkeler": "Honduras"
-    },
-    {
-        "kod": "hr",
-        "Ülkeler": "Hırvatistan"
-    },
-    {
-        "kod": "ht",
-        "Ülkeler": "Haiti"
-    },
-    {
-        "kod": "hu",
-        "Ülkeler": "Macaristan"
-    },
-    {
-        "kod": "id",
-        "Ülkeler": "Endonezya"
-    },
-    {
-        "kod": "ie",
-        "Ülkeler": "İrlanda"
-    },
-    {
-        "kod": "il",
-        "Ülkeler": "İsrail"
-    },
-    {
-        "kod": "in",
-        "Ülkeler": "Hindistan"
-    },
-    {
-        "kod": "io",
-        "Ülkeler": "İngiliz Hint Okyanusu Toprağı"
-    },
-    {
-        "kod": "iq",
-        "Ülkeler": "Irak"
-    },
-    {
-        "kod": "ir",
-        "Ülkeler": "İran, İslam Cumhuriyeti"
-    },
-    {
-        "kod": "is",
-        "Ülkeler": "İzlanda"
-    },
-    {
-        "kod": "it",
-        "Ülkeler": "İtalya"
-    },
-    {
-        "kod": "jm",
-        "Ülkeler": "Jamaika"
-    },
-    {
-        "kod": "jo",
-        "Ülkeler": "Ürdün"
-    },
-    {
-        "kod": "jp",
-        "Ülkeler": "Japonya"
-    },
-    {
-        "kod": "ke",
-        "Ülkeler": "Kenya"
-    },
-    {
-        "kod": "kg",
-        "Ülkeler": "Kırgızistan"
-    },
-    {
-        "kod": "kh",
-        "Ülkeler": "Kamboçya"
-    },
-    {
-        "kod": "ki",
-        "Ülkeler": "Kiribati"
-    },
-    {
-        "kod": "km",
-        "Ülkeler": "Komor"
-    },
-    {
-        "kod": "kn",
-        "Ülkeler": "St Kitts ve Nevis"
-    },
-    {
-        "kod": "kp",
-        "Ülkeler": "Kore, Demokratik Halk Cumhuriyeti"
-    },
-    {
-        "kod": "kr",
-        "Ülkeler": "Kore Cumhuriyeti"
-    },
-    {
-        "kod": "kw",
-        "Ülkeler": "Kuveyt"
-    },
-    {
-        "kod": "ky",
-        "Ülkeler": "Kayman Adaları"
-    },
-    {
-        "kod": "kz",
-        "Ülkeler": "Kazakistan"
-    },
-    {
-        "kod": "la",
-        "Ülkeler": "Laos Halk Demokratik Cumhuriyeti"
-    },
-    {
-        "kod": "lb",
-        "Ülkeler": "Lübnan"
-    },
-    {
-        "kod": "lc",
-        "Ülkeler": "St Lucia"
-    },
-    {
-        "kod": "li",
-        "Ülkeler": "Lihtenştayn"
-    },
-    {
-        "kod": "lk",
-        "Ülkeler": "Sri Lanka"
-    },
-    {
-        "kod": "lr",
-        "Ülkeler": "Liberya"
-    },
-    {
-        "kod": "ls",
-        "Ülkeler": "Lesotho"
-    },
-    {
-        "kod": "lt",
-        "Ülkeler": "Litvanya"
-    },
-    {
-        "kod": "lu",
-        "Ülkeler": "Lüksemburg"
-    },
-    {
-        "kod": "lv",
-        "Ülkeler": "Letonya"
-    },
-    {
-        "kod": "ly",
-        "Ülkeler": "Libya Cemahiriyesi"
-    },
-    {
-        "kod": "ma",
-        "Ülkeler": "Fas"
-    },
-    {
-        "kod": "md",
-        "Ülkeler": "Moldova Cumhuriyeti"
-    },
-    {
-        "kod": "me",
-        "Ülkeler": "Karadağ"
-    },
-    {
-        "kod": "mg",
-        "Ülkeler": "Madagaskar"
-    },
-    {
-        "kod": "mh",
-        "Ülkeler": "Marshall Adaları"
-    },
-    {
-        "kod": "mk",
-        "Ülkeler": "Makedonya Eski Yugoslav Cumhuriyeti"
-    },
-    {
-        "kod": "ml",
-        "Ülkeler": "Mali"
-    },
-    {
-        "kod": "mm",
-        "Ülkeler": "Myanmar"
-    },
-    {
-        "kod": "mn",
-        "Ülkeler": "Moğolistan"
-    },
-    {
-        "kod": "mo",
-        "Ülkeler": "Makao"
-    },
-    {
-        "kod": "mp",
-        "Ülkeler": "Kuzey Mariana Adaları"
-    },
-    {
-        "kod": "mr",
-        "Ülkeler": "Moritanya"
-    },
-    {
-        "kod": "ms",
-        "Ülkeler": "Montserrat"
-    },
-    {
-        "kod": "mt",
-        "Ülkeler": "Malta"
-    },
-    {
-        "kod": "mu",
-        "Ülkeler": "Mauritius"
-    },
-    {
-        "kod": "mv",
-        "Ülkeler": "Maldivler"
-    },
-    {
-        "kod": "mw",
-        "Ülkeler": "Malavi"
-    },
-    {
-        "kod": "mx",
-        "Ülkeler": "Meksika"
-    },
-    {
-        "kod": "my",
-        "Ülkeler": "Malezya"
-    },
-    {
-        "kod": "mz",
-        "Ülkeler": "Mozambik"
-    },
-    {
-        "kod": "na",
-        "Ülkeler": "Namibya"
-    },
-    {
-        "kod": "nc",
-        "Ülkeler": "Yeni Kaledonya"
-    },
-    {
-        "kod": "ne",
-        "Ülkeler": "Nijer"
-    },
-    {
-        "kod": "nf",
-        "Ülkeler": "Norfolk Adası"
-    },
-    {
-        "kod": "ng",
-        "Ülkeler": "Nijerya"
-    },
-    {
-        "kod": "ni",
-        "Ülkeler": "Nikaragua"
-    },
-    {
-        "kod": "nl",
-        "Ülkeler": "Hollanda"
-    },
-    {
-        "kod": "no",
-        "Ülkeler": "Norveç"
-    },
-    {
-        "kod": "np",
-        "Ülkeler": "Nepal"
-    },
-    {
-        "kod": "nr",
-        "Ülkeler": "Nauru"
-    },
-    {
-        "kod": "nu",
-        "Ülkeler": "Niue"
-    },
-    {
-        "kod": "nz",
-        "Ülkeler": "Yeni Zelanda"
-    },
-    {
-        "kod": "om",
-        "Ülkeler": "Umman"
-    },
-    {
-        "kod": "pa",
-        "Ülkeler": "Panama"
-    },
-    {
-        "kod": "pe",
-        "Ülkeler": "Peru"
-    },
-    {
-        "kod": "pf",
-        "Ülkeler": "Fransız Polinezyası"
-    },
-    {
-        "kod": "pg",
-        "Ülkeler": "Papua Yeni Gine"
-    },
-    {
-        "kod": "ph",
-        "Ülkeler": "Filipinler"
-    },
-    {
-        "kod": "pk",
-        "Ülkeler": "Pakistan"
-    },
-    {
-        "kod": "pl",
-        "Ülkeler": "Polonya"
-    },
-    {
-        "kod": "pm",
-        "Ülkeler": "Saint Pierre ve Mikelon"
-    },
-    {
-        "kod": "pn",
-        "Ülkeler": "Pitcairn"
-    },
-    {
-        "kod": "ps",
-        "Ülkeler": "İşgal altındaki Filistin Toprağı"
-    },
-    {
-        "kod": "pt",
-        "Ülkeler": "Portekiz"
-    },
-    {
-        "kod": "pw",
-        "Ülkeler": "Palau"
-    },
-    {
-        "kod": "py",
-        "Ülkeler": "Paraguay"
-    },
-    {
-        "kod": "qa",
-        "Ülkeler": "Katar"
-    },
-    {
-        "kod": "ro",
-        "Ülkeler": "Romanya"
-    },
-    {
-        "kod": "rs",
-        "Ülkeler": "Sırbistan"
-    },
-    {
-        "kod": "ru",
-        "Ülkeler": "Rusya Federasyonu"
-    },
-    {
-        "kod": "rw",
-        "Ülkeler": "Ruanda"
-    },
-    {
-        "kod": "sa",
-        "Ülkeler": "Suudi Arabistan"
-    },
-    {
-        "kod": "sb",
-        "Ülkeler": "Solomon Adaları"
-    },
-    {
-        "kod": "sc",
-        "Ülkeler": "Seyşeller"
-    },
-    {
-        "kod": "sd",
-        "Ülkeler": "Sudan"
-    },
-    {
-        "kod": "se",
-        "Ülkeler": "İsveç"
-    },
-    {
-        "kod": "sg",
-        "Ülkeler": "Singapur"
-    },
-    {
-        "kod": "sh",
-        "Ülkeler": "Saint Helena"
-    },
-    {
-        "kod": "si",
-        "Ülkeler": "Slovenya"
-    },
-    {
-        "kod": "sk",
-        "Ülkeler": "Slovakya"
-    },
-    {
-        "kod": "sl",
-        "Ülkeler": "Sierra Leone"
-    },
-    {
-        "kod": "sm",
-        "Ülkeler": "San Marino"
-    },
-    {
-        "kod": "sn",
-        "Ülkeler": "Senegal"
-    },
-    {
-        "kod": "so",
-        "Ülkeler": "Somali"
-    },
-    {
-        "kod": "sr",
-        "Ülkeler": "Surinam"
-    },
-    {
-        "kod": "ss",
-        "Ülkeler": "Güney Sudan"
-    },
-    {
-        "kod": "st",
-        "Ülkeler": "Sao Tome ve Principe"
-    },
-    {
-        "kod": "sv",
-        "Ülkeler": "El Salvador"
-    },
-    {
-        "kod": "sy",
-        "Ülkeler": "Suriye Arap Cumhuriyeti"
-    },
-    {
-        "kod": "sz",
-        "Ülkeler": "Svaziland"
-    },
-    {
-        "kod": "tc",
-        "Ülkeler": "Turks ve Caicos Adaları"
-    },
-    {
-        "kod": "td",
-        "Ülkeler": "Çad"
-    },
-    {
-        "kod": "tf",
-        "Ülkeler": "Fransız Güney Toprakları"
-    },
-    {
-        "kod": "tg",
-        "Ülkeler": "Togo"
-    },
-    {
-        "kod": "th",
-        "Ülkeler": "Tayland"
-    },
-    {
-        "kod": "tj",
-        "Ülkeler": "Tacikistan"
-    },
-    {
-        "kod": "tk",
-        "Ülkeler": "Tokelau"
-    },
-    {
-        "kod": "tl",
-        "Ülkeler": "Doğu Timor"
-    },
-    {
-        "kod": "tm",
-        "Ülkeler": "Türkmenistan"
-    },
-    {
-        "kod": "tn",
-        "Ülkeler": "Tunus"
-    },
-    {
-        "kod": "to",
-        "Ülkeler": "Tonga"
-    },
-    {
-        "kod": "tr",
-        "Ülkeler": "Türkiye"
-    },
-    {
-        "kod": "tt",
-        "Ülkeler": "Trinidad ve Tobago"
-    },
-    {
-        "kod": "tv",
-        "Ülkeler": "Tuvalu"
-    },
-    {
-        "kod": "tw",
-        "Ülkeler": "Tayvan"
-    },
-    {
-        "kod": "tz",
-        "Ülkeler": "Tanzanya Birleşik Cumhuriyeti"
-    },
-    {
-        "kod": "ua",
-        "Ülkeler": "Ukrayna"
-    },
-    {
-        "kod": "ug",
-        "Ülkeler": "Uganda"
-    },
-    {
-        "kod": "um",
-        "Ülkeler": "Birleşik Devletler Minor Outlying"
+        "kod": "ae",
+        "Ülkeler": "Birleşik Arap Emirlikleri",
+        "Dil": "Arabic",
+        "dilKodu": "ar"
     },
     {
         "kod": "us",
-        "Ülkeler": "Birleşik Devletler"
+        "Ülkeler": "Birleşik Devletler",
+        "Dil": "English",
+        "dilKodu": "en"
     },
     {
-        "kod": "uy",
-        "Ülkeler": "Uruguay"
+        "kod": "um",
+        "Ülkeler": "Birleşik Devletler Minor Outlying",
+        "Dil": "English",
+        "dilKodu": "en"
     },
     {
-        "kod": "uz",
-        "Ülkeler": "Özbekistan"
+        "kod": "gb",
+        "Ülkeler": "Birleşik Krallık",
+        "Dil": "English",
+        "dilKodu": "en"
     },
     {
-        "kod": "va",
-        "Ülkeler": "Vatikan"
+        "kod": "bo",
+        "Ülkeler": "Bolivya",
+        "Dil": "Spanish",
+        "dilKodu": "es"
     },
     {
-        "kod": "vc",
-        "Ülkeler": "St Vincent ve Grenadinler"
+        "kod": "ba",
+        "Ülkeler": "Bosna ve Hersek",
+        "Dil": "Bosnian",
+        "dilKodu": "bs"
     },
     {
-        "kod": "ve",
-        "Ülkeler": "Venezuela"
+        "kod": "bv",
+        "Ülkeler": "Bouvet Adası",
+        "Dil": "English",
+        "dilKodu": "en"
     },
     {
-        "kod": "vg",
-        "Ülkeler": "Virjin Adaları (İngiliz)"
+        "kod": "br",
+        "Ülkeler": "Brezilya",
+        "Dil": "Portuguese",
+        "dilKodu": "pt"
     },
     {
-        "kod": "vi",
-        "Ülkeler": "Virjin Adaları (ABD)"
+        "kod": "bn",
+        "Ülkeler": "Brunei Darussalam",
+        "Dil": "Malay",
+        "dilKodu": "ms"
     },
     {
-        "kod": "vn",
-        "Ülkeler": "Vietnam"
+        "kod": "bg",
+        "Ülkeler": "Bulgaristan",
+        "Dil": "Bulgarian",
+        "dilKodu": "bg"
     },
     {
-        "kod": "vu",
-        "Ülkeler": "Vanuatu"
+        "kod": "cv",
+        "Ülkeler": "Cape Verde",
+        "Dil": "Portuguese",
+        "dilKodu": "pt"
     },
     {
-        "kod": "wf",
-        "Ülkeler": "Wallis ve Futuna"
+        "kod": "gi",
+        "Ülkeler": "Cebelitarık",
+        "Dil": "English",
+        "dilKodu": "en"
     },
     {
-        "kod": "ws",
-        "Ülkeler": "Samoa"
+        "kod": "dz",
+        "Ülkeler": "Cezayir",
+        "Dil": "Arabic",
+        "dilKodu": "ar"
     },
     {
-        "kod": "xc",
-        "Ülkeler": "Septe"
+        "kod": "cx",
+        "Ülkeler": "Christmas Adası",
+        "Dil": "English",
+        "dilKodu": "en"
     },
     {
-        "kod": "xl",
-        "Ülkeler": "Melilla"
+        "kod": "dj",
+        "Ülkeler": "Cibuti",
+        "Dil": "French",
+        "dilKodu": "fr"
     },
     {
-        "kod": "ye",
-        "Ülkeler": "Yemen"
+        "kod": "ck",
+        "Ülkeler": "Cook Adaları",
+        "Dil": "English",
+        "dilKodu": "en"
     },
     {
-        "kod": "yt",
-        "Ülkeler": "Mayot"
+        "kod": "td",
+        "Ülkeler": "Çad",
+        "Dil": "Arabic",
+        "dilKodu": "ar"
+    },
+    {
+        "kod": "cz",
+        "Ülkeler": "Çek Cumhuriyeti",
+        "Dil": "Czech",
+        "dilKodu": "cs"
+    },
+    {
+        "kod": "cn",
+        "Ülkeler": "Çin (Halk Cumhuriyeti)",
+        "Dil": "Standard Chinese",
+        "dilKodu": "zh-CN"
+    },
+    {
+        "kod": "dk",
+        "Ülkeler": "Danimarka",
+        "Dil": "Danish",
+        "dilKodu": "da"
+    },
+    {
+        "kod": "do",
+        "Ülkeler": "Dominik Cumhuriyeti",
+        "Dil": "Spanish",
+        "dilKodu": "es"
+    },
+    {
+        "kod": "dm",
+        "Ülkeler": "Dominika",
+        "Dil": "English",
+        "dilKodu": "en"
+    },
+    {
+        "kod": "ec",
+        "Ülkeler": "Ekvator",
+        "Dil": "Spanish",
+        "dilKodu": "es"
+    },
+    {
+        "kod": "gq",
+        "Ülkeler": "Ekvator Ginesi",
+        "Dil": "Spanish",
+        "dilKodu": "es"
+    },
+    {
+        "kod": "sv",
+        "Ülkeler": "El Salvador",
+        "Dil": "Spanish",
+        "dilKodu": "es"
+    },
+    {
+        "kod": "id",
+        "Ülkeler": "Endonezya",
+        "Dil": "Indonesian",
+        "dilKodu": "id"
+    },
+    {
+        "kod": "er",
+        "Ülkeler": "Eritre",
+        "Dil": "Tigrinya",
+        "dilKodu": "ti"
+    },
+    {
+        "kod": "am",
+        "Ülkeler": "Ermenistan",
+        "Dil": "Armenian",
+        "dilKodu": "hy"
+    },
+    {
+        "kod": "ee",
+        "Ülkeler": "Estonya",
+        "Dil": "Estonian",
+        "dilKodu": "et"
+    },
+    {
+        "kod": "et",
+        "Ülkeler": "Etiyopya",
+        "Dil": "Amharic",
+        "dilKodu": "am"
+    },
+    {
+        "kod": "fk",
+        "Ülkeler": "Falkland Adaları",
+        "Dil": "English",
+        "dilKodu": "en"
+    },
+    {
+        "kod": "ma",
+        "Ülkeler": "Fas",
+        "Dil": "Arabic",
+        "dilKodu": "ar"
+    },
+    {
+        "kod": "ci",
+        "Ülkeler": "Fildişi Sahili",
+        "Dil": "French",
+        "dilKodu": "fr"
+    },
+    {
+        "kod": "ph",
+        "Ülkeler": "Filipinler",
+        "Dil": "Filipino",
+        "dilKodu": "fil"
+    },
+    {
+        "kod": "fi",
+        "Ülkeler": "Finlandiya",
+        "Dil": "Finnish",
+        "dilKodu": "fi"
+    },
+    {
+        "kod": "fr",
+        "Ülkeler": "Fransa",
+        "Dil": "French",
+        "dilKodu": "fr"
+    },
+    {
+        "kod": "tf",
+        "Ülkeler": "Fransız Güney Toprakları",
+        "Dil": "French",
+        "dilKodu": "fr"
+    },
+    {
+        "kod": "pf",
+        "Ülkeler": "Fransız Polinezyası",
+        "Dil": "French",
+        "dilKodu": "fr"
+    },
+    {
+        "kod": "ga",
+        "Ülkeler": "Gabon",
+        "Dil": "French",
+        "dilKodu": "fr"
+    },
+    {
+        "kod": "gm",
+        "Ülkeler": "Gambiya",
+        "Dil": "English",
+        "dilKodu": "en"
+    },
+    {
+        "kod": "gh",
+        "Ülkeler": "Gana",
+        "Dil": "English",
+        "dilKodu": "en"
+    },
+    {
+        "kod": "gn",
+        "Ülkeler": "Gine",
+        "Dil": "French",
+        "dilKodu": "fr"
+    },
+    {
+        "kod": "gw",
+        "Ülkeler": "Gine-Bissau",
+        "Dil": "Portuguese",
+        "dilKodu": "pt"
+    },
+    {
+        "kod": "gd",
+        "Ülkeler": "Grenada",
+        "Dil": "English",
+        "dilKodu": "en"
+    },
+    {
+        "kod": "gu",
+        "Ülkeler": "Guam",
+        "Dil": "English",
+        "dilKodu": "en"
+    },
+    {
+        "kod": "gt",
+        "Ülkeler": "Guatemala",
+        "Dil": "Spanish",
+        "dilKodu": "es"
+    },
+    {
+        "kod": "gy",
+        "Ülkeler": "Guyana",
+        "Dil": "English",
+        "dilKodu": "en"
     },
     {
         "kod": "za",
-        "Ülkeler": "Güney Afrika"
+        "Ülkeler": "Güney Afrika",
+        "Dil": "Zulu",
+        "dilKodu": "zu"
+    },
+    {
+        "kod": "gs",
+        "Ülkeler": "Güney Georgia ve Güney Sanwich",
+        "Dil": "English",
+        "dilKodu": "en"
+    },
+    {
+        "kod": "ss",
+        "Ülkeler": "Güney Sudan",
+        "Dil": "English",
+        "dilKodu": "en"
+    },
+    {
+        "kod": "ge",
+        "Ülkeler": "Gürcistan",
+        "Dil": "Georgian",
+        "dilKodu": "ka"
+    },
+    {
+        "kod": "ht",
+        "Ülkeler": "Haiti",
+        "Dil": "Haitian Creole",
+        "dilKodu": "ht"
+    },
+    {
+        "kod": "hm",
+        "Ülkeler": "Heard Adası ve McDonald",
+        "Dil": "English",
+        "dilKodu": "en"
+    },
+    {
+        "kod": "hr",
+        "Ülkeler": "Hırvatistan",
+        "Dil": "Croatian",
+        "dilKodu": "hr"
+    },
+    {
+        "kod": "in",
+        "Ülkeler": "Hindistan",
+        "Dil": "Hindi",
+        "dilKodu": "hi"
+    },
+    {
+        "kod": "nl",
+        "Ülkeler": "Hollanda",
+        "Dil": "Dutch",
+        "dilKodu": "nl"
+    },
+    {
+        "kod": "hn",
+        "Ülkeler": "Honduras",
+        "Dil": "Spanish",
+        "dilKodu": "es"
+    },
+    {
+        "kod": "hk",
+        "Ülkeler": "Hong Kong",
+        "Dil": "English",
+        "dilKodu": "en"
+    },
+    {
+        "kod": "iq",
+        "Ülkeler": "Irak",
+        "Dil": "Arabic",
+        "dilKodu": "ar"
+    },
+    {
+        "kod": "io",
+        "Ülkeler": "İngiliz Hint Okyanusu Toprağı",
+        "Dil": "English",
+        "dilKodu": "en"
+    },
+    {
+        "kod": "ir",
+        "Ülkeler": "İran, İslam Cumhuriyeti",
+        "Dil": "Persian",
+        "dilKodu": "fa"
+    },
+    {
+        "kod": "ie",
+        "Ülkeler": "İrlanda",
+        "Dil": "English",
+        "dilKodu": "en"
+    },
+    {
+        "kod": "es",
+        "Ülkeler": "İspanya",
+        "Dil": "Spanish",
+        "dilKodu": "es"
+    },
+    {
+        "kod": "il",
+        "Ülkeler": "İsrail",
+        "Dil": "Hebrew",
+        "dilKodu": "he"
+    },
+    {
+        "kod": "se",
+        "Ülkeler": "İsveç",
+        "Dil": "Swedish",
+        "dilKodu": "sv"
+    },
+    {
+        "kod": "ch",
+        "Ülkeler": "İsviçre",
+        "Dil": "German",
+        "dilKodu": "de"
+    },
+    {
+        "kod": "ps",
+        "Ülkeler": "İşgal altındaki Filistin Toprağı",
+        "Dil": "Arabic",
+        "dilKodu": "ar"
+    },
+    {
+        "kod": "it",
+        "Ülkeler": "İtalya",
+        "Dil": "Italian",
+        "dilKodu": "it"
+    },
+    {
+        "kod": "is",
+        "Ülkeler": "İzlanda",
+        "Dil": "Icelandic",
+        "dilKodu": "is"
+    },
+    {
+        "kod": "jm",
+        "Ülkeler": "Jamaika",
+        "Dil": "English",
+        "dilKodu": "en"
+    },
+    {
+        "kod": "jp",
+        "Ülkeler": "Japonya",
+        "Dil": "Japanese",
+        "dilKodu": "ja"
+    },
+    {
+        "kod": "kh",
+        "Ülkeler": "Kamboçya",
+        "Dil": "Khmer",
+        "dilKodu": "km"
+    },
+    {
+        "kod": "cm",
+        "Ülkeler": "Kamerun",
+        "Dil": "French",
+        "dilKodu": "fr"
+    },
+    {
+        "kod": "ca",
+        "Ülkeler": "Kanada",
+        "Dil": "English",
+        "dilKodu": "en"
+    },
+    {
+        "kod": "qa",
+        "Ülkeler": "Katar",
+        "Dil": "Arabic",
+        "dilKodu": "ar"
+    },
+    {
+        "kod": "ky",
+        "Ülkeler": "Kayman Adaları",
+        "Dil": "English",
+        "dilKodu": "en"
+    },
+    {
+        "kod": "kz",
+        "Ülkeler": "Kazakistan",
+        "Dil": "Kazakh",
+        "dilKodu": "kk"
+    },
+    {
+        "kod": "ke",
+        "Ülkeler": "Kenya",
+        "Dil": "Swahili",
+        "dilKodu": "sw"
+    },
+    {
+        "kod": "cy",
+        "Ülkeler": "Kıbrıs Rum Kesimi",
+        "Dil": "Greek",
+        "dilKodu": "el"
+    },
+    {
+        "kod": "kg",
+        "Ülkeler": "Kırgızistan",
+        "Dil": "Kyrgyz",
+        "dilKodu": "ky"
+    },
+    {
+        "kod": "cc",
+        "Ülkeler": "Kokos (Keeling) Adaları",
+        "Dil": "English",
+        "dilKodu": "en"
+    },
+    {
+        "kod": "co",
+        "Ülkeler": "Kolombiya",
+        "Dil": "Spanish",
+        "dilKodu": "es"
+    },
+    {
+        "kod": "cg",
+        "Ülkeler": "Kongo",
+        "Dil": "French",
+        "dilKodu": "fr"
+    },
+    {
+        "kod": "cd",
+        "Ülkeler": "Kongo, Demokratik Cumhuriyeti",
+        "Dil": "French",
+        "dilKodu": "fr"
+    },
+    {
+        "kod": "kr",
+        "Ülkeler": "Kore Cumhuriyeti",
+        "Dil": "Korean",
+        "dilKodu": "ko"
+    },
+    {
+        "kod": "kp",
+        "Ülkeler": "Kore, Demokratik Halk Cumhuriyeti",
+        "Dil": "Korean",
+        "dilKodu": "ko"
+    },
+    {
+        "kod": "cr",
+        "Ülkeler": "Kosta Rika",
+        "Dil": "Spanish",
+        "dilKodu": "es"
+    },
+    {
+        "kod": "kw",
+        "Ülkeler": "Kuveyt",
+        "Dil": "Arabic",
+        "dilKodu": "ar"
+    },
+    {
+        "kod": "mp",
+        "Ülkeler": "Kuzey Mariana Adaları",
+        "Dil": "English",
+        "dilKodu": "en"
+    },
+    {
+        "kod": "cu",
+        "Ülkeler": "Küba",
+        "Dil": "Spanish",
+        "dilKodu": "es"
+    },
+    {
+        "kod": "la",
+        "Ülkeler": "Laos Halk Demokratik Cumhuriyeti",
+        "Dil": "Lao",
+        "dilKodu": "lo"
+    },
+    {
+        "kod": "ls",
+        "Ülkeler": "Lesotho",
+        "Dil": "Sotho",
+        "dilKodu": "st"
+    },
+    {
+        "kod": "lv",
+        "Ülkeler": "Letonya",
+        "Dil": "Latvian",
+        "dilKodu": "lv"
+    },
+    {
+        "kod": "lr",
+        "Ülkeler": "Liberya",
+        "Dil": "English",
+        "dilKodu": "en"
+    },
+    {
+        "kod": "ly",
+        "Ülkeler": "Libya Cemahiriyesi",
+        "Dil": "Arabic",
+        "dilKodu": "ar"
+    },
+    {
+        "kod": "li",
+        "Ülkeler": "Lihtenştayn",
+        "Dil": "German",
+        "dilKodu": "de"
+    },
+    {
+        "kod": "lt",
+        "Ülkeler": "Litvanya",
+        "Dil": "Lithuanian",
+        "dilKodu": "lt"
+    },
+    {
+        "kod": "lb",
+        "Ülkeler": "Lübnan",
+        "Dil": "Arabic",
+        "dilKodu": "ar"
+    },
+    {
+        "kod": "lu",
+        "Ülkeler": "Lüksemburg",
+        "Dil": "Luxembourgish",
+        "dilKodu": "lb"
+    },
+    {
+        "kod": "hu",
+        "Ülkeler": "Macaristan",
+        "Dil": "Hungarian",
+        "dilKodu": "hu"
+    },
+    {
+        "kod": "mk",
+        "Ülkeler": "Makedonya Eski Yugoslav Cumhuriyeti",
+        "Dil": "Macedonian",
+        "dilKodu": "mk"
+    },
+    {
+        "kod": "mw",
+        "Ülkeler": "Malavi",
+        "Dil": "Chichewa",
+        "dilKodu": "ny"
+    },
+    {
+        "kod": "mv",
+        "Ülkeler": "Maldivler",
+        "Dil": "Dhivehi",
+        "dilKodu": "dv"
+    },
+    {
+        "kod": "my",
+        "Ülkeler": "Malezya",
+        "Dil": "Malay",
+        "dilKodu": "ms"
+    },
+    {
+        "kod": "ml",
+        "Ülkeler": "Mali",
+        "Dil": "French",
+        "dilKodu": "fr"
+    },
+    {
+        "kod": "mt",
+        "Ülkeler": "Malta",
+        "Dil": "Maltese",
+        "dilKodu": "mt"
+    },
+    {
+        "kod": "yt",
+        "Ülkeler": "Mayot",
+        "Dil": "French",
+        "dilKodu": "fr"
+    },
+    {
+        "kod": "mx",
+        "Ülkeler": "Meksika",
+        "Dil": "Spanish",
+        "dilKodu": "es"
+    },
+    {
+        "kod": "eg",
+        "Ülkeler": "Mısır",
+        "Dil": "Arabic",
+        "dilKodu": "ar"
+    },
+    {
+        "kod": "fm",
+        "Ülkeler": "Mikronezya (Federal Devletleri)",
+        "Dil": "English",
+        "dilKodu": "en"
+    },
+    {
+        "kod": "mn",
+        "Ülkeler": "Moğolistan",
+        "Dil": "Mongolian",
+        "dilKodu": "mn"
+    },
+    {
+        "kod": "md",
+        "Ülkeler": "Moldova Cumhuriyeti",
+        "Dil": "Romanian",
+        "dilKodu": "ro"
+    },
+    {
+        "kod": "ms",
+        "Ülkeler": "Montserrat",
+        "Dil": "English",
+        "dilKodu": "en"
+    },
+    {
+        "kod": "mr",
+        "Ülkeler": "Moritanya",
+        "Dil": "Arabic",
+        "dilKodu": "ar"
+    },
+    {
+        "kod": "mz",
+        "Ülkeler": "Mozambik",
+        "Dil": "Portuguese",
+        "dilKodu": "pt"
+    },
+    {
+        "kod": "mm",
+        "Ülkeler": "Myanmar",
+        "Dil": "Burmese",
+        "dilKodu": "my"
+    },
+    {
+        "kod": "na",
+        "Ülkeler": "Namibya",
+        "Dil": "English",
+        "dilKodu": "en"
+    },
+    {
+        "kod": "np",
+        "Ülkeler": "Nepal",
+        "Dil": "Nepali",
+        "dilKodu": "ne"
+    },
+    {
+        "kod": "ne",
+        "Ülkeler": "Nijer",
+        "Dil": "French",
+        "dilKodu": "fr"
+    },
+    {
+        "kod": "ng",
+        "Ülkeler": "Nijerya",
+        "Dil": "English",
+        "dilKodu": "en"
+    },
+    {
+        "kod": "ni",
+        "Ülkeler": "Nikaragua",
+        "Dil": "Spanish",
+        "dilKodu": "es"
+    },
+    {
+        "kod": "no",
+        "Ülkeler": "Norveç",
+        "Dil": "Norwegian",
+        "dilKodu": "no"
+    },
+    {
+        "kod": "cf",
+        "Ülkeler": "Orta Afrika Cumhuriyeti",
+        "Dil": "French",
+        "dilKodu": "fr"
+    },
+    {
+        "kod": "uz",
+        "Ülkeler": "Özbekistan",
+        "Dil": "Uzbek",
+        "dilKodu": "uz"
+    },
+    {
+        "kod": "pk",
+        "Ülkeler": "Pakistan",
+        "Dil": "Urdu",
+        "dilKodu": "ur"
+    },
+    {
+        "kod": "pa",
+        "Ülkeler": "Panama",
+        "Dil": "Spanish",
+        "dilKodu": "es"
+    },
+    {
+        "kod": "py",
+        "Ülkeler": "Paraguay",
+        "Dil": "Guarani",
+        "dilKodu": "gn"
+    },
+    {
+        "kod": "pe",
+        "Ülkeler": "Peru",
+        "Dil": "Spanish",
+        "dilKodu": "es"
+    },
+    {
+        "kod": "pn",
+        "Ülkeler": "Pitcairn",
+        "Dil": "English",
+        "dilKodu": "en"
+    },
+    {
+        "kod": "pl",
+        "Ülkeler": "Polonya",
+        "Dil": "Polish",
+        "dilKodu": "pl"
+    },
+    {
+        "kod": "pt",
+        "Ülkeler": "Portekiz",
+        "Dil": "Portuguese",
+        "dilKodu": "pt"
+    },
+    {
+        "kod": "ro",
+        "Ülkeler": "Romanya",
+        "Dil": "Romanian",
+        "dilKodu": "ro"
+    },
+    {
+        "kod": "rw",
+        "Ülkeler": "Ruanda",
+        "Dil": "Kinyarwanda",
+        "dilKodu": "rw"
+    },
+    {
+        "kod": "ru",
+        "Ülkeler": "Rusya Federasyonu",
+        "Dil": "Russian",
+        "dilKodu": "ru"
+    },
+    {
+        "kod": "sh",
+        "Ülkeler": "Saint Helena",
+        "Dil": "English",
+        "dilKodu": "en"
+    },
+    {
+        "kod": "pm",
+        "Ülkeler": "Saint Pierre ve Mikelon",
+        "Dil": "French",
+        "dilKodu": "fr"
+    },
+    {
+        "kod": "ws",
+        "Ülkeler": "Samoa",
+        "Dil": "Samoan",
+        "dilKodu": "sm"
+    },
+    {
+        "kod": "sm",
+        "Ülkeler": "San Marino",
+        "Dil": "Italian",
+        "dilKodu": "it"
+    },
+    {
+        "kod": "st",
+        "Ülkeler": "Sao Tome ve Principe",
+        "Dil": "Portuguese",
+        "dilKodu": "pt"
+    },
+    {
+        "kod": "sn",
+        "Ülkeler": "Senegal",
+        "Dil": "French",
+        "dilKodu": "fr"
+    },
+    {
+        "kod": "rs",
+        "Ülkeler": "Sırbistan",
+        "Dil": "Serbian",
+        "dilKodu": "sr"
+    },
+    {
+        "kod": "sl",
+        "Ülkeler": "Sierra Leone",
+        "Dil": "English",
+        "dilKodu": "en"
+    },
+    {
+        "kod": "sg",
+        "Ülkeler": "Singapur",
+        "Dil": "Mandarin Chinese",
+        "dilKodu": "zh-CN"
+    },
+    {
+        "kod": "sk",
+        "Ülkeler": "Slovakya",
+        "Dil": "Slovak",
+        "dilKodu": "sk"
+    },
+    {
+        "kod": "si",
+        "Ülkeler": "Slovenya",
+        "Dil": "Slovene",
+        "dilKodu": "sl"
+    },
+    {
+        "kod": "so",
+        "Ülkeler": "Somali",
+        "Dil": "Somali",
+        "dilKodu": "so"
+    },
+    {
+        "kod": "lk",
+        "Ülkeler": "Sri Lanka",
+        "Dil": "Sinhala",
+        "dilKodu": "si"
+    },
+    {
+        "kod": "kn",
+        "Ülkeler": "St Kitts ve Nevis",
+        "Dil": "English",
+        "dilKodu": "en"
+    },
+    {
+        "kod": "lc",
+        "Ülkeler": "St Lucia",
+        "Dil": "English",
+        "dilKodu": "en"
+    },
+    {
+        "kod": "vc",
+        "Ülkeler": "St Vincent ve Grenadinler",
+        "Dil": "English",
+        "dilKodu": "en"
+    },
+    {
+        "kod": "sd",
+        "Ülkeler": "Sudan",
+        "Dil": "Arabic",
+        "dilKodu": "ar"
+    },
+    {
+        "kod": "sr",
+        "Ülkeler": "Surinam",
+        "Dil": "Dutch",
+        "dilKodu": "nl"
+    },
+    {
+        "kod": "sy",
+        "Ülkeler": "Suriye Arap Cumhuriyeti",
+        "Dil": "Arabic",
+        "dilKodu": "ar"
+    },
+    {
+        "kod": "sa",
+        "Ülkeler": "Suudi Arabistan",
+        "Dil": "Arabic",
+        "dilKodu": "ar"
+    },
+    {
+        "kod": "cl",
+        "Ülkeler": "Şili",
+        "Dil": "Spanish",
+        "dilKodu": "es"
+    },
+    {
+        "kod": "tj",
+        "Ülkeler": "Tacikistan",
+        "Dil": "Tajik",
+        "dilKodu": "tg"
+    },
+    {
+        "kod": "tz",
+        "Ülkeler": "Tanzanya Birleşik Cumhuriyeti",
+        "Dil": "Swahili",
+        "dilKodu": "sw"
+    },
+    {
+        "kod": "th",
+        "Ülkeler": "Tayland",
+        "Dil": "Central Thai",
+        "dilKodu": "th"
+    },
+    {
+        "kod": "tw",
+        "Ülkeler": "Tayvan",
+        "Dil": "Mandarin Chinese",
+        "dilKodu": "zh-TW"
+    },
+    {
+        "kod": "tg",
+        "Ülkeler": "Togo",
+        "Dil": "French",
+        "dilKodu": "fr"
+    },
+    {
+        "kod": "tt",
+        "Ülkeler": "Trinidad ve Tobago",
+        "Dil": "English",
+        "dilKodu": "en"
+    },
+    {
+        "kod": "tn",
+        "Ülkeler": "Tunus",
+        "Dil": "Arabic",
+        "dilKodu": "ar"
+    },
+    {
+        "kod": "tc",
+        "Ülkeler": "Turks ve Caicos Adaları",
+        "Dil": "English",
+        "dilKodu": "en"
+    },
+    {
+        "kod": "tr",
+        "Ülkeler": "Türkiye",
+        "Dil": "Turkish",
+        "dilKodu": "tr"
+    },
+    {
+        "kod": "tm",
+        "Ülkeler": "Türkmenistan",
+        "Dil": "Turkmen",
+        "dilKodu": "tk"
+    },
+    {
+        "kod": "ug",
+        "Ülkeler": "Uganda",
+        "Dil": "Swahili",
+        "dilKodu": "sw"
+    },
+    {
+        "kod": "ua",
+        "Ülkeler": "Ukrayna",
+        "Dil": "Ukraine",
+        "dilKodu": "uk"
+    },
+    {
+        "kod": "om",
+        "Ülkeler": "Umman",
+        "Dil": "Arabic",
+        "dilKodu": "ar"
+    },
+    {
+        "kod": "uy",
+        "Ülkeler": "Uruguay",
+        "Dil": "Spanish",
+        "dilKodu": "es"
+    },
+    {
+        "kod": "jo",
+        "Ülkeler": "Ürdün",
+        "Dil": "Arabic",
+        "dilKodu": "ar"
+    },
+    {
+        "kod": "va",
+        "Ülkeler": "Vatikan",
+        "Dil": "Latin",
+        "dilKodu": "la"
+    },
+    {
+        "kod": "ve",
+        "Ülkeler": "Venezuela",
+        "Dil": "Spanish",
+        "dilKodu": "es"
+    },
+    {
+        "kod": "vn",
+        "Ülkeler": "Vietnam",
+        "Dil": "Vietnamese",
+        "dilKodu": "vi"
+    },
+    {
+        "kod": "vi",
+        "Ülkeler": "Virjin Adaları (ABD)",
+        "Dil": "English",
+        "dilKodu": "en"
+    },
+    {
+        "kod": "vg",
+        "Ülkeler": "Virjin Adaları (İngiliz)",
+        "Dil": "English",
+        "dilKodu": "en"
+    },
+    {
+        "kod": "wf",
+        "Ülkeler": "Wallis ve Futuna",
+        "Dil": "French",
+        "dilKodu": "fr"
+    },
+    {
+        "kod": "ye",
+        "Ülkeler": "Yemen",
+        "Dil": "Arabic",
+        "dilKodu": "ar"
+    },
+    {
+        "kod": "nc",
+        "Ülkeler": "Yeni Kaledonya",
+        "Dil": "French",
+        "dilKodu": "fr"
+    },
+    {
+        "kod": "nz",
+        "Ülkeler": "Yeni Zelanda",
+        "Dil": "English",
+        "dilKodu": "en"
+    },
+    {
+        "kod": "gr",
+        "Ülkeler": "Yunanistan",
+        "Dil": "Greek",
+        "dilKodu": "el"
     },
     {
         "kod": "zm",
-        "Ülkeler": "Zambia"
+        "Ülkeler": "Zambia",
+        "Dil": "English",
+        "dilKodu": "en"
     },
     {
         "kod": "zw",
-        "Ülkeler": "Zimbabve"
+        "Ülkeler": "Zimbabve",
+        "Dil": "Shona",
+        "dilKodu": "sn"
     }
 ]

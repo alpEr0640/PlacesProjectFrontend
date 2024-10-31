@@ -8,11 +8,10 @@ import { Block } from "notiflix/build/notiflix-block-aio";
 import countries from "../Json/regionCodes.json";
 export default function ManuelSearch() {
   const [country, setCountry] = useState("");
-  const [city, setCity] = useState("");
   const [type, setType] = useState("");
-  const [state, setState] = useState("");
   const [adress, setAdress] = useState("");
   const apiKey = process.env.REACT_APP_APIKEY;
+  const translateApi = process.env.REACT_APP_TRANSLATEAPIKEY;
   const [trigger, setTrigger] = useState(false);
   /* const [tempArray, setTempArray] = useState(""); */
 
@@ -40,6 +39,10 @@ export default function ManuelSearch() {
   const { validateToken } = useAuth();
   let tempArray = [];
   let tempLength = 0;
+  const [regionCode, setRegionCode] = useState("");
+  const [selectedTranslate, setSelectedTranslate] = useState("mainLanguage");
+  const [sourceLanguage, setSourceLanguage] = useState("");
+  const [targetLanguage, setTargetLanguage] = useState("");
 
   const wait = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
@@ -51,21 +54,29 @@ export default function ManuelSearch() {
     if (divideTrigger) {
       const normalArama = async () => {
         try {
+          const translateResponse = await translate();
           const array = Object.entries(smallObject);
           const rightLat = array[0][1].right[1];
           const rightLng = array[0][1].right[0];
           const leftLat = array[0][1].left[1];
           const leftLng = array[0][1].left[0];
           await checkQuota(parseInt(1));
-          await handleTextSearch("", rightLat, rightLng, leftLat, leftLng);
+          await handleTextSearch(
+            "",
+            rightLat,
+            rightLng,
+            leftLat,
+            leftLng,
+            translateResponse
+          );
           const Id = await checkEmail(tempArray);
           const root = await scrapStatus(Id);
           const quotaResponse = await decreaseQuota();
           setGlobalSearch((globalSearch) => [...globalSearch, ...root]);
-
+          tempLength += root.length;
           console.log("global search Uzunluğu:", globalSearch.length);
           Loading.remove();
-          if (globalSearch.length === 0) {
+          if (tempLength === 0) {
             Notify.failure("Veri Bulunamadı");
           }
           tempArray = [];
@@ -77,13 +88,23 @@ export default function ManuelSearch() {
       };
       const ikiyeBol = async () => {
         try {
+          const translateResponse = await translate();
+          console.log("asdf", translateResponse);
+          await checkQuota(parseInt(2));
           for (const index of Object.entries(smallObject)) {
             const rightLat = index[1].right[1];
             const rightLng = index[1].right[0];
             const leftLat = index[1].left[1];
             const leftLng = index[1].left[0];
-            await checkQuota(parseInt(2));
-            await handleTextSearch("", rightLat, rightLng, leftLat, leftLng);
+
+            await handleTextSearch(
+              "",
+              rightLat,
+              rightLng,
+              leftLat,
+              leftLng,
+              translateResponse
+            );
             const Id = await checkEmail(tempArray);
             const root = await scrapStatus(Id);
             const quotaResponse = await decreaseQuota();
@@ -105,7 +126,7 @@ export default function ManuelSearch() {
                 }
               );
             }
-            if (globalSearch.length === 0) {
+            if (tempLength.length === 0) {
               Notify.failure("Veri Bulunamadı");
             }
             tempArray = [];
@@ -121,17 +142,23 @@ export default function ManuelSearch() {
         Block.remove(".locationContentBody");
       };
       const dordeBol = async () => {
-        console.log("3");
-
-        console.log("if kontrol");
         try {
+          const translateResponse = await translate();
+          await checkQuota(parseInt(4));
           for (const index of Object.entries(middleObject)) {
             const rightLat = index[1].right[1];
             const rightLng = index[1].right[0];
             const leftLat = index[1].left[1];
             const leftLng = index[1].left[0];
-            await checkQuota(parseInt(4));
-            await handleTextSearch("", rightLat, rightLng, leftLat, leftLng);
+
+            await handleTextSearch(
+              "",
+              rightLat,
+              rightLng,
+              leftLat,
+              leftLng,
+              translateResponse
+            );
             const Id = await checkEmail(tempArray);
             const root = await scrapStatus(Id);
             const quotaResponse = await decreaseQuota();
@@ -153,7 +180,7 @@ export default function ManuelSearch() {
                 }
               );
             }
-            if (globalSearch.length === 0) {
+            if (tempLength.length === 0) {
               Notify.failure("Veri Bulunamadı");
             }
             tempArray = [];
@@ -183,7 +210,7 @@ export default function ManuelSearch() {
   }, [divideTrigger]);
 
   const handleGeocode = async () => {
-    const fullAdress = country + " " + city + " " + state + " " + adress;
+    const fullAdress = country + " " + adress;
     setGlobalAddress(fullAdress + ", " + type);
     try {
       const response = await axios.get(
@@ -207,6 +234,7 @@ export default function ManuelSearch() {
     } catch (e) {
       Loading.remove();
       console.log(e);
+      Notify.failure("Adres Bulunamadı");
       throw e;
     }
   };
@@ -250,14 +278,16 @@ export default function ManuelSearch() {
     rightLat,
     rightLng,
     leftLat,
-    leftLng
+    leftLng,
+    translateResponse
   ) => {
     try {
       const response = await axios.post(
         "https://places.googleapis.com/v1/places:searchText",
         {
-          regionCode: "uz",
-          textQuery: type,
+          regionCode: regionCode,
+          languageCode: "tr",
+          textQuery: translateResponse,
           locationRestriction: {
             rectangle: {
               low: {
@@ -279,7 +309,7 @@ export default function ManuelSearch() {
             "Content-Type": "application/json",
             "X-Goog-Api-Key": apiKey,
             "X-Goog-FieldMask":
-              "places.displayName,places.formattedAddress,nextPageToken,places.websiteUri,places.internationalPhoneNumber",
+              "places.displayName,places.formattedAddress,nextPageToken,places.websiteUri,places.internationalPhoneNumber,places.rating,places.googleMapsUri",
           },
         }
       );
@@ -292,16 +322,15 @@ export default function ManuelSearch() {
       }
 
       if (response.data.nextPageToken) {
-        console.log("next page geldi");
         await handleTextSearch(
           response.data.nextPageToken,
           rightLat,
           rightLng,
           leftLat,
-          leftLng
+          leftLng,
+          translateResponse
         );
       } else {
-        console.log("next Page gelmedi");
         setNextPageToken("");
       }
     } catch (e) {
@@ -364,7 +393,6 @@ export default function ManuelSearch() {
     let result = null;
     try {
       do {
-        console.log("asdfg");
         const response = await axios.get(
           `${backendurl}home/getScrapStatus/${jobId}`,
           {
@@ -405,7 +433,7 @@ export default function ManuelSearch() {
     }
   };
 
-  const increaseQuota = async (increment = 0) => {
+  const increaseQuota = async (increment = parseInt(0)) => {
     const token = window.localStorage.getItem("token");
     try {
       const response = await axios.put(
@@ -427,15 +455,33 @@ export default function ManuelSearch() {
     }
   };
 
+  const translate = async () => {
+    const target = selectedTranslate === "mainLanguage" ? targetLanguage : "en";
+    try {
+      const response = await axios.post(
+        `https://translation.googleapis.com/language/translate/v2?key=${translateApi}&q=${type}&target=${target}&type=text`
+      );
+      console.log(
+        "Çevrilen Kelime",
+        response.data.data.translations[0].translatedText
+      );
+
+      return response.data.data.translations[0].translatedText;
+    } catch (error) {
+      console.log(error);
+      throw error;
+    }
+  };
+
   useEffect(() => {
     window.localStorage.setItem("mySearch", JSON.stringify(globalSearch));
     window.localStorage.setItem("myAddress", globalAddress);
-    console.log("globalSearch", globalSearch);
   }, [globalSearch]);
 
   const handleButtonClick = async () => {
     tempLength = 0;
     tempArray = [];
+
     setIsSearchContinue(true);
     setDivideTrigger(false);
     const token = window.localStorage.getItem("token");
@@ -445,33 +491,39 @@ export default function ManuelSearch() {
       messageMaxLength: "70",
     });
     setGlobalSearch("");
+
     try {
       const coordinates = await handleGeocode();
       if (dataCount === "60") divide1(coordinates);
       if (dataCount === "120") divide2(coordinates);
       if (dataCount === "240") divide4(coordinates);
     } catch (error) {
-      Notify.failure("Adres Bulunamadı");
+      console.log(error);
     }
   };
-  useEffect(() => {
-    console.log(country);
-  }, [country]);
+
   return (
     <div className="manuelSearchContainer">
       <div className="manuelSearchContent" id="test">
         <div className="manuelSearchCoordinates">
           <select
-            onChange={(e) => setCountry(e.target.selectedOptions[0].text)}
+            onChange={(e) => {
+              setRegionCode(e.target.value);
+              setCountry(e.target.selectedOptions[0].text);
+              setTargetLanguage(e.target.selectedOptions[0].title);
+            }}
           >
             <option value={""}>-Ülke Seçin-</option>
             {countries.map((index, key) => (
-              <option key={key} value={index.kod}>
+              <option key={key} value={index.kod} title={index.dilKodu}>
                 {index.Ülkeler}
               </option>
             ))}
           </select>
-          <input placeholder="Adres" onBlur={(e) => setCity(e.target.value)} />
+          <input
+            placeholder="Adres"
+            onBlur={(e) => setAdress(e.target.value)}
+          />
         </div>
         <div className="manuelSearchDetail">
           {" "}
@@ -489,11 +541,38 @@ export default function ManuelSearch() {
           />
         </div>
         <div className="manuelSearchButton">
-          <input
-            className="locationSearchDetail"
+          <input className="manuelSearchType"
             placeholder="Aramak İstediğiniz Tür"
             onBlur={(e) => setType(e.target.value)}
-          />{" "}
+          />
+          <form>
+            <label>
+              <input
+                type="radio"
+                value="mainLanguage"
+                onClick={(e) => {
+                  setSelectedTranslate(e.target.value);
+                  console.log(selectedTranslate);
+                }}
+                checked={selectedTranslate === "mainLanguage"}
+              />
+              Resmi Dilde Ara
+            </label>
+            <label>
+              <input
+                type="radio"
+                value="toEnglish"
+                onClick={(e) => {
+                  setSelectedTranslate(e.target.value);
+                  console.log(selectedTranslate);
+                }}
+                checked={selectedTranslate === "toEnglish"}
+              />
+              İngilizce Ara
+            </label>
+          </form>{" "}
+        </div>
+        <div className="manuelSearchComplete">
           <button onClick={handleButtonClick}>Aramayı Tamamla</button>
         </div>
       </div>

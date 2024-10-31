@@ -36,11 +36,7 @@ export default function SearchTable() {
     setDeneme(window.innerWidth);
   };
 
- 
-
   const renderPageNumbers = () => {
-    
-  
     for (let i = 1; i <= totalPages; i++) {
       pageNumbers.push(
         <li
@@ -53,7 +49,7 @@ export default function SearchTable() {
         </li>
       );
     }
-  
+
     return pageNumbers;
   };
 
@@ -62,23 +58,21 @@ export default function SearchTable() {
     console.log(fileName);
     const token = window.localStorage.getItem("token");
     try {
-      console.log("response")
+      console.log("response");
       const response = await axios.get(
         `${backendurl}home/checkFileExists/${fileName}`,
-        
+
         {
           headers: {
             Authorization: token,
           },
-          
         }
       );
       if (response.data.result === false) {
         saveData(fileName);
-        console.log("asdf")
-      }
-      else{
-        Notify.failure("Dosya İsmi Mevcut")
+        console.log("asdf");
+      } else {
+        Notify.failure("Dosya İsmi Mevcut");
         Loading.remove();
       }
       console.log(response);
@@ -90,7 +84,7 @@ export default function SearchTable() {
 
   const saveData = async (fileName) => {
     const token = window.localStorage.getItem("token");
-   
+
     try {
       const response = await axios.post(
         `${backendurl}home/saveSearchResults`,
@@ -102,23 +96,23 @@ export default function SearchTable() {
         }
       );
       console.log(response);
-      setShowModal(false)
+      setShowModal(false);
       Notify.success("Kaydetme Başarılı");
     } catch (e) {
-      if(e.response){
-
-        if(e.response.status===403){
+      if (e.response) {
+        if (e.response.status === 403) {
           Notify.failure("Kaydetme Limitini Aştınız");
-          setShowModal(false)
+          setShowModal(false);
+        } else {
+          Notify.failure("Beklenmeyen Bir Hata Oluştu");
+          console.log(e);
         }
-        else{
-          Notify.failure("Beklenmeyen Bir Hata Oluştu")
-          console.log(e)
-        }
-      }else{
-        Notify.failure("Beklenmeyen Bir Hata Oluştu")
+      } else {
+        Notify.failure("Beklenmeyen Bir Hata Oluştu");
       }
-    }finally{Loading.remove();}
+    } finally {
+      Loading.remove();
+    }
   };
   //Dosya Kaydetme Bitiş
 
@@ -148,20 +142,17 @@ export default function SearchTable() {
       link.click();
       link.remove();
     } catch (e) {
-      if(e.response){
-        if(e.response.status === 429){
+      if (e.response) {
+        if (e.response.status === 429) {
           Notify.failure("İstek Limitini Aştınız");
-        }
-        else{
+        } else {
           Notify.failure("İndirme İşlemi Başarısız");
         }
+      } else {
+        console.log(e);
+        Notify.failure("Beklenmeyen Bir Hata Oluştu");
       }
-      else{
-        console.log(e)
-        Notify.failure("Beklenmeyen Bir Hata Oluştu")
-      }
-      
-        
+
       console.log(e);
     }
   };
@@ -219,12 +210,19 @@ export default function SearchTable() {
               <th className="SearchLocationTh">Web Sitesi</th>
               <th className="SearchLocationTh">Telefon Numarası</th>
               <th className="SearchLocationTh">E-posta</th>
+              <th className="SearchLocationTh">işletme Puanı</th>
             </tr>
           </thead>
           <tbody>
+          
             {currentData.map((type, index) => (
               <tr key={index}>
-                <td className="searchLocationTd">{type.displayName.text}</td>
+                <td className="searchLocationTd">
+                <a href={type.googleMapsUri} target="_blank">
+                    {" "}
+                    {type.displayName.text}
+                  </a>
+                </td>
                 <td className="searchLocationTd">{type.formattedAddress}</td>
                 <td className="searchLocationTd">
                   <a href={type.websiteUri} target="_blank">
@@ -235,9 +233,8 @@ export default function SearchTable() {
                 <td className="searchLocationTd">
                   {type.internationalPhoneNumber}
                 </td>
-                <td className="searchLocationTd">
-                  {type.emails}
-                </td>
+                <td className="searchLocationTd">{type.emails}</td>
+                <td className="searchLocationTd"><i class="fa-solid fa-star"></i>  {type.rating} </td>
               </tr>
             ))}
           </tbody>
@@ -269,9 +266,6 @@ export default function SearchTable() {
           checkFileExists={checkFileExists}
         />
       ) : null}
-      
     </div>
-    
-);
-  
+  );
 }
