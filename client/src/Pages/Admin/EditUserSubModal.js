@@ -30,7 +30,7 @@ export default function EditUserSubModal({ user, onClose, onSave }) {
               }}
             >
               <option value="Lite">Lite</option>
-              <option value="Standart">Standart</option>
+              <option value="Standard">Standard</option>
               <option value="Premium">Premium</option>
             </select>
 
