@@ -212,6 +212,7 @@ export default function ManageUsers() {
                 <th>Kota</th>
                 <th>Kayıt Tarihi</th>
                 <th>Abonelik Bitiş Tarihi</th>
+                <th>Abonelik Planı</th>
                 <th>Role</th>
                 <th>Yönet</th>
               </tr>
@@ -228,6 +229,7 @@ export default function ManageUsers() {
                     <td>{user.quota}</td>
                     <td>{formatDate(user.registrationDate)}</td>
                     <td>{formatDate(user.subscriptionEndDate)}</td>
+                    <td>{user.subscriptionPlan}</td>
                     <td>{user.role}</td>
                     <td className="actions">
                       <button
