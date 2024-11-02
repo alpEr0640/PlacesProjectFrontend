@@ -6,6 +6,7 @@ import { useMainContext } from "../MainContext";
 import { useAuth } from "../AuthContext";
 import { Block } from "notiflix/build/notiflix-block-aio";
 import countries from "../Json/regionCodes.json";
+import { jwtDecode } from "jwt-decode";
 export default function ManuelSearch() {
   const [country, setCountry] = useState("");
   const [type, setType] = useState("");
@@ -43,13 +44,50 @@ export default function ManuelSearch() {
   const [selectedTranslate, setSelectedTranslate] = useState("mainLanguage");
   const [sourceLanguage, setSourceLanguage] = useState("");
   const [targetLanguage, setTargetLanguage] = useState("");
-
+  const [subInfo, setSubInfo] = useState("lite");
   const wait = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
   useEffect(() => {
     setDivideTrigger(false);
+    const token = window.localStorage.getItem("token");
+    const decodedToken = jwtDecode(token);
+    setSubInfo(decodedToken.subPlan);
   }, []);
-
+  const renderDatas = () => {
+    console.log(subInfo);
+    switch (subInfo) {
+      case "Lite":
+        return (
+          <select onChange={(e) => setDataCount(e.target.value)}>
+            <option value={60}>-Getirilecek Veri Sayısı-</option>
+            <option value={60}>60</option>
+          </select>
+        );
+      case "Standard":
+        return (
+          <select onChange={(e) => setDataCount(e.target.value)}>
+            <option value={60}>-Getirilecek Veri Sayısı-</option>
+            <option value={60}>60</option>
+            <option value={120}>120</option>
+          </select>
+        );
+      case "Premium":
+        return (
+          <select onChange={(e) => setDataCount(e.target.value)}>
+            <option value={60}>-Getirilecek Veri Sayısı-</option>
+            <option value={60}>60</option>
+            <option value={120}>120</option>
+            <option value={240}>240</option>
+          </select>
+        );
+      default:
+        return (
+          <select onChange={(e) => setDataCount(e.target.value)}>
+            <option value={60}>-Getirilecek Veri Sayısı-</option>
+          </select>
+        );
+    }
+  };
   useEffect(() => {
     if (divideTrigger) {
       const normalArama = async () => {
@@ -527,12 +565,13 @@ export default function ManuelSearch() {
         </div>
         <div className="manuelSearchDetail">
           {" "}
-          <select onChange={(e) => setDataCount(e.target.value)}>
+          {/*  <select onChange={(e) => setDataCount(e.target.value)}>
             <option value={60}>-Getirilecek Veri Sayısı-</option>
             <option value={60}>60</option>
             <option value={120}>120</option>
             <option value={240}>240</option>
-          </select>
+          </select> */}
+          {renderDatas()}
           <input
             placeholder="Aranacak Alan Km2"
             onBlur={(e) => {
@@ -541,7 +580,8 @@ export default function ManuelSearch() {
           />
         </div>
         <div className="manuelSearchButton">
-          <input className="manuelSearchType"
+          <input
+            className="manuelSearchType"
             placeholder="Aramak İstediğiniz Tür"
             onBlur={(e) => setType(e.target.value)}
           />

@@ -85,10 +85,10 @@ export default function Profile() {
               <>
                 <div className="profileContentBody-Left">
                   <p>
-                    Ad <span> : </span>
+                    Ad Soyad<span> : </span>
                   </p>
                   <p>
-                    Soyad <span> : </span>
+                    Abonelik <span> : </span>
                   </p>
                   <p>
                     E-Posta <span> : </span>
@@ -102,8 +102,8 @@ export default function Profile() {
                   <p> Abonelik Bitiş Tarihi <span>: </span></p>
                 </div>
                 <div className="profileContentBody-Right">
-                  <p> {profileData.firstname}</p>
-                  <p> {profileData.lastname}</p>
+                  <p> {profileData.firstname +" "+ profileData.lastname }</p>
+                  <p> {profileData.subscriptionPlan ?profileData.subscriptionPlan : "Abonelik Bulunamadı" }</p>
                   <p> {profileData.email}</p>
                   <p> {profileData.phone}</p>
                   <p> {profileData.quota}</p>
