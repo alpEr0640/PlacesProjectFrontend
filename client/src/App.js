@@ -16,6 +16,9 @@ import DataHistory from "./Pages/DataHistory";
 import MyDataContent from "./Pages/MyDataContent";
 import ForgotPassword from "./Pages/ForgotPassword";
 import ResetPassword from "./Pages/ResetPassword";
+import FormPage from "./Pages/FormPage";
+import 'mdb-react-ui-kit/dist/css/mdb.min.css';
+import "@fortawesome/fontawesome-free/css/all.min.css";
 /* import { useMainContext } from "../MainContext"; */
 
 function App() {
@@ -62,6 +65,9 @@ const AppContent = () => {
           path="/data"
           element={isAuthenticated ? <DataHistory /> : <Login />}
         />
+        <Route path="/form"
+         element={<FormPage/>}
+         />
          <Route
           path="/forgotPassowrd"
           element={<ForgotPassword/>}
