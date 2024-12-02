@@ -1,11 +1,20 @@
-/* html{
-  overflow-y: scroll;
-} */
+html {
+  scroll-behavior: smooth;
+}
 
-.homepageContainer {
-  height: 100vh;
+.hompageContainer {
+  height: auto;
+  min-height: 200vh;
   background-image: url(../images/mainBackground.jpg);
   background-size: cover;
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+.homepageContainer {
+  height: 100vh;
+  /*  background-image: url(../images/mainBackground.jpg);
+  background-size: cover; */
   display: flex;
   justify-content: center;
   align-items: center;
@@ -36,7 +45,7 @@
   align-items: center;
   flex-direction: column;
 }
-.homepageHeader span{
+.homepageHeader span {
   display: flex;
   justify-content: center;
   align-items: center;
@@ -72,25 +81,23 @@
     height: 50%;
     flex-direction: column;
   }
-  .homepageButtons-button{
+  .homepageButtons-button {
     margin: 1rem 0;
     width: 60%;
   }
 }
 
-
-@media (min-width:1000px)and (max-height:600px) and (max-width:1920px){
-.homepageContent{
-  width: 80%;
- 
-}
-.homepageHeader span{
-  font-size: 3rem;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-.homepageButtons{
-  height: 40%;
-}
+@media (min-width: 1000px) and (max-height: 600px) and (max-width: 1920px) {
+  .homepageContent {
+    width: 80%;
+  }
+  .homepageHeader span {
+    font-size: 3rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  .homepageButtons {
+    height: 40%;
+  }
 }

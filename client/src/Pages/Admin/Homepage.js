@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import "../../CSS/Admin/Homepage.css";
+import styles from "../../CSS/Admin/Homepage.module.css"
 import axios from "axios";
 import { useAuth } from "../../AuthContext";
 import { useNavigate } from "react-router-dom";
@@ -36,32 +36,32 @@ export default function Homepage() {
   }, []);
 
   return (
-    <div className="homeContainer">
-      <div className="homeContent">
-        <div className="cards">
+    <div className={styles.homeContainer}>
+      <div className={styles.homeContent}>
+        <div className={styles.cards}>
           <div
-            className="card"
+            className={styles.card}
             onClick={() => {
               navigation("/admin/manageUsers");
             }}
           >
-            <div className="cardHeader">
+            <div className={styles.cardHeader}>
               <p>Kullanıcı Sayısı</p>
             </div>
-            <div className="cardBody">
+            <div className={styles.cardBody}>
               <p>{usersCount}</p>
             </div>
           </div>
           <div
-            className="card"
+            className={styles.card}
             onClick={() => {
               navigation("/admin/registerUser");
             }}
           >
-            <div className="cardHeader">
+            <div className={styles.cardHeader}>
               <p> </p>
             </div>
-            <div className="cardBody">
+            <div className={styles.cardBody}>
               <p style={{ marginTop: "5%" }}>Kullanıcı Kaydet</p>
             </div>
           </div>

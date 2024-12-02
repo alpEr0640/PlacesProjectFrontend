@@ -16,12 +16,12 @@ export default function EditUserSubModal({ user, onClose, onSave }) {
   return (
     <div className="editUserModalContainer">
       <div className="editUserModalContent">
-        <div className="card">
-          <div className="cardHeader">
+        <div className="adminPageCard">
+          <div className="adminPageCardHeader">
             <i className="fa-solid fa-x" onClick={onClose}></i>
             <p>Kullanıcı Abonelik Tanımlama</p>
           </div>
-          <div className="cardBody">
+          <div className="adminPageCardBody">
             <label>User ID: {formData.uid}</label>
 
             <select

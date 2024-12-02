@@ -138,7 +138,12 @@ export default function ManageUsers() {
 
   const handleSubEditClick = (user) => {
     setSelectedUserSub(user);
+    console.log(selectedUserSub)
   };
+
+  useEffect(()=>{
+console.log(selectedUserSub)
+  },[selectedUserSub])
 
   const handleSubsUpdate = async (user) => {
     Confirm.show(
@@ -254,7 +259,8 @@ export default function ManageUsers() {
                         Kota Güncelle
                       </button>
                       <button
-                        onClick={async () => {
+                        onClick={async (e) => {
+                          e.stopPropagation();
                           handleSubEditClick(user);
                         }}
                       >
@@ -281,7 +287,7 @@ export default function ManageUsers() {
       </div>
 
       {selectedUser && (
-        <div className="modal">
+        <div className="manageUserModal">
           <EditUserModal
             user={selectedUser}
             onClose={() => setSelectedUser(null)}
@@ -290,7 +296,7 @@ export default function ManageUsers() {
         </div>
       )}
       {selectedUserQuota && (
-        <div className="modal">
+        <div className="manageUserModal">
           <EditUserQuotaModal
             user={selectedUserQuota}
             onClose={() => setSelectedUserQuota(null)}
@@ -298,8 +304,9 @@ export default function ManageUsers() {
           />
         </div>
       )}
+      
       {selectedUserSub && (
-        <div className="modal">
+        <div className="manageUserModal">
           <EditUserSubModal
             user={selectedUserSub}
             onClose={() => setSelectedUserSub(null)}

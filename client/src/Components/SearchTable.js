@@ -234,7 +234,8 @@ export default function SearchTable() {
                   {type.internationalPhoneNumber}
                 </td>
                 <td className="searchLocationTd">{type.emails}</td>
-                <td className="searchLocationTd"><i class="fa-solid fa-star"></i>  {type.rating} </td>
+                <td className="searchLocationTd">{type.rating ?<><i class="fa-solid fa-star"></i>  {type.rating }
+                </>  : null} </td>
               </tr>
             ))}
           </tbody>

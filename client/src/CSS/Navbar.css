@@ -83,11 +83,12 @@
   width: 20%;
   display: flex;
   align-items: center;
+  justify-content: center;
 }
 .navLeft p {
   color: white;
   font-size: 2rem;
-  margin-left: 1rem;
+  margin: 0 1rem;
   font-family: "Courgette", cursive;
   font-size: 2rem;
 }
@@ -112,6 +113,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  margin: 0;
 }
 .menuButton {
   display: none;

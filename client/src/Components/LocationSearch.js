@@ -324,8 +324,20 @@ function LocationSearch() {
             onBlur={(e) => setType(e.target.value)}
           />
         </div>
+        <div className="mapsLocationContainer">
+        {" "}
+        <a
+          href="https://www.google.com/maps/"
+          target="_blank"
+          className="mapsLocation"
+        >
+          {" "}
+          Google maps <i className="fa-solid fa-up-right-from-square"></i>
+        </a>
+      </div>
         <div className="locationSearchButton">
           {" "}
+          
           <button onClick={calculateCoordinate}>Aramayı Tamamla</button>
         </div>
       </div>

@@ -3,6 +3,7 @@ import "../CSS/LinkSearch.css";
 import { Loading, Notify } from "notiflix";
 import axios from "axios";
 import { useMainContext } from "../MainContext";
+import goMaps from "../images/right-up.png";
 export default function LinkSearch() {
   const [url, setUrl] = useState("");
   const latDegree = 111.32;
@@ -298,9 +299,21 @@ export default function LinkSearch() {
           }}
         />
       </div>
+      <div className="mapsLinkContainer">
+        {" "}
+        <a
+          href="https://www.google.com/maps/"
+          target="_blank"
+          className="mapsLink"
+        >
+          {" "}
+          Google maps <i className="fa-solid fa-up-right-from-square"></i>
+        </a>
+      </div>
       <div className="linkSearchButton">
         <button onClick={() => handleClick(url)}>Aramayı Tamamla</button>
       </div>
+      
     </div>
   );
 }

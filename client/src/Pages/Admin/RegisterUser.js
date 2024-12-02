@@ -60,10 +60,10 @@ export default function RegisterUser() {
     <div className="registerUserContainer">
       <div className="registerUserContent">
         <div className="registerUserCard">
-          <div className="cardHeader">
+          <div className="registerUserCardHeader">
             <p>Kullanıcı Kayıt</p>
           </div>
-          <div className="cardBody">
+          <div className="registerUserCardBody">
             <input
               placeholder="Email"
               type="email"

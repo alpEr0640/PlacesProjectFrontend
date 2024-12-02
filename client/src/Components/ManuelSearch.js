@@ -7,6 +7,7 @@ import { useAuth } from "../AuthContext";
 import { Block } from "notiflix/build/notiflix-block-aio";
 import countries from "../Json/regionCodes.json";
 import { jwtDecode } from "jwt-decode";
+import { Confirm } from "notiflix/build/notiflix-confirm-aio";
 export default function ManuelSearch() {
   const [country, setCountry] = useState("");
   const [type, setType] = useState("");
@@ -517,9 +518,9 @@ export default function ManuelSearch() {
   }, [globalSearch]);
 
   const handleButtonClick = async () => {
+    const hak = parseInt(dataCount / 60);
     tempLength = 0;
     tempArray = [];
-
     setIsSearchContinue(true);
     setDivideTrigger(false);
     const token = window.localStorage.getItem("token");
@@ -529,7 +530,6 @@ export default function ManuelSearch() {
       messageMaxLength: "70",
     });
     setGlobalSearch("");
-
     try {
       const coordinates = await handleGeocode();
       if (dataCount === "60") divide1(coordinates);
@@ -565,12 +565,6 @@ export default function ManuelSearch() {
         </div>
         <div className="manuelSearchDetail">
           {" "}
-          {/*  <select onChange={(e) => setDataCount(e.target.value)}>
-            <option value={60}>-Getirilecek Veri Sayısı-</option>
-            <option value={60}>60</option>
-            <option value={120}>120</option>
-            <option value={240}>240</option>
-          </select> */}
           {renderDatas()}
           <input
             placeholder="Aranacak Alan Km2"
@@ -614,6 +608,18 @@ export default function ManuelSearch() {
         </div>
         <div className="manuelSearchComplete">
           <button onClick={handleButtonClick}>Aramayı Tamamla</button>
+          <div
+            className="popup"
+            onMouseEnter={() => {
+              var popup = document.getElementById("myPopup");
+              popup.classList.toggle("show");
+            }}
+          >
+            <i class="fa-solid fa-circle-info"></i>{" "}
+            <span class="popuptext" id="myPopup">
+              Her Bir Arama Hakkı maksimum 60 veri getirir
+            </span>
+          </div>
         </div>
       </div>
     </div>

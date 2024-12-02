@@ -11,7 +11,7 @@ export default function Location() {
   const [showTextSearch, setShowTextSearch] = useState(true);
   const [showLocationSearch, setShowLocationSearch] = useState(false);
   const [showSearchBody, setShowSearchBody] = useState(true);
-  const [activeButton, setActiveButton] = useState("textSearch");
+  const [activeButton, setActiveButton] = useState("manuelSearch");
   const {
     globalSearch,
     setGlobalSearch,
@@ -30,11 +30,11 @@ export default function Location() {
         <div className="locationContentHeader">
           <button
             className={`locationButton ${
-              activeButton === "textSearch" ? "active" : ""
+              activeButton === "manuelSearch" ? "active" : ""
             }`}
-            onClick={() => handleButtonClick("textSearch")}
+            onClick={() => handleButtonClick("manuelSearch")}
           >
-            Kolay Arama
+            Manuel Arama
           </button>
           <button
             className={`locationButton ${
@@ -54,14 +54,14 @@ export default function Location() {
           </button>
           <button
             className={`locationButton ${
-              activeButton === "manuelSearch" ? "active" : ""
+              activeButton === "textSearch" ? "active" : ""
             }`}
-            onClick={() => handleButtonClick("manuelSearch")}
+            onClick={() => handleButtonClick("textSearch")}
           >
-            Manuel Arama
+            Kolay Arama
           </button>
         </div>
-            {/* {isSearchContinue ? Loading.standard() :() } */}
+
         <div className="locationContentBody">
           <div className="closeSearch">
             {showSearchBody === true ? (

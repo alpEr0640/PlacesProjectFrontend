@@ -60,8 +60,8 @@
 
 /* Modal */
 
-.modal {
-  display: flex;
+.manageUserModal {
+  display: block;
   position: fixed;
   z-index: 1;
   left: 0;
@@ -95,28 +95,30 @@
   }
 }
 
-.modal .editUserModalContainer {
-  height: 100vh;
-  width: 100vh;
+ .editUserModalContainer {
+  height: 100%;
+  width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
 }
-.modal .editUserModalContent {
+ .editUserModalContent {
   position: relative;
   display: flex;
-  width: 100%;
+  width: 50%;
   height: 70%;
   margin-top: 5rem;
   justify-content: center;
+  align-items: center;
 }
 
-.modal .card {
+.adminPageCard {
   display: flex;
   flex-direction: row;
   height: 100%;
   width: 60%;
   border-radius: 10px;
+  justify-content: center;
   background-color: rgba(0, 0, 0, 0.8);
   box-shadow: 10px 10px 25px 0px rgba(0, 0, 0, 0.75);
   flex-wrap: wrap;
@@ -124,17 +126,17 @@
   cursor: default;
 }
 
-.modal .cardHeader {
+ .adminPageCardHeader {
   display: flex;
   flex-direction: column;
-  position: relative;
+  
   height: 20%;
   align-items: center;
+  justify-content: center;
   font-size: large;
   margin: 0px;
 }
-
-.modal .cardBody {
+.adminPageCardBody {
   display: flex;
   height: 80%;
   width: 100%;
@@ -143,14 +145,13 @@
   flex-direction: column;
 }
 
-.modal .cardBody input {
+ .adminPageCardBody input {
   margin: 20px;
   width: 70%;
   height: 40px;
   text-align: center;
 }
-
-.modal .cardBody button {
+.adminPageCardBody button {
   margin: 50px;
   width: 70%;
   height: 40px;
@@ -158,14 +159,14 @@
   background-color: red;
 }
 
-.modal .card i {
+ .adminPageCard i {
   display: flex;
   align-items: end;
   justify-content: end;
   color: white;
 }
 
-.modal .cardBody label {
+.adminPageCardBody label {
   color: white;
   margin: 20px;
   width: 70%;

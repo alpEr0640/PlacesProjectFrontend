@@ -25,26 +25,31 @@ export default function FormPage() {
         <div className="FormContent">
           <div className={`formContentButtons`}>
             <button
-              className={` ${activeFormButton === "destek" ? "formActive" : ""}`}
+              className={` ${
+                activeFormButton === "destek" ? "formActive" : ""
+              }`}
               onClick={() => handleButtonClick("destek")}
             >
               {" "}
               Tedarik Ve Satış Destek Formu
-              
             </button>
             <button
-              className={` ${activeFormButton === "rapor" ? "formActive" : ""}`}
-              onClick={() => handleButtonClick("rapor")}
-            >
-              {" "}
-              Veri Tedariği Ve Analiz Rapor Paylaşımı
-            </button>
-            <button
-              className={` ${activeFormButton === "tedarik" ? "formActive" : ""}`}
+              className={` ${
+                activeFormButton === "tedarik" ? "formActive" : ""
+              }`}
               onClick={() => handleButtonClick("tedarik")}
             >
               {" "}
               Veri Tedariği
+            </button>
+            <button
+              className={` ${
+                activeFormButton === " rapor" ? "formActive" : ""
+              }`}
+              onClick={() => handleButtonClick("rapor")}
+            >
+              {" "}
+              Veri Tedariği Ve Analiz Rapor Paylaşımı
             </button>
           </div>
           <div className="FormContentForms">

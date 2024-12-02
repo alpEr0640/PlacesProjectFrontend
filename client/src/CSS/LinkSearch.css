@@ -27,3 +27,20 @@
     background-color: #00B4C4;
     color: white;
 }
+
+.mapsLinkContainer{
+  width: 95%;
+    height: 100%;
+    display: flex;
+    justify-content: end;
+  
+}
+.mapsLink {
+  text-decoration: none;
+  color: white;
+  font-size: 16px;
+}
+.mapsLink i {
+  font-size: 12px;
+}
+

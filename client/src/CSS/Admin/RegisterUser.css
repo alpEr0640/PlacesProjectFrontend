@@ -17,7 +17,7 @@
 
 .registerUserContent .registerUserCard {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   height: 100%;
   width: 40%;
   border-radius: 10px;
@@ -29,7 +29,7 @@
   justify-content: center;
 }
 
-.registerUserCard .cardHeader {
+.registerUserCard .registerUserCardHeader {
   display: flex;
   flex-direction: column;
   position: relative;
@@ -40,23 +40,24 @@
   height: 10%;
 }
 
-.registerUserCard .cardBody {
+.registerUserCard .registerUserCardBody {
   display: flex;
   height: 80%;
-  width: 80%;
+  width: 100%;
   position: relative;
   align-items: center;
+  justify-content: center;
   flex-direction: column;
 }
 
-.registerUserCard .cardBody input {
+.registerUserCard .registerUserCardBody input {
   margin: 20px;
   width: 70%;
   height: 40px;
   text-align: center;
 }
 
-.registerUserCard .cardBody button {
+.registerUserCard .registerUserCardBody button {
   width: 70%;
   height: 40px;
   text-align: center;

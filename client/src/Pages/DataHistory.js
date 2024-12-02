@@ -20,18 +20,18 @@ export default function DataHistory() {
   const navigate = useNavigate();
   useEffect(() => {
     const fetchData = async () => {
-      Loading.standard({ svgColor: "#00B4C4" });
+      Loading.standard({ svgColor: "#fff" });
       await getSavedFiles();
+      Loading.remove();
     };
     fetchData();
   }, []);
-  
-  useEffect(()=>{
-    if(isLoading===false){
-      Loading.remove()
+
+  useEffect(() => {
+    if (isLoading === false) {
+      Loading.remove();
     }
-    
-  },[isLoading])
+  }, [isLoading]);
 
   const getSavedFiles = async () => {
     /* Loading.standard({ svgColor: "#00B4C4" }); */
@@ -47,7 +47,7 @@ export default function DataHistory() {
       );
       setFileNames(response.data.files);
       setIsLoading(false);
-      
+      Loading.remove();
     } catch (e) {
       if (e.response.status === 429) {
         Notify.failure("Çok Fazla İstek Gönderdiniz");
@@ -109,12 +109,12 @@ export default function DataHistory() {
 
   return (
     <div className="dataContainer">
-      {isLoading ? ( 
+      {isLoading ? (
         Loading.standard()
-      ) :
-      fileNames.length > 0 ? (
+      ) : fileNames.length > 0 ? (
         fileNames.map((index, key) => (
           <div key={key} className="dataContent">
+            {Loading.remove()}
             <div className="deleteData" onClick={() => handleDeleteData(index)}>
               <i className="fa-solid fa-trash"></i>
             </div>

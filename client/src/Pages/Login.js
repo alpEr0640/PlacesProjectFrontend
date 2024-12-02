@@ -86,7 +86,7 @@ export default function Login() {
               />
             </div>
             <div className="btnCover">
-              <button className="btn"> Giriş Yap </button>
+              <button className="loginBtn"> Giriş Yap </button>
               <a className="loginContact" onClick={() => goForgotPassword()}>
                 Şifremi Unuttum
               </a>

@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "../CSS/Navbar.css";
 import logo from "../images/Logo.png";
-import { NavLink, useNavigate } from "react-router-dom";
+import { NavLink, useLocation, useNavigate } from "react-router-dom";
 
 import { useMainContext } from "../MainContext";
 import { AuthProvider, useAuth } from "../AuthContext";
@@ -13,6 +13,25 @@ export default function Navbar() {
   const [showNavbar, setShowNavbar] = useState(true);
   const [lastScrollY, setLastScrollY] = useState(0);
 
+  const location = useLocation();
+  // Aynı sayfada aşağıya kaydırmak için yapılan işlem
+  useEffect(() => {
+    if (location.hash) {
+      // Önce ana sayfaya yönlendir
+      navigate("/", { replace: true });
+
+      // Kısa bir gecikmeden sonra ID'ye kaydır
+      setTimeout(() => {
+        const element = document.querySelector(location.hash);
+        if (element) {
+          element.scrollIntoView({ behavior: "smooth" });
+        }
+      }, 100); // Gecikme süresini ihtiyaca göre ayarlayın
+    }
+  }, [location, navigate]);
+  
+
+  // scroll aşağıya kaydırıldıpında kaybolması için yapıldı
   useEffect(() => {
     window.addEventListener("scroll", controlNavbar); // Scroll eventini dinle
 
@@ -55,6 +74,9 @@ export default function Navbar() {
     setIsSidebarVisible(false);
   };
 
+  if (location.pathname === "/form") {
+    return null;
+  }
   return isAdmin ? (
     <header className={`NavBarContainer ${showNavbar ? "visible" : "hidden"} `}>
       <nav className="navBar">
@@ -64,8 +86,14 @@ export default function Navbar() {
         </div>
         <div className="navRight">
           <ul className="navItems">
-            <NavLink className="navItems-Item" to="/homepage">
+            <NavLink className="navItems-Item" to="#home">
               <a> Anasayfa</a>
+            </NavLink>
+           {/*  <NavLink className="navItems-Item" to="#landing">
+              <a> LandingPage</a>
+            </NavLink> */}
+            <NavLink className="navItems-Item" to="#subs">
+              <a> Fiyatlandırma</a>
             </NavLink>
             <NavLink className="navItems-Item" to="/location">
               <a> Konum Ara</a>
