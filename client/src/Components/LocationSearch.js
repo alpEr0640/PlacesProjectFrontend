@@ -18,15 +18,24 @@ function LocationSearch() {
   const apiKey = process.env.REACT_APP_APIKEY;
   const [trigger, setTrigger] = useState(false);
   const [nextPageToken, setNextPageToken] = useState("");
-  const { setGlobalSearch, globalSearch } = useMainContext();
+  const { setGlobalSearch, globalSearch, globalAddress, setGlobalAddress } =
+    useMainContext();
   const backendurl = process.env.REACT_APP_BACKEND_URL;
   const [tempArray, setTempArray] = useState("");
   const [temp, setTemp] = useState(false);
   const { validateToken } = useAuth();
+  const [emailCheckTemp, setEmailCheckTemp] = useState(false);
+  const [jobID, setJobID] = useState("0");
+  const [jobIDCheck, setJobIDCheck] = useState(false);
   const calculateCoordinate = () => {
+    setEmailCheckTemp(false);
+    setJobIDCheck(false);
     const token = window.localStorage.getItem("token");
-    validateToken(token)
-    Loading.standard({ svgColor: "#00B4C4" });
+    validateToken(token);
+    Loading.standard("Sayfayı Yenilemeyin, Sizin İçin Araştırma Yapıyoruz", {
+      svgColor: "#00B4C4",
+      messageMaxLength: "70",
+    });
     const num = parseFloat(area);
     if (!isNaN(num)) {
       const calculatedDistance = Math.sqrt(num) / 2;
@@ -41,9 +50,26 @@ function LocationSearch() {
       setLeftLng(lngInDegrees - distanceInDegreesLng);
       setRightLat(latInDegrees + distanceInDegreesLat);
       setRightLng(lngInDegrees + distanceInDegreesLng);
-    } else {
+      const fullAdress = lat + ", " + lng + ", " + area + ", " + type;
+      setGlobalAddress(fullAdress);
+    } 
+    else {
+      const calculatedDistance = Math.sqrt(16) / 2;
       setDistance(4);
-      setArea(16);
+      const latInDegrees = parseFloat(lat);
+      const lngInDegrees = parseFloat(lng);
+      const distanceInDegreesLat = calculatedDistance / latDegree;
+      const distanceInDegreesLng =
+        calculatedDistance /
+        (latDegree * Math.cos((latInDegrees * Math.PI) / 180));
+      setLeftLat(latInDegrees - distanceInDegreesLat);
+      setLeftLng(lngInDegrees - distanceInDegreesLng);
+      setRightLat(latInDegrees + distanceInDegreesLat);
+      setRightLng(lngInDegrees + distanceInDegreesLng);
+      const fullAdress = lat + ", " + lng + ", " + area + ", " + type;
+      setGlobalAddress(fullAdress);
+      /* setDistance(4);
+      setArea(16); */
     }
     setTrigger(true);
   };
@@ -64,12 +90,12 @@ function LocationSearch() {
     const token = window.localStorage.getItem("token");
     //! kota kontrol isteği
     try {
-      const checkQuotaRes = await axios.get(`${backendurl}home/checkQuota`, {
+      const checkQuotaRes = await axios.get(`${backendurl}home/checkQuota/1`, {
         headers: {
           Authorization: token,
         },
       });
-      console.log("kota kontrol: ", checkQuotaRes.data.result);
+
       if (checkQuotaRes.data.result === true) {
         fetchData();
       }
@@ -77,24 +103,26 @@ function LocationSearch() {
       if (e.response.status === 429) {
         Notify.failure("Çok Fazla İstek Göndermeye Çalıştınız");
         Loading.remove();
-      } if (e.response.status === 403) {
+      }
+      if (e.response.status === 403) {
         if (e.response.data.err) {
           Notify.failure("Kotanız Bulunmamaktadır");
           Loading.remove();
         } else {
           Loading.remove();
         }
-      }
-      else{
+      } else {
         Notify.failure("Beklenmedik Bİr Hatayla Karşılaştık");
         Loading.remove();
       }
-      
     }
   };
 
   const fetchData = async (pageToken = "") => {
     try {
+      if (lat === null || lng === null || isNaN(lng) || isNaN(lat)) {
+        throw new Error("NULLCOORDINATE");
+      }
       const response = await axios.post(
         "https://places.googleapis.com/v1/places:searchText",
         {
@@ -120,7 +148,7 @@ function LocationSearch() {
             "Content-Type": "application/json",
             "X-Goog-Api-Key": apiKey,
             "X-Goog-FieldMask":
-              "places.displayName,places.formattedAddress,places.priceLevel,nextPageToken",
+              "places.displayName,places.formattedAddress,nextPageToken,places.websiteUri,places.internationalPhoneNumber,places.rating,places.googleMapsUri",
           },
         }
       );
@@ -129,27 +157,119 @@ function LocationSearch() {
         setTempArray((tempArray) => [...tempArray, ...newPlaces]);
         setGlobalSearch("");
       }
-      console.log(response.data);
+
       if (response.data.nextPageToken && newPlaces.length !== 0) {
         fetchData(response.data.nextPageToken);
       } else {
         setNextPageToken("");
+
         if (response.status === 200) {
-          decreaseQuota();
+          setEmailCheckTemp(true);
+          setJobIDCheck(true);
         }
       }
     } catch (error) {
+      setEmailCheckTemp(false);
+      setJobIDCheck(false);
+      if (error.message) {
+        if (error.message === "NULLCOORDINATE") {
+          Notify.failure("koodinatlar Boş Olamaz");
+        }
+      } else {
+        Notify.failure("Arama Tipi Boş Olamaz");
+        console.error("Error fetching places:", error);
+      }
       Loading.remove();
-      console.error("Error fetching places:", error);
     } finally {
       setTrigger(false);
     }
   };
+  useEffect(() => {
+    if (emailCheckTemp) {
+      checkEmail(tempArray);
+    }
+  }, [emailCheckTemp]);
 
+  const checkEmail = async (tempArray) => {
+    const token = window.localStorage.getItem("token");
+
+    try {
+      const response = await axios.post(
+        `${backendurl}home/getEmails`,
+        { data: tempArray },
+        {
+          headers: {
+            Authorization: token,
+          },
+          timeout: 120000,
+        }
+      );
+
+      if (response.status === 200) {
+        setJobID(response.data.jobId);
+      }
+    } catch (e) {
+      setEmailCheckTemp(false);
+      setJobIDCheck(false);
+      console.log(e);
+      if (e.code) {
+        if (e.code === "ECONNABORTED") {
+          Notify.failure("Veriler Getirilemedi");
+          Loading.remove();
+        }
+      }
+      if (e.response) {
+        if (e.response.status === 400) {
+          Notify.failure("Veri Bulunamadı");
+          decreaseQuota();
+        } else if (e.response.status === 403) {
+          Notify.failure("Sistem Yoğun Kısa Bir Süre Bekleyip Tekrar Deneyin");
+          Loading.remove();
+        } else {
+          Notify.failure("Beklenmeyen Bir Hatayla Karşılaştık");
+          Loading.remove();
+        }
+      } else {
+        Notify.failure("Beklenmeyen Bir Hatayla Karşılaştık");
+        Loading.remove();
+      }
+    }
+  };
+
+  useEffect(() => {
+    if (jobIDCheck) {
+      scrapStatus(jobID);
+    }
+  }, [jobID]);
+  const scrapStatus = async (jobId) => {
+    const token = window.localStorage.getItem("token");
+    console.log("jobId: ", jobId);
+    try {
+      const response = await axios.get(
+        `${backendurl}home/getScrapStatus/${jobId}`,
+        {
+          headers: {
+            Authorization: token,
+          },
+        }
+      );
+      if (!response.data.result) {
+        setTimeout(() => scrapStatus(jobId), 5000);
+      } else {
+        setTempArray(response.data.result); //responseyi kontrol et oraya dizi göndermen gerekiyor
+        decreaseQuota();
+      }
+    } catch (e) {
+      console.log(e);
+      Notify.failure("Beklenmedik Bir Hatayla Karşılaştık");
+      Loading.remove();
+      setEmailCheckTemp(false);
+      setJobIDCheck(false);
+    }
+  };
   const decreaseQuota = async () => {
     const token = window.localStorage.getItem("token");
     try {
-      console.log(token);
       const decreaseQuotaRes = await axios.put(
         `${backendurl}home/decreaseQuota`,
         {},
@@ -161,10 +281,11 @@ function LocationSearch() {
       );
       setTemp(!temp);
       Notify.info("Arama Tamamlandı");
-      console.log("kota azaltma", decreaseQuotaRes);
     } catch (e) {
       Loading.remove();
       Notify.failure("Beklenmeyen Bir Hata Oluştu");
+      setEmailCheckTemp(false);
+      setJobIDCheck(false);
     }
   };
 
@@ -173,6 +294,10 @@ function LocationSearch() {
     Loading.remove();
     setTempArray("");
   }, [temp]);
+  useEffect(() => {
+    window.localStorage.setItem("mySearch", JSON.stringify(globalSearch));
+    window.localStorage.setItem("myAddress", globalAddress);
+  }, [globalSearch]);
 
   return (
     <div className="locationSearchContainer">
@@ -180,18 +305,18 @@ function LocationSearch() {
         <div className="locationSearchCoordinates">
           {" "}
           <input
-            placeholder="y koordinatı"
+            placeholder="Enlem"
             onBlur={(e) => setLat(parseFloat(e.target.value).toFixed(6))}
           />
           <input
-            placeholder="x koordinatı"
+            placeholder="Boylam"
             onBlur={(e) => setLng(parseFloat(e.target.value).toFixed(6))}
           />
         </div>
         <div className="locationSearchDetail">
           {" "}
           <input
-            placeholder="aramak istediğiniz alan (m2)"
+            placeholder="aramak istediğiniz alan (km2) (Varsayılan 16 Km2)"
             onBlur={(e) => setArea(e.target.value)}
           />
           <input
@@ -199,9 +324,21 @@ function LocationSearch() {
             onBlur={(e) => setType(e.target.value)}
           />
         </div>
+        <div className="mapsLocationContainer">
+        {" "}
+        <a
+          href="https://www.google.com/maps/"
+          target="_blank"
+          className="mapsLocation"
+        >
+          {" "}
+          Google maps <i className="fa-solid fa-up-right-from-square"></i>
+        </a>
+      </div>
         <div className="locationSearchButton">
           {" "}
-          <button onClick={calculateCoordinate}>Koordinatla Arama</button>
+          
+          <button onClick={calculateCoordinate}>Aramayı Tamamla</button>
         </div>
       </div>
     </div>

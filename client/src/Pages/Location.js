@@ -6,12 +6,19 @@ import "../CSS/Location.css";
 import { useMainContext } from "../MainContext";
 import ManuelSearch from "../Components/ManuelSearch";
 import LinkSearch from "../Components/LinkSearch";
+import { Loading } from "notiflix";
 export default function Location() {
   const [showTextSearch, setShowTextSearch] = useState(true);
   const [showLocationSearch, setShowLocationSearch] = useState(false);
   const [showSearchBody, setShowSearchBody] = useState(true);
-  const [activeButton, setActiveButton] = useState("textSearch");
-  const { globalSearch } = useMainContext();
+  const [activeButton, setActiveButton] = useState("manuelSearch");
+  const {
+    globalSearch,
+    setGlobalSearch,
+    setGlobalAddress,
+    isSearchContinue,
+    setIsSearchContinue,
+  } = useMainContext();
   const handleButtonClick = (buttonType) => {
     setActiveButton(buttonType);
     setShowSearchBody(true);
@@ -23,11 +30,11 @@ export default function Location() {
         <div className="locationContentHeader">
           <button
             className={`locationButton ${
-              activeButton === "textSearch" ? "active" : ""
+              activeButton === "manuelSearch" ? "active" : ""
             }`}
-            onClick={() => handleButtonClick("textSearch")}
+            onClick={() => handleButtonClick("manuelSearch")}
           >
-            Metinle Arama
+            Manuel Arama
           </button>
           <button
             className={`locationButton ${
@@ -35,7 +42,7 @@ export default function Location() {
             }`}
             onClick={() => handleButtonClick("locationSearch")}
           >
-            Konumla Arama
+            Koordinatla Arama
           </button>
           <button
             className={`locationButton ${
@@ -47,13 +54,14 @@ export default function Location() {
           </button>
           <button
             className={`locationButton ${
-              activeButton === "manuelSearch" ? "active" : ""
+              activeButton === "textSearch" ? "active" : ""
             }`}
-            onClick={() => handleButtonClick("manuelSearch")}
+            onClick={() => handleButtonClick("textSearch")}
           >
-            Manuel Arama
+            Kolay Arama
           </button>
         </div>
+
         <div className="locationContentBody">
           <div className="closeSearch">
             {showSearchBody === true ? (
@@ -71,8 +79,8 @@ export default function Location() {
 
           {activeButton === "textSearch" && <TextSearch />}
           {activeButton === "locationSearch" && <LocationSearch />}
-          {activeButton=== "manuelSearch"&& <ManuelSearch/>}
-          {activeButton=== "linkSearch"&& <LinkSearch/>}
+          {activeButton === "manuelSearch" && <ManuelSearch />}
+          {activeButton === "linkSearch" && <LinkSearch />}
         </div>
         {globalSearch.length > 0 && <SearchTable />}
       </div>

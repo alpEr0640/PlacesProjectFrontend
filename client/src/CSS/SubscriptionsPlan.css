@@ -1,0 +1,119 @@
+html{
+  scroll-behavior:smooth;
+}
+.plansContainer {
+  height: auto; 
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+.plans {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.plan {
+  max-width: 25rem;
+  width: auto;
+  height: 45rem;
+  max-height: none;
+  background-color: #e5e7eb;
+  margin: 1rem;
+  border: 3px solid #e5e7eb;
+  border-radius: 10px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  overflow-y: auto;
+  border-top: 6px solid #00b4c4;
+}
+.plan:hover {
+  transform: translateY(-5px);
+  transform: scale(1.05);
+  box-shadow: 0 8px 15px rgba(0, 0, 0, 0.2);
+  border-color: #00b4c4;
+  font-size: 1.05em;
+}
+
+.planHeader {
+  height: 8vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 2rem;
+}
+.planPrice {
+  height: 7vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-around;
+  padding-bottom: 1rem;
+}
+.planPrice p:first-child {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: #00b4c4;
+}
+.planPrice p:last-child {
+  font-size: 0.9rem;
+}
+.planBody {
+  height: 75%;
+  margin: 1rem 0 0 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  
+}
+.planList {
+  list-style: none;
+}
+.planListItem {
+  margin: 1.3rem 0.5rem;
+  line-height: 1.5rem;
+}
+.planListItem i {
+  margin-right: 0.5rem;
+  color: #10b981;
+}
+.subsDetailContainer {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: end;
+}
+.subsDetailButton {
+  width: 80%;
+  min-height: 2.4rem;
+  margin-bottom: 1.2rem;
+  border: none;
+  background-color: #00b4c4;
+  color: white;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  font-size: 1.2rem;
+}
+.note{
+  margin: 1rem 0 2rem 0;
+}
+@media(max-height:700px){
+  .plan{
+    height: 40rem;
+  }
+}
+@media (max-width:1200px){
+.plans{
+  display: flex;
+  flex-direction: column;
+  
+}
+.plan{
+  max-width: 30rem;
+}
+}

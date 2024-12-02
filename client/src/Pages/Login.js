@@ -1,6 +1,6 @@
 import React, { Children, useContext, useState } from "react";
 import "../CSS/Login.css";
-import image from "../images/logo.png";
+import logo from "../images/Logo.png";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import { useMainContext } from "../MainContext";
@@ -11,9 +11,14 @@ export default function Login() {
   const [username, setUsername] = useState();
   const [password, setPassword] = useState();
   const [errorMessage, setErrorMessage] = useState("");
-  const navigation = useNavigate();
+  const navigate = useNavigate();
   const { validateToken } = useAuth();
   const backendurl = process.env.REACT_APP_BACKEND_URL;
+
+  const goForgotPassword = () => {
+    navigate("/forgotPassowrd");
+  };
+
   const submit = async (e) => {
     e.preventDefault();
     const payload = {
@@ -25,17 +30,15 @@ export default function Login() {
       Loading.standard({ svgColor: "#00B4C4" });
       const res = await axios.post(`${backendurl}login/signin`, payload);
       setErrorMessage("");
-      console.log(res.data.data);
       window.localStorage.setItem("token", res.data.data);
       validateToken(res.data.data);
-      navigation("/homepage");
+      navigate("/homepage");
       Notify.info("Giriş Başarılı");
     } catch (e) {
       console.log(e);
       if (e.code === "ERR_NETWORK") {
         setErrorMessage("Server Hatası");
-      }
-      else{
+      } else {
         if (e.response.status === 400) {
           setErrorMessage("Mail Veya Şifre Gerekli");
         }
@@ -45,16 +48,13 @@ export default function Login() {
         if (e.response.status === 401) {
           setErrorMessage("Hatalı Şifre Girdiniz");
         }
-        if(e.response.status ===429){
-          Loading.remove();
+        if (e.response.status === 429) {
           setErrorMessage("İstek Limitini Aştınız");
         }
         if (e.response.status === 500) {
           setErrorMessage("Server Hatası");
-          Loading.remove();
         }
       }
-      
     } finally {
       Loading.remove();
     }
@@ -64,12 +64,12 @@ export default function Login() {
     <div className="loginContainer">
       <div className="loginContent">
         <div className="loginRightContent">
-          <div className="rightContentHeader">Sector Scout</div>
+          <div className="rightContentHeader"><img src={logo}/>Sector Scout</div>
           <form className="rightContentBody" onSubmit={submit}>
             <div className="loginField">
               {errorMessage && <div className="error">{errorMessage}</div>}
               <input
-                placeholder="Kullanıcı Adı"
+                placeholder="E-posta"
                 required
                 type="text"
                 onChange={(e) => {
@@ -77,7 +77,7 @@ export default function Login() {
                 }}
               />
               <input
-                placeholder="Password"
+                placeholder="Şifre"
                 type="password"
                 required
                 onChange={(e) => {
@@ -86,8 +86,10 @@ export default function Login() {
               />
             </div>
             <div className="btnCover">
-              <button className="btn"> Giriş Yap </button>
-              <a className="loginContact">Şifremi Unuttum</a>
+              <button className="loginBtn"> Giriş Yap </button>
+              <a className="loginContact" onClick={() => goForgotPassword()}>
+                Şifremi Unuttum
+              </a>
             </div>
           </form>
         </div>

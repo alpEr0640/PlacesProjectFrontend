@@ -1,12 +1,41 @@
 @import url("https://fonts.googleapis.com/css2?family=Noto+Sans+Kawi:wght@400..700&family=Rancho&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Courgette&display=swap");
+/* Font size denemeler */
 
- * {
+/* Ubuntu Mono kullanımı 
+ font-family: "Ubuntu Mono", monospace;
+  font-weight: 400;
+  font-style: italic;
+  */
+@import url("https://fonts.googleapis.com/css2?family=Ubuntu+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap");
+
+/* Sono Kullanımı 
+ font-family: "Sono", monospace;
+  font-optical-sizing: auto;
+  font-weight: <weight>;
+  font-style: normal;
+  font-variation-settings:
+    "MONO" 1;
+*/
+@import url("https://fonts.googleapis.com/css2?family=Sono:wght@200..800&display=swap");
+
+/* oxanium Kullanımı
+  font-family: "Oxanium", sans-serif;
+  font-optical-sizing: auto;
+  font-weight: <weight>;
+  font-style: normal;
+*/
+@import url("https://fonts.googleapis.com/css2?family=Oxanium:wght@200..800&display=swap");
+/* vedatın önerdiği font */
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap");
+
+* {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  font-family: "Montserrat", sans-serif;
 }
-.NavBarContainer {
+/* .NavBarContainer {
   
   width: 100%;
   height: 4rem;
@@ -16,6 +45,25 @@
   position: fixed;
   top: 5rem;
   z-index: 1000;
+} */
+.NavBarContainer {
+  width: 100%;
+  height: 4rem;
+  transition: top 0.5s;
+  position: fixed;
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  padding: 0 4rem;
+  z-index: 1000;
+}
+
+.NavBarContainer.hidden {
+  top: -200px;
+}
+
+.NavBarContainer.visible {
+  top: 3rem;
 }
 
 .navBar {
@@ -25,46 +73,30 @@
   display: flex;
   justify-content: space-between;
   border-radius: 10px;
-  background-color: rgba(0, 0, 0, 0.8);
+  background-color: rgba(0, 0, 0, 1);
   -webkit-box-shadow: 10px 10px 25px 0px rgba(0, 0, 0, 0.75);
   -moz-box-shadow: 10px 10px 25px 0px rgba(0, 0, 0, 0.75);
   box-shadow: 10px 10px 25px 0px rgba(0, 0, 0, 0.75);
 }
 
-/* .navBar::before,
-.navBar::after {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  border-radius: 10px;
-  background-color: rgba(0, 0, 0, 0.59);
-  z-index: -99;
-}
-
-.navBar::after {
-  background-color: rgba(0, 0, 0, 0.59);
-  z-index: -99;
-} */
-
 .navLeft {
   width: 20%;
   display: flex;
   align-items: center;
+  justify-content: center;
 }
 .navLeft p {
   color: white;
   font-size: 2rem;
-  margin-left: 1rem;
+  margin: 0 1rem;
   font-family: "Courgette", cursive;
   font-size: 2rem;
 }
 
 .navImage {
   width: auto;
-  height: 3rem;
+  height: 3.7rem;
+  border-radius: 15px;
 }
 
 .navRight {
@@ -81,6 +113,7 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  margin: 0;
 }
 .menuButton {
   display: none;
@@ -90,10 +123,14 @@
   cursor: pointer;
   display: flex;
   text-decoration: none;
+  justify-content: center;
+  align-items: center;
   list-style: none;
-  padding: 10px 50px;
+  margin: 10px;
+  padding-right: 10px;
   color: white;
-  font-size: 1.4rem;
+  font-size: 1rem;
+  /* min-width: 140px; */
 }
 
 .sideBarContainer {
@@ -105,7 +142,7 @@
   flex-direction: column;
   justify-content: center;
   position: fixed;
-  top: 0;
+  top: 4rem;
   right: 0;
   right: -100%;
   transition: right 0.3s ease-in-out;
@@ -115,7 +152,7 @@
   width: 100%;
   height: 100%;
   padding: 0 4rem;
-  z-index: 999;
+  z-index: 1000;
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
@@ -124,6 +161,7 @@
 
 .sideBarContainer.open {
   right: 0;
+  top: 4rem;
 }
 
 .sideBar-Item {
@@ -142,7 +180,7 @@
   color: white;
   font-size: 1.3rem;
 }
-@media (min-width: 900px) {
+@media (min-width: 1000px) {
   .sideBarContainer {
     display: none;
   }
@@ -157,7 +195,7 @@
     width: 100%;
     padding: 0;
     border-radius: 10px 10px 0 0;
-    top: 0;
+    top: 0 !important;
     box-shadow: none;
   }
   .navBar::before,
@@ -166,8 +204,11 @@
     padding: 0;
     border-radius: 0;
   }
+  .navLeft {
+    width: 40%;
+  }
   .navLeft p {
-    display: none;
+    display: block;
   }
   .navBar {
     border-radius: 0;
@@ -181,7 +222,7 @@
     display: none;
   }
   .sideBarContainer {
-    top: 4rem;
+    top: 0;
   }
 }
 

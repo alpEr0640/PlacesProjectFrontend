@@ -59,7 +59,7 @@
   color: white;
   height: 3rem;
   padding: 0rem 1rem;
-  max-width: 400px;
+  max-width: 300px;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -71,16 +71,24 @@
 .searchLocationTd:last-child {
   border-right: none;
 }
+.searchLocationTd i {
+  color: #00b4c4;
+}
+
 
 .searchLocationTd a {
   text-decoration: none;
   color: white;
   font-size: 1rem;
 }
+.searchLocationTd a:visited{
+  color: #00b4c4;
+}
 
 .Pagination {
   display: flex;
   justify-content: end;
+  align-items: center;
   margin: 0 0 1rem 0;
   padding: 1rem 0.8rem 0.8rem 0;
   background-color: rgba(0, 0, 0, 0.8);
@@ -88,7 +96,7 @@
 }
 .pageNumbersUl {
   display: flex;
-  justify-content: center;
+  justify-content: space-between;
   align-items: center;
 }
 .pageNumbersUl li {
@@ -101,6 +109,7 @@
   width: 40px;
   border-radius: 50%;
   color: white;
+  padding: 0;
   border: 1px solid #00b4c4;
 }
 .paginationButton {

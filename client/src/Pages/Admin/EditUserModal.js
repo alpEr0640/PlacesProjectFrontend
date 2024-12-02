@@ -14,12 +14,12 @@ export default function EditUserModal({ user, onClose, onSave }) {
   return (
     <div className="editUserModalContainer">
       <div className="editUserModalContent">
-        <div className="card">
-          <div className="cardHeader">
+        <div className="adminPageCard">
+          <div className="adminPageCardHeader">
             <i className="fa-solid fa-x" onClick={onClose}></i>
             <p>Kullanıcı Bilgileri</p>
           </div>
-          <div className="cardBody">
+          <div className="adminPageCardBody">
             <input
               type="text"
               name="firstname"

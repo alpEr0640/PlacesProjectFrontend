@@ -9,7 +9,8 @@
   align-items: center;
 }
 
-.manuelSearchCoordinates input {
+.manuelSearchCoordinates input,
+.manuelSearchCoordinates select {
   width: 48%;
   height: 3rem;
   border: none;
@@ -18,41 +19,127 @@
   text-indent: 0.5rem;
 }
 
-.manuelSearchDetail{
-    display: flex;
-    justify-content: center;
-    align-items: center;
+.manuelSearchDetail {
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-.manuelSearchDetail input{
-    width: 48%;
-    height: 3rem;
-    border: none;
-    border-radius: 10px;
-    margin: 10px 1%;
-    text-indent: 0.5rem;
+.manuelSearchDetail input,
+.manuelSearchDetail select {
+  width: 48%;
+  height: 3rem;
+  border: none;
+  border-radius: 10px;
+  margin: 10px 1%;
+  text-indent: 0.5rem;
 }
 
-.manuelSearchButton{
-    display: flex;
-    margin-bottom: 1rem;
+.manuelSearchButton {
+  display: flex;
+  margin-bottom: 1rem;
 }
-.manuelSearchButton input{
-    width: 48%;
-    height: 3rem;
-    border: none;
-    border-radius: 10px;
-    margin: 10px 1%;
-    text-indent: 0.5rem;
+.manuelSearchButton form {
+  width: 48%;
+  display: flex;
 }
-.manuelSearchButton button{
-    width: 30%;
-    height: 3rem;
-    border: none;
-    border-radius: 10px;
-    margin: 10px 1%;
-    text-indent: 0.5rem;
-    background-color: #00B4C4;
-    color: white;
-    cursor: pointer;
+.manuelSearchButton label {
+  color: white;
+  width: 50%;
+  height: 3rem;
+  border: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 10px;
+  margin: 10px 1%;
+  text-indent: 0.5rem;
+}
+
+.manuelSearchType {
+  width: 48%;
+  height: 3rem;
+  border: none;
+  border-radius: 10px;
+  margin: 10px 1%;
+  text-indent: 0.5rem;
+}
+.manuelSearchComplete{
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.manuelSearchComplete button {
+  width: 30%;
+  height: 3rem;
+  border: none;
+  border-radius: 10px;
+  margin: 10px 1%;
+  text-indent: 0.5rem;
+  background-color: #00b4c4;
+  color: white;
+  cursor: pointer;
+}
+
+
+
+/* info popup css  */
+
+.popup {
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+}
+
+.popup i {
+  font-size: 30px;
+  color: #00b4c4;
+  margin-left: 10px;
+}
+
+/* The actual popup (appears on top) */
+.popup .popuptext {
+  visibility: hidden;
+  width: 160px;
+  background-color: white;
+  color: black;
+  text-align: center;
+  border-radius: 6px;
+  padding: 8px 0;
+  position: absolute;
+  z-index: 1;
+  bottom: 150%;
+  left: 50%;
+  margin-left: -80px;
+}
+
+/* Popup arrow */
+.popup .popuptext::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: white transparent transparent transparent;
+}
+
+/* Toggle this class when clicking on the popup container (hide and show the popup) */
+.popup .show {
+  visibility: visible;
+  -webkit-animation: fadeIn 1s;
+  animation: fadeIn 1s
+}
+
+/* Add animation (fade in the popup) */
+@-webkit-keyframes fadeIn {
+  from {opacity: 0;}
+  to {opacity: 1;}
+}
+
+@keyframes fadeIn {
+  from {opacity: 0;}
+  to {opacity:1 ;}
 }

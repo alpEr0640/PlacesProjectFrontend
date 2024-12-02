@@ -26,6 +26,9 @@ const TextSearch = () => {
   const apiKey = process.env.REACT_APP_APIKEY;
   const backendurl = process.env.REACT_APP_BACKEND_URL;
   const { validateToken } = useAuth();
+  const [emailCheckTemp, setEmailCheckTemp] = useState(false);
+  const [jobID, setJobID] = useState("0");
+  const [jobIDCheck, setJobIDCheck] = useState(false);
   useEffect(() => {
     const fetchCities = async () => {
       try {
@@ -91,7 +94,7 @@ const TextSearch = () => {
       selectedNeighborhoods +
       " " +
       detail;
-    setGlobalAddress(fullAddress);
+    setGlobalAddress(fullAddress + ", " + type);
     setPayload(fullAddress);
 
     try {
@@ -107,9 +110,10 @@ const TextSearch = () => {
 
         setLocationX(location.lat);
         setLocationY(location.lng);
-        console.log(locationX, " ", locationY);
       } else {
-        alert("Adres bulunamadı.");
+        Notify.failure("Adres Bulunamadı");
+        Loading.remove();
+        throw new Error();
       }
     } catch (e) {
       Loading.remove();
@@ -121,12 +125,12 @@ const TextSearch = () => {
     const token = window.localStorage.getItem("token");
     //! kota kontrol isteği
     try {
-      const checkQuotaRes = await axios.get(`${backendurl}home/checkQuota`, {
+      const checkQuotaRes = await axios.get(`${backendurl}home/checkQuota/1`, {
         headers: {
           Authorization: token,
         },
       });
-      console.log("kota kontrol: ", checkQuotaRes.data.result);
+
       if (checkQuotaRes.data.result === true) {
         handleTextSearch();
       }
@@ -171,17 +175,18 @@ const TextSearch = () => {
             "Content-Type": "application/json",
             "X-Goog-Api-Key": apiKey,
             "X-Goog-FieldMask":
-              "places.displayName,places.formattedAddress,nextPageToken,places.websiteUri,places.internationalPhoneNumber",
+              "places.displayName,places.formattedAddress,nextPageToken,places.websiteUri,places.internationalPhoneNumber,places.rating,places.googleMapsUri",
           },
         }
       );
-      console.log("status kontrol: ", response.status);
+
       if (response.data.places) {
         const newPlaces = response.data.places;
         setTempArray((tempArray) => [...tempArray, ...newPlaces]);
         setGlobalSearch("");
       } else {
         Notify.failure("Sonuç Bulunamadı");
+        Loading.remove();
       }
 
       if (response.data.nextPageToken) {
@@ -189,19 +194,99 @@ const TextSearch = () => {
       } else {
         setNextPageToken("");
         if (response.status === 200) {
-          decreaseQuota();
+          setEmailCheckTemp(true);
+          setJobIDCheck(true);
         }
       }
     } catch (e) {
+      setEmailCheckTemp(false);
+      setJobIDCheck(false);
+      if (e.response) {
+        if (e.response.status === 400) {
+          Notify.failure("Arama Tipi Boş Olamaz");
+        }
+      } else {
+        Notify.failure("Server Hatası");
+      }
+
       Loading.remove();
+    }
+  };
+  useEffect(() => {
+    if (emailCheckTemp) {
+      checkEmail(tempArray);
+    }
+  }, [emailCheckTemp]);
+
+  const checkEmail = async (tempArray) => {
+    const token = window.localStorage.getItem("token");
+    try {
+      const response = await axios.post(
+        `${backendurl}home/getEmails`,
+        { data: tempArray },
+        {
+          headers: {
+            Authorization: token,
+          },
+          timeout: 300000,
+        }
+      );
+
+      if (response.status === 200) {
+        setJobID(response.data.jobId);
+        setJobIDCheck(true);
+      }
+    } catch (e) {
+      setEmailCheckTemp(false);
+      setJobIDCheck(false);
+      if (e.response) {
+        if (e.response.status === 403) {
+          Notify.failure("Sistem Yoğun Kısa Bir Süre Bekleyip Tekrar Deneyin");
+          Loading.remove();
+        } else {
+          Notify.failure("Beklenmeyen Bir Hatayla Karşılaşıldı");
+          Loading.remove();
+        }
+      } else {
+        Notify.failure("Beklenmeyen Bir Hatayla Karşılaşıldı");
+        Loading.remove();
+      }
+    }
+  };
+  useEffect(() => {
+    if (jobIDCheck) {
+      scrapStatus(jobID);
+    }
+  }, [jobID]);
+
+  const scrapStatus = async (jobId) => {
+    const token = window.localStorage.getItem("token");
+    try {
+      const response = await axios.get(
+        `${backendurl}home/getScrapStatus/${jobId}`,
+        {
+          headers: {
+            Authorization: token,
+          },
+        }
+      );
+      if (response.data.finishedAt) {
+        setTempArray(response.data.result); //responseyi kontrol et oraya dizi göndermen gerekiyor
+        decreaseQuota();
+      } else {
+        setTimeout(() => scrapStatus(jobId), 5000);
+      }
+    } catch (e) {
+      setEmailCheckTemp(false);
+      setJobIDCheck(false);
       console.log(e);
+      Loading.remove();
     }
   };
 
   const decreaseQuota = async () => {
     const token = window.localStorage.getItem("token");
     try {
-      console.log(token);
       const decreaseQuotaRes = await axios.put(
         `${backendurl}home/decreaseQuota`,
         {},
@@ -213,26 +298,37 @@ const TextSearch = () => {
       );
       setTemp(!temp);
       Notify.info("Arama Tamamlandı");
-      console.log("kota azaltma", decreaseQuotaRes);
     } catch (e) {
+      setEmailCheckTemp(false);
+      setJobIDCheck(false);
       Loading.remove();
       Notify.failure("Beklenmeyen Bir Hata Oluştu");
     }
   };
   useEffect(() => {
     setGlobalSearch((globalSearch) => [...globalSearch, ...tempArray]);
-    console.log(globalSearch);
     Loading.remove();
     setTempArray("");
   }, [temp]);
+
   useEffect(() => {
-    console.log(globalSearch);
+    window.localStorage.setItem("mySearch", JSON.stringify(globalSearch));
+    window.localStorage.setItem("myAddress", globalAddress);
   }, [globalSearch]);
   const handleButtonClick = async () => {
+    setEmailCheckTemp(false);
+    setJobIDCheck(false);
     const token = window.localStorage.getItem("token");
     validateToken(token);
-
-    Loading.standard({ svgColor: "#00B4C4" });
+    /* if (checkQueryState === false) {
+      checkQuery();
+    } else {
+      
+    } */
+    Loading.standard("Sayfayı Yenilemeyin, Sizin İçin Araştırma Yapıyoruz", {
+      svgColor: "#00B4C4",
+      messageMaxLength: "70",
+    });
     await HandleGeocode();
     setTrigger((prev) => !prev);
   };
@@ -247,6 +343,7 @@ const TextSearch = () => {
               if (selectedCity) {
                 setSelectedNeighborhoods("");
                 setSelectedState("");
+                setSelectedStateName("");
               }
             }}
           >
@@ -312,7 +409,7 @@ const TextSearch = () => {
             />
           </div>
           <div className="searchButton">
-            <button onClick={handleButtonClick}>Metinle Arama</button>
+            <button onClick={handleButtonClick}>Aramayı Tamamla</button>
           </div>
         </div>
       </div>

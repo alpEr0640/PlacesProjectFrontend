@@ -1,21 +1,22 @@
 .locationContainer {
-  height: 100vh;
+  min-height: 100vh;
+  height: fit-content;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: start;
   align-items: start;
   background-image: url(../images/mainBackground.jpg);
   background-size: cover;
   background-attachment: fixed;
-  overflow: auto;
+  overflow-y: hidden;
 }
 
 .locationContent {
   width: 100%;
   height: auto;
-  min-height: calc(100vh - 12rem); 
+  min-height: calc(100vh - 12rem);
   position: relative;
-  top: 12rem;
+  margin-top: 12rem;
   display: flex;
   flex-direction: column;
   justify-content: start;
@@ -23,7 +24,7 @@
 }
 
 .locationContentHeader {
-  height: 5rem;
+  height: auto;
   width: 50%;
   min-width: 200px;
   display: flex;
@@ -33,10 +34,10 @@
 }
 
 .locationButton {
-  height: 70%;
   width: 20%;
+  height: 4rem;
   min-width: 200px;
-  margin: 0rem 2rem;
+  margin: 0rem 1.57rem;
   border: none;
   cursor: pointer;
   border-radius: 10px;
@@ -47,8 +48,8 @@
   color: white;
 }
 .locationButton.active {
-  background-color: #00B4C4;
-  color: white; 
+  background-color: #00b4c4;
+  color: white;
 }
 
 .locationContentBody {
@@ -61,7 +62,7 @@
   -moz-box-shadow: 10px 10px 25px 0px rgba(0, 0, 0, 0.75);
   box-shadow: 10px 10px 25px 0px rgba(0, 0, 0, 0.75);
 }
-.closeSearch{
+.closeSearch {
   display: flex;
   align-items: end;
   justify-content: end;
@@ -69,29 +70,38 @@
 .closeSearch i {
   position: relative;
   right: 0;
-  color: #00B4C4;
-   cursor: pointer;
+  color: #00b4c4;
+  cursor: pointer;
   margin: 1rem 1rem;
 }
-.textSearchType{
+.textSearchType {
   display: flex;
-  
 }
 
-@media (max-width:900px){
-  .locationButton{
-    min-width: 200px;
+@media (max-width: 1000px) {
+  .locationContentHeader {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
   }
-  .locationContent{
-    top: 5rem;
+  .locationButton {
+    width: 45%;
+    margin: 1rem;
   }
-  .locationContentBody{
+  .locationContent {
+    margin-top: 5rem;
+  }
+  .locationContentBody {
     width: 100%;
   }
 }
-@media (max-width:500px){
-  .locationButton{
+@media (max-width: 500px) {
+  .locationButton {
     min-width: 120px;
   }
+  .locationButton {
+    width: 90%;
+  }
 }
-
