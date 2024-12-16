@@ -50,7 +50,6 @@
   border-bottom: gray 4px solid;
   font-weight: bolder !important;
   font-size: 1.3rem !important;
-  
 }
 
 .SearchLocationTh,
@@ -75,13 +74,12 @@
   color: #00b4c4;
 }
 
-
 .searchLocationTd a {
   text-decoration: none;
   color: white;
   font-size: 1rem;
 }
-.searchLocationTd a:visited{
+.searchLocationTd a:visited {
   color: #00b4c4;
 }
 
@@ -96,8 +94,10 @@
 }
 .pageNumbersUl {
   display: flex;
-  justify-content: space-between;
   align-items: center;
+  justify-content: center;
+  padding: 0 !important;
+  margin: 0 !important;
 }
 .pageNumbersUl li {
   display: flex;
@@ -116,6 +116,9 @@
   width: 40px;
   height: 40px;
   border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   border: 1px solid #00b4c4;
   background: none;
   cursor: pointer;
