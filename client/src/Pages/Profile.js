@@ -107,7 +107,7 @@ export default function Profile() {
                   <p> {profileData.email}</p>
                   <p> {profileData.phone}</p>
                   <p> {profileData.quota}</p>
-                  <p> {formatDate(profileData.subscriptionEndDate)}</p>
+                  <p> {profileData?.subscriptionEndDate ? formatDate(profileData.subscriptionEndDate): "Abonelik Bulunamadı"}</p>
                 </div>
               </>
             )}
