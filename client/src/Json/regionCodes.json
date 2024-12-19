@@ -139,13 +139,13 @@
     },
     {
         "kod": "us",
-        "Ülkeler": "Birleşik Devletler",
+        "Ülkeler": "Amerika Birleşik Devletleri",
         "Dil": "English",
         "dilKodu": "en"
     },
     {
         "kod": "um",
-        "Ülkeler": "Birleşik Devletler Minor Outlying",
+        "Ülkeler": "Amerika Birleşik Devletleri Minor Outlying",
         "Dil": "English",
         "dilKodu": "en"
     },
@@ -241,7 +241,7 @@
     },
     {
         "kod": "cn",
-        "Ülkeler": "Çin (Halk Cumhuriyeti)",
+        "Ülkeler": "Çin",
         "Dil": "Standard Chinese",
         "dilKodu": "zh-CN"
     },
@@ -334,6 +334,12 @@
         "Ülkeler": "Filipinler",
         "Dil": "Filipino",
         "dilKodu": "fil"
+    },
+    {
+        "kod": "ps",
+        "Ülkeler": "Filistin",
+        "Dil": "Arabic",
+        "dilKodu": "ar"
     },
     {
         "kod": "fi",
@@ -493,7 +499,7 @@
     },
     {
         "kod": "ir",
-        "Ülkeler": "İran, İslam Cumhuriyeti",
+        "Ülkeler": "İran",
         "Dil": "Persian",
         "dilKodu": "fa"
     },
@@ -526,12 +532,6 @@
         "Ülkeler": "İsviçre",
         "Dil": "German",
         "dilKodu": "de"
-    },
-    {
-        "kod": "ps",
-        "Ülkeler": "İşgal altındaki Filistin Toprağı",
-        "Dil": "Arabic",
-        "dilKodu": "ar"
     },
     {
         "kod": "it",
@@ -631,7 +631,7 @@
     },
     {
         "kod": "cd",
-        "Ülkeler": "Kongo, Demokratik Cumhuriyeti",
+        "Ülkeler": "Kongo Demokratik Cumhuriyeti",
         "Dil": "French",
         "dilKodu": "fr"
     },
@@ -643,7 +643,7 @@
     },
     {
         "kod": "kp",
-        "Ülkeler": "Kore, Demokratik Halk Cumhuriyeti",
+        "Ülkeler": "Kore Demokratik Halk Cumhuriyeti",
         "Dil": "Korean",
         "dilKodu": "ko"
     },
@@ -733,7 +733,7 @@
     },
     {
         "kod": "mk",
-        "Ülkeler": "Makedonya Eski Yugoslav Cumhuriyeti",
+        "Ülkeler": "Makedonya",
         "Dil": "Macedonian",
         "dilKodu": "mk"
     },
@@ -769,7 +769,7 @@
     },
     {
         "kod": "yt",
-        "Ülkeler": "Mayot",
+        "Ülkeler": "Mayotte",
         "Dil": "French",
         "dilKodu": "fr"
     },
@@ -787,7 +787,7 @@
     },
     {
         "kod": "fm",
-        "Ülkeler": "Mikronezya (Federal Devletleri)",
+        "Ülkeler": "Mikronezya",
         "Dil": "English",
         "dilKodu": "en"
     },
@@ -1045,7 +1045,7 @@
     },
     {
         "kod": "sy",
-        "Ülkeler": "Suriye Arap Cumhuriyeti",
+        "Ülkeler": "Suriye",
         "Dil": "Arabic",
         "dilKodu": "ar"
     },
