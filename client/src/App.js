@@ -59,7 +59,7 @@ const AppContent = () => {
         />
 
         <Route path="/" element={!isAuthenticated ? <Login /> : <Homepage />} />
-        <Route path="/signup" element={<Signup />} />
+        <Route path="/signup" element={<Signup />} />{/*  */}
         <Route
           path="/profile"
           element={isAuthenticated ? <Profile /> : <Login />}

@@ -9,11 +9,11 @@ export default function FormFooter() {
     >
       <MDBContainer
         fluid
-        className="p-4 mx-0 "
+        className="p-4 mx0 "
         style={{ backgroundColor: "rgba(0,0,0,0.2)", width: "100%" }}
       >
         <MDBRow className="mx-0">
-          <MDBCol lg="6" md="12" className="mb-4 mb-md-0">
+          <MDBCol lg="6" md="12" className="mb-4 mb-md-0 footerSlogan">
             <h5 className="text-uppercase">SECTOR SCOUT</h5>
             <p>
               Sector Scout ile ticaretinizi artırın, pazarınızı büyütme
