@@ -7,7 +7,7 @@ export default function SubscriptionsPlan() {
         <div className="plan lite">
           <div className="planHeader">Lite</div>
           <div className="planPrice">
-            <p>2500 TL/AYLIK</p>
+            <p>2000 TL/AYLIK</p>
             <p>İdeal Başlangıç Paketi</p>
           </div>
           <div className="planBody">
@@ -38,7 +38,7 @@ export default function SubscriptionsPlan() {
         <div className="plan standard">
           <div className="planHeader">Standart</div>
           <div className="planPrice">
-            <p> 3500 TL/AYLIK</p>
+            <p> 3000 TL/AYLIK</p>
             <p> Gelişmiş Kullanıcı Paketi</p>
           </div>
           <div className="planBody">
@@ -73,7 +73,7 @@ export default function SubscriptionsPlan() {
         <div className="plan premium">
           <div className="planHeader">Premium</div>
           <div className="planPrice">
-            <p> 12500 TL/Aylık</p>
+            <p> 9900 TL/Aylık</p>
             <p> Profesyonel Paket</p>
           </div>
           <div className="planBody">

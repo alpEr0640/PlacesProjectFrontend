@@ -20,6 +20,7 @@ import ResetPassword from "./Pages/ResetPassword";
 import FormPage from "./Pages/FormPage";
 import "mdb-react-ui-kit/dist/css/mdb.min.css";
 import "@fortawesome/fontawesome-free/css/all.min.css";
+import Signup from "./Pages/Signup";
 /* import { useMainContext } from "../MainContext"; */
 
 function App() {
@@ -58,6 +59,7 @@ const AppContent = () => {
         />
 
         <Route path="/" element={!isAuthenticated ? <Login /> : <Homepage />} />
+        <Route path="/signup" element={<Signup />} />
         <Route
           path="/profile"
           element={isAuthenticated ? <Profile /> : <Login />}

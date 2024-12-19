@@ -21,6 +21,7 @@ export default function SearchTable() {
   const currentData = globalSearch.slice(firstIndex, lastIndex);
   const [deneme, setDeneme] = useState(window.innerWidth);
   const [showModal, setShowModal] = useState(false);
+  const [selectedDatas, setSelectedDatas] = useState([]);
   const GoForward = () => {
     if (currentPage < totalPages) {
       setCurrentPage(currentPage + 1);
@@ -182,9 +183,75 @@ export default function SearchTable() {
   };
 
   //veri temizleme bitiş
+
+  //seçili dosya indirme başlangıç
+  const handleCheckBox = (index, isChecked) => {
+    if (isChecked) {
+      setSelectedDatas((prev) => [...prev, index]);
+    } else {
+      setSelectedDatas((prev) =>
+        prev.filter((item) => item.googleMapsUri !== index.googleMapsUri)
+      );
+    }
+  };
+
+  const handleSelectedDownload = async () => {
+    const payload = {
+      data: selectedDatas,
+    };
+    const token = localStorage.getItem("token");
+    if (token) {
+      validateToken(token);
+    }
+
+    try {
+      if (selectedDatas.length === 0) {
+        throw new Error("NO_DATA_SELECTED");
+      }
+      const res = await axios.post(`${backendurl}home/downloadExcel`, payload, {
+        headers: {
+          Authorization: `${token}`,
+        },
+        responseType: "blob",
+      });
+      const url = window.URL.createObjectURL(new Blob([res.data]));
+      const link = document.createElement("a");
+      link.href = url;
+      link.setAttribute("download", "output.xlsx");
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+    } catch (e) {
+      if (e.message === "NO_DATA_SELECTED") {
+        Notify.failure("Hiç veri seçmediniz. İşlem başarısız.");
+      } else if (e.response) {
+        if (e.response.status === 406) {
+          Notify.failure("İstek Limitini Aştınız");
+        } else {
+          Notify.failure("İndirme İşlemi Başarısız");
+        }
+      } else {
+        console.log(e);
+        Notify.failure("Beklenmedik Bir Hatayla Karşılaştık");
+      }
+
+      console.log(e);
+    }
+  };
+
+  // seçili verileri indirme Bitiş
+
   return (
     <div className="tableContainer">
       <div className="searchTableContainer">
+        <button
+          className="searchTableButton"
+          onClick={() => {
+            handleSelectedDownload();
+          }}
+        >
+          Seçilenleri İndir
+        </button>
         <button
           className="searchTableButton"
           onClick={() => {
@@ -205,20 +272,28 @@ export default function SearchTable() {
         <table className="tableContent">
           <thead>
             <tr>
+              <th className="SearchLocationTh"> </th>
               <th className="SearchLocationTh">Yer İsmi</th>
               <th className="SearchLocationTh">Adres</th>
               <th className="SearchLocationTh">Web Sitesi</th>
               <th className="SearchLocationTh">Telefon Numarası</th>
               <th className="SearchLocationTh">E-posta</th>
-              <th className="SearchLocationTh">işletme Puanı</th>
+              <th className="SearchLocationTh">İşletme Puanı</th>
             </tr>
           </thead>
           <tbody>
-          
             {currentData.map((type, index) => (
               <tr key={index}>
                 <td className="searchLocationTd">
-                <a href={type.googleMapsUri} target="_blank">
+                  <input
+                    type="checkbox"
+                    onChange={(e) => {
+                      handleCheckBox(type, e.target.checked);
+                    }}
+                  />
+                </td>
+                <td className="searchLocationTd">
+                  <a href={type.googleMapsUri} target="_blank">
                     {" "}
                     {type.displayName.text}
                   </a>
@@ -234,8 +309,13 @@ export default function SearchTable() {
                   {type.internationalPhoneNumber}
                 </td>
                 <td className="searchLocationTd">{type.emails}</td>
-                <td className="searchLocationTd">{type.rating ?<><i class="fa-solid fa-star"></i>  {type.rating }
-                </>  : null} </td>
+                <td className="searchLocationTd">
+                  {type.rating ? (
+                    <>
+                      <i class="fa-solid fa-star"></i> {type.rating}
+                    </>
+                  ) : null}{" "}
+                </td>
               </tr>
             ))}
           </tbody>

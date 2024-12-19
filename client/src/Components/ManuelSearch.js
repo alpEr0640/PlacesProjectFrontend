@@ -8,6 +8,7 @@ import { Block } from "notiflix/build/notiflix-block-aio";
 import countries from "../Json/regionCodes.json";
 import { jwtDecode } from "jwt-decode";
 import { Confirm } from "notiflix/build/notiflix-confirm-aio";
+import Tooltip from "../Animation/Tooltip";
 export default function ManuelSearch() {
   const [country, setCountry] = useState("");
   const [type, setType] = useState("");
@@ -608,18 +609,11 @@ export default function ManuelSearch() {
         </div>
         <div className="manuelSearchComplete">
           <button onClick={handleButtonClick}>Aramayı Tamamla</button>
-          <div
-            className="popup"
-            onMouseEnter={() => {
-              var popup = document.getElementById("myPopup");
-              popup.classList.toggle("show");
-            }}
-          >
-            <i class="fa-solid fa-circle-info"></i>{" "}
-            <span class="popuptext" id="myPopup">
-              Her Bir Arama Hakkı maksimum 60 veri getirir
-            </span>
-          </div>
+
+          <Tooltip text={"Her Bir Arama Hakkı maksimum 60 veri getirir"}>
+            {" "}
+            <span className="material-symbols-outlined manuelSearchInfo">info</span>
+          </Tooltip>
         </div>
       </div>
     </div>

@@ -64,7 +64,10 @@ export default function Login() {
     <div className="loginContainer">
       <div className="loginContent">
         <div className="loginRightContent">
-          <div className="rightContentHeader"><img src={logo}/>Sector Scout</div>
+          <div className="rightContentHeader">
+            <img src={logo} />
+            Sector Scout
+          </div>
           <form className="rightContentBody" onSubmit={submit}>
             <div className="loginField">
               {errorMessage && <div className="error">{errorMessage}</div>}
@@ -87,9 +90,12 @@ export default function Login() {
             </div>
             <div className="btnCover">
               <button className="loginBtn"> Giriş Yap </button>
-              <a className="loginContact" onClick={() => goForgotPassword()}>
-                Şifremi Unuttum
-              </a>
+              <div className="loginContactContainer">
+                <a className="loginContact forget" onClick={() => goForgotPassword()}>
+                  Şifremi Unuttum
+                </a>
+                <a className="loginContact" href="/signup"> Hesabın yok mu? <span>Kayıt Ol</span></a>
+              </div>
             </div>
           </form>
         </div>

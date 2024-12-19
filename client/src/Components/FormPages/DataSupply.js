@@ -4,6 +4,7 @@ import "../../CSS/FormPages/DataSupply.css";
 import { useGoogleReCaptcha } from "react-google-recaptcha-v3";
 import axios from "axios";
 import { Loading, Notify } from "notiflix";
+import Tooltip from "../../Animation/Tooltip";
 export default function DataSupply() {
   const [dataType, setDataType] = useState("");
   const [dataCount, setDataCount] = useState("");
@@ -11,6 +12,8 @@ export default function DataSupply() {
   const [dataName, setDataName] = useState("");
   const [dataMail, setDataMail] = useState("");
   const [dataPhoneNum, setDataPhoneNum] = useState("");
+  const [companyName, setCompanyName] = useState("");
+  const [file, setFile] = useState("");
   const backendurl = process.env.REACT_APP_BACKEND_URL;
   const { executeRecaptcha } = useGoogleReCaptcha();
 
@@ -23,31 +26,28 @@ export default function DataSupply() {
 
     // Generate reCAPTCHA token
     const captchaToken = await executeRecaptcha("submit");
-
+    const formdata = new FormData();
+    formdata.append("option", "0");
+    formdata.append("formType", "veri desteği");
+    formdata.append("contact[name]", dataName);
+    formdata.append("contact[email]", dataMail);
+    formdata.append("contact[phone]", dataPhoneNum);
+    formdata.append("additionalFields[dataType]", dataType);
+    formdata.append("additionalFields[dataCount]", dataCount);
+    formdata.append("additionalFields[dataSource]", dataCountry);
+    if (file) {
+      formdata.append("file", file);
+    }
+    formdata.forEach((value, key) => {
+      console.log(key, value);
+    });
     try {
-      const response = await axios.post(
-        `${backendurl}form/save`,
-        {
-          option: "0",
-          formType: "veri desteği",
-          contact: {
-            name: dataName,
-            email: dataMail,
-            phone: dataPhoneNum,
-          },
-          additionalFields: {
-            dataType: dataType,
-            dataCount: dataCount,
-            dataSource: dataCountry,
-          },
+      const response = await axios.post(`${backendurl}form/save`, formdata, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+          CaptchaResponse: captchaToken,
         },
-        {
-          headers: {
-            "Content-Type": "application/json",
-            CaptchaResponse: captchaToken,
-          },
-        }
-      );
+      });
       Notify.success(
         "Form Başarıyla Kaydedildi. En Kısa sürede Tarafınıza Dönüş yapılacaktır"
       );
@@ -81,7 +81,13 @@ export default function DataSupply() {
         }}
       >
         <div className="dataInputs">
-          <label htmlFor="dataType">Veri Türü</label>
+          <label htmlFor="dataType">
+            Veri Türü:{" "}
+            <Tooltip text={"Hangi türde veri istediğinizi yazınız"}>
+              {" "}
+              <span className="material-symbols-outlined">info</span>
+            </Tooltip>
+          </label>
           <input
             maxlength="100"
             type="text"
@@ -109,7 +115,17 @@ export default function DataSupply() {
           />
         </div>
         <div className="dataInputs">
-          <label htmlFor="country">Ülke/Şehir:</label>
+          <label htmlFor="country">
+            Ülke/Şehir:{" "}
+            <Tooltip
+              text={
+                "Verileri Hangi Ülke/Şehir/ilçe vb. istediğinizi belirtiniz"
+              }
+            >
+              {" "}
+              <span className="material-symbols-outlined">info</span>
+            </Tooltip>
+          </label>
           <input
             maxlength="50"
             type="text"
@@ -119,6 +135,17 @@ export default function DataSupply() {
               setDataCountry(e.target.value);
             }}
             required
+          />
+        </div>
+        <div className="dataInputs">
+          <label htmlFor="image">Resim:</label>
+          <input
+            maxlength="70"
+            type="file"
+            name="image"
+            onChange={(e) => {
+              setFile(e.target.files[0]);
+            }}
           />
         </div>
         <div className="dataInputs">
@@ -133,6 +160,17 @@ export default function DataSupply() {
             }}
             required
           />
+          <div className="dataInputs">
+            <label htmlFor="Firma Adı">Firma Adı:</label>
+            <input
+              maxlength="70"
+              type="text"
+              name="Firma Adı"
+              onBlur={(e) => {
+                setCompanyName(e.target.value);
+              }}
+            />
+          </div>
         </div>
         <div className="dataInputs">
           <label htmlFor="email">Email:</label>
