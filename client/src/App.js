@@ -7,6 +7,7 @@ import Navbar from "./Components/Navbar";
 import { useEffect, useState } from "react";
 import AdminHomepage from "./Pages/Admin/Homepage";
 import ManageUsers from "./Pages/Admin/ManageUsers";
+import ManageForms from "./Pages/Admin/ManageForms";
 import { AuthProvider, useAuth } from "./AuthContext";
 import RegisterUser from "./Pages/Admin/RegisterUser";
 import { MainProvider, useMainContext } from "./MainContext";
@@ -17,7 +18,7 @@ import MyDataContent from "./Pages/MyDataContent";
 import ForgotPassword from "./Pages/ForgotPassword";
 import ResetPassword from "./Pages/ResetPassword";
 import FormPage from "./Pages/FormPage";
-import 'mdb-react-ui-kit/dist/css/mdb.min.css';
+import "mdb-react-ui-kit/dist/css/mdb.min.css";
 import "@fortawesome/fontawesome-free/css/all.min.css";
 /* import { useMainContext } from "../MainContext"; */
 
@@ -65,17 +66,9 @@ const AppContent = () => {
           path="/data"
           element={isAuthenticated ? <DataHistory /> : <Login />}
         />
-        <Route path="/form"
-         element={<FormPage/>}
-         />
-         <Route
-          path="/forgotPassowrd"
-          element={<ForgotPassword/>}
-        />
-        <Route
-          path="/resetPassword/:token"
-          element={<ResetPassword/>}
-        />
+        <Route path="/form" element={<FormPage />} />
+        <Route path="/forgotPassowrd" element={<ForgotPassword />} />
+        <Route path="/resetPassword/:token" element={<ResetPassword />} />
         <Route
           path="/myData"
           element={
@@ -129,6 +122,20 @@ const AppContent = () => {
             isAuthenticated ? (
               isAdmin ? (
                 <ManageUsers />
+              ) : (
+                <Homepage />
+              )
+            ) : (
+              <Login />
+            )
+          }
+        />
+        <Route
+          path="/admin/manageForms"
+          element={
+            isAuthenticated ? (
+              isAdmin ? (
+                <ManageForms />
               ) : (
                 <Homepage />
               )

@@ -1,10 +1,10 @@
-.manageUsersContainer {
+.manageFormsContainer {
   height: 100vh;
   padding: 0 4rem;
   display: flex;
   justify-content: center;
 }
-.usersContent {
+.manageFormsContent {
   position: relative;
   top: 12rem;
   display: flex;
@@ -14,7 +14,7 @@
   align-items: center;
 }
 
-.adminPageTable {
+.manageFormsTable {
   margin-top: 30px;
   display: table;
   width: 100%;
@@ -22,13 +22,13 @@
   border-spacing: 0;
   border-collapse: collapse;
 }
-.adminPageTable thead {
+.manageFormsTable thead {
   text-align: center;
   height: 40px;
   background-color: gray;
   color: white;
 }
-.adminPageTable td {
+.manageFormsTable td {
   text-align: center;
   color: black;
   /* height: 60px;
@@ -41,7 +41,7 @@
   margin-bottom: 1rem;
 }
 
-.adminPageTable tbody .actions {
+.manageFormsTable tbody .actions {
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
@@ -50,7 +50,7 @@
   margin-left: 20px;
 }
 
-.adminPageTable button {
+.manageFormsTable button {
   flex: 1 1 calc(50% - 10px);
   height: 50px;
   display: flex;
@@ -62,12 +62,12 @@
   background-color: darkgray;
 }
 
-/* Modal */
+/* MODALS */
 
-.manageUserModal {
+.FormModal {
   display: block;
   position: fixed;
-  z-index: 1;
+  z-index: 1000;
   left: 0;
   top: 0;
   width: 100%;
@@ -99,28 +99,28 @@
   }
 }
 
-.editUserModalContainer {
+.FormModalContainer {
   height: 100%;
   width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
 }
-.editUserModalContent {
+.FormModalContent {
   position: relative;
   display: flex;
-  width: 50%;
+  width: 100%;
   height: 70%;
-  margin-top: 5rem;
+  margin-top: 2rem;
   justify-content: center;
   align-items: center;
 }
 
-.adminPageCard {
+.formModalCard {
   display: flex;
-  flex-direction: row;
-  height: 100%;
-  width: 60%;
+  flex-direction: column;
+  height: auto;
+  width: 80%;
   border-radius: 10px;
   justify-content: center;
   background-color: rgba(0, 0, 0, 0.8);
@@ -130,51 +130,52 @@
   cursor: default;
 }
 
-.adminPageCardHeader {
+.formModalCardHeader {
   display: flex;
   flex-direction: column;
-
-  height: 20%;
+  width: 100%;
+  height: 15%;
   align-items: center;
   justify-content: center;
   font-size: large;
-  margin: 0px;
+  padding: 20px;
 }
-.adminPageCardBody {
+
+/* .formModalCardBody {
   display: flex;
   height: 80%;
   width: 100%;
   position: relative;
   align-items: center;
   flex-direction: column;
+} */
+
+.formModalCardBody {
+  display: flex; /* Flex düzeni etkinleştir */
+  justify-content: space-between; /* Div'ler arasında boşluk bırakır */
+  align-items: center; /* Yatay hizalama */
+  gap: 10px;
+  width: 100%;
 }
 
-.adminPageCardBody input {
-  margin: 20px;
-  width: 70%;
-  height: 40px;
-  text-align: center;
-}
-.adminPageCardBody button {
-  margin: 50px;
-  width: 70%;
-  height: 40px;
-  text-align: center;
-  background-color: red;
+.formModalFormInfoColumn {
+  margin-left: 40px;
+  flex: 2; /* Eşit genişlikte iki div */
+  padding: 40px; /* İç boşluk */
 }
 
-.adminPageCard i {
+.formModalContactColumn {
+  flex: 1; /* Eşit genişlikte iki div */
+  padding: 20px; /* İç boşluk */
+}
+
+.formModalCard i,
+p {
   display: flex;
-  align-items: end;
-  justify-content: end;
   color: white;
+  font-size: large;
 }
 
-.adminPageCardBody label {
-  color: white;
-  margin: 20px;
-  width: 70%;
-  height: 40px;
-  text-align: center;
+.formModalCardBody label {
+  color: gray;
 }
-
