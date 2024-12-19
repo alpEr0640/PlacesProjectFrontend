@@ -287,6 +287,7 @@ export default function SearchTable() {
                 <td className="searchLocationTd">
                   <input
                     type="checkbox"
+                    checked={selectedDatas.some((selectedItem) => selectedItem.googleMapsUri === type.googleMapsUri)}
                     onChange={(e) => {
                       handleCheckBox(type, e.target.checked);
                     }}
