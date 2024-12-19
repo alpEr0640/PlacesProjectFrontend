@@ -27,11 +27,13 @@
 }
 
 .dataInputs label {
-  display: block;
+  display: flex;
   margin-bottom: 5px;
   color: #555;
 }
-
+.dataInputs label span{
+  margin-left: 5px;
+}
 .dataSupplyFormBody input,
 .dataSupplyFormBody textarea,
 .dataSupplyFormBody select {

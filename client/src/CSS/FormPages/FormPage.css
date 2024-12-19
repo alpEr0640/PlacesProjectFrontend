@@ -9,7 +9,7 @@
 }
 .FormContainer {
   height: auto;
-  min-height: 90vh;
+  min-height: 80vh;
   background-color: #f3f0e7;
 }
 
@@ -23,20 +23,20 @@
 .FormContent {
   min-height: 90vh;
   height: auto;
-  /* margin-bottom: 1rem; */
   display: flex;
-  align-items: center;
+  align-items: start;
   justify-content: start;
 }
 
 .formContentButtons {
   width: 25%;
-  height: 100%;
+  height: 90vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
 }
+
 .formContentButtons button {
   width: 60%;
   height: 4rem;
@@ -109,11 +109,6 @@
   cursor: inherit;
 }
 
-.formFooter {
-  height: 10vh;
-  background-color: #f3f0e7;
-}
-
 @keyframes slideIn {
   from {
     opacity: 0;
@@ -146,7 +141,7 @@
     flex-direction: row;
     width: 80%;
   }
-  .formContentButtons button{
+  .formContentButtons button {
     font-size: 0.8rem;
   }
   .formImages {
@@ -172,10 +167,10 @@
     flex-wrap: wrap;
     justify-content: center;
   }
-  .FormContentForms{
+  .FormContentForms {
     width: 90%;
   }
-  .formContentButtons{
+  .formContentButtons {
     flex-direction: column;
   }
   .coverImage {

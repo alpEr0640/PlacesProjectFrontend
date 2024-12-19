@@ -80,7 +80,7 @@ export default function Navbar() {
   return isAdmin ? (
     <header className={`NavBarContainer ${showNavbar ? "visible" : "hidden"} `}>
       <nav className="navBar">
-        <div className="navLeft">
+        <div className="navLeft" onClick={goHomepage} >
           <img className="navImage" src={logo} alt="Logo" />
           {<p> Sector Scout</p>}
         </div>
@@ -141,7 +141,7 @@ export default function Navbar() {
   ) : (
     <header className={`NavBarContainer ${showNavbar ? "visible" : "hidden"} `}>
       <nav className="navBar">
-        <div className="navLeft">
+        <div className="navLeft"  onClick={goHomepage}>
           <img className="navImage" src={logo} alt="Logo" />
           <p> Sector Scout</p>
         </div>

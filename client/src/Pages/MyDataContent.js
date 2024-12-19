@@ -95,6 +95,7 @@ export default function MyDataContent() {
               <th className="myDataTh">Web Sitesi</th>
               <th className="myDataTh">Telefon Numarası</th>
               <th className="myDataTh">E-posta</th>
+              <th className="myDataTh">İşletme Puanı</th>
             </tr>
           </thead>
           <tbody>
@@ -110,6 +111,13 @@ export default function MyDataContent() {
                 </td>
                 <td className="myDataTd"> {index.internationalPhoneNumber}</td>
                 <td className="myDataTd"> {index.emails}</td>
+                <td className="searchLocationTd">
+                  {index.rating ? (
+                    <>
+                      <i class="fa-solid fa-star"></i> {index.rating}
+                    </>
+                  ) : null}{" "}
+                </td>
               </tr>
             ))}
           </tbody>

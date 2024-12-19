@@ -20,7 +20,7 @@ export default function FormPage() {
     <GoogleReCaptchaProvider reCaptchaKey={captchaKey}>
       <div className="FormContainer">
         <div className="FormContainerHeader">
-          <h1>Tedarikçim Burada </h1>
+          <h1>Sector Scout </h1>
         </div>
         <div className="FormContent">
           <div className={`formContentButtons`}>
@@ -31,7 +31,14 @@ export default function FormPage() {
               onClick={() => handleButtonClick("destek")}
             >
               {" "}
-              Tedarik Ve Satış Destek Formu
+              Satış Ve Tedarik Destek Formu
+            </button>
+            <button
+              className={` ${activeFormButton === "rapor" ? "formActive" : ""}`}
+              onClick={() => handleButtonClick("rapor")}
+            >
+              {" "}
+              Veri Tedariği Ve Analiz Rapor Paylaşımı
             </button>
             <button
               className={` ${
@@ -41,15 +48,6 @@ export default function FormPage() {
             >
               {" "}
               Veri Tedariği
-            </button>
-            <button
-              className={` ${
-                activeFormButton === " rapor" ? "formActive" : ""
-              }`}
-              onClick={() => handleButtonClick("rapor")}
-            >
-              {" "}
-              Veri Tedariği Ve Analiz Rapor Paylaşımı
             </button>
           </div>
           <div className="FormContentForms">
@@ -65,10 +63,10 @@ export default function FormPage() {
               <label for="anlasma"> İstek ve ihtiyaçlarınızı inceleyelim</label>
             </div>
             <div className="coverImage img3">
-              <label for="mesaj">Araştırma Yapalım </label>
+              <label for="mesaj">Tarafınıza geri dönüş yapalım </label>
             </div>
             <div className="coverImage img4">
-              <label for="mesaj">Tarafınıza geri dönüş sağlayalım </label>
+              <label for="mesaj">Anlaşma sağlayalım</label>
             </div>
           </div>
         </div>

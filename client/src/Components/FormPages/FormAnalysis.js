@@ -2,6 +2,7 @@ import axios from "axios";
 import { Loading, Notify } from "notiflix";
 import React, { useState } from "react";
 import { useGoogleReCaptcha } from "react-google-recaptcha-v3";
+import Tooltip from "../../Animation/Tooltip";
 
 export default function FormAnalysis() {
   const [dataType, setDataType] = useState("");
@@ -11,6 +12,9 @@ export default function FormAnalysis() {
   const [dataMail, setDataMail] = useState("");
   const [dataPhoneNum, setDataPhoneNum] = useState("");
   const [dataAnalysis, setDataAnalysis] = useState("");
+  const [companyName, setCompanyName] = useState("");
+  const [file, setFile] = useState("");
+
   const backendurl = process.env.REACT_APP_BACKEND_URL;
   const { executeRecaptcha } = useGoogleReCaptcha();
 
@@ -23,28 +27,30 @@ export default function FormAnalysis() {
 
     // Generate reCAPTCHA token
     const captchaToken = await executeRecaptcha("submit");
+    const formdata = new FormData();
+    formdata.append("option", "0");
+    formdata.append("formType", "analiz");
+    formdata.append("contact[name]", dataName);
+    formdata.append("contact[email]", dataMail);
+    formdata.append("contact[phone]", dataPhoneNum);
+    formdata.append("additionalFields[dataType]", dataType);
+    formdata.append("additionalFields[dataCount]", dataCount);
+    formdata.append("additionalFields[dataSource]", dataCountry);
+    formdata.append("additionalFields[analysis]", dataAnalysis);
 
+    if (file) {
+      formdata.append("file", file);
+    }
+    formdata.forEach((value, key) => {
+      console.log(key, value);
+    });
     try {
       const response = await axios.post(
         `${backendurl}form/save`,
-        {
-          option: "0",
-          formType: "analiz",
-          contact: {
-            name: dataName,
-            email: dataMail,
-            phone: dataPhoneNum,
-          },
-          additionalFields: {
-            dataType: dataType,
-            dataCount: dataCount,
-            dataSource: dataCountry,
-            analysis: dataAnalysis,
-          },
-        },
+        formdata,
         {
           headers: {
-            "Content-Type": "application/json",
+            "Content-Type": "multipart/form-data",
             CaptchaResponse: captchaToken,
           },
         }
@@ -52,6 +58,7 @@ export default function FormAnalysis() {
 
       Loading.remove();
     } catch (error) {
+      console.log(error)
       if (error.response?.status === 400) {
         Loading.remove();
         Notify.failure("Gerekli Alanları Doldurun");
@@ -78,7 +85,13 @@ export default function FormAnalysis() {
         }}
       >
         <div className="dataInputs">
-          <label htmlFor="dataType">Veri Türü</label>
+          <label htmlFor="dataType">
+            Veri Türü:{" "}
+            <Tooltip text={"Hangi türde veri istediğinizi yazınız"}>
+              {" "}
+              <span className="material-symbols-outlined">info</span>
+            </Tooltip>
+          </label>
           <input
             maxlength="100"
             type="text"
@@ -102,7 +115,9 @@ export default function FormAnalysis() {
           />
         </div>
         <div className="dataInputs">
-          <label htmlFor="country">Ülke/Şehir:</label>
+          <label htmlFor="country">
+            Verileri hangi adresten istediğinizi belirtiniz:
+          </label>
           <input
             maxlength="50"
             type="text"
@@ -113,7 +128,18 @@ export default function FormAnalysis() {
           />
         </div>
         <div className="dataInputs">
-          <label htmlFor="analysis">Analiz Raporu Detaylı Bilgi</label>
+          <label htmlFor="image">Resim:</label>
+          <input
+            maxlength="70"
+            type="file"
+            name="image"
+            onChange={(e) => {
+              setFile(e.target.files[0]);
+            }}
+          />
+        </div>
+        <div className="dataInputs">
+          <label htmlFor="analysis">Analiz Raporu Detaylı Bilgi:</label>
           <textarea
             maxlength="1000"
             type="text"
@@ -132,6 +158,17 @@ export default function FormAnalysis() {
             name="name"
             onBlur={(e) => {
               setDataName(e.target.value);
+            }}
+          />
+        </div>
+        <div className="dataInputs">
+          <label htmlFor="Firma Adı">Firma Adı:</label>
+          <input
+            maxlength="70"
+            type="text"
+            name="Firma Adı"
+            onBlur={(e) => {
+              setCompanyName(e.target.value);
             }}
           />
         </div>
