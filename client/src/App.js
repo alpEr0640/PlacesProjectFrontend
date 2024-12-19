@@ -7,6 +7,7 @@ import Navbar from "./Components/Navbar";
 import { useEffect, useState } from "react";
 import AdminHomepage from "./Pages/Admin/Homepage";
 import ManageUsers from "./Pages/Admin/ManageUsers";
+import ManageForms from "./Pages/Admin/ManageForms";
 import { AuthProvider, useAuth } from "./AuthContext";
 import RegisterUser from "./Pages/Admin/RegisterUser";
 import { MainProvider, useMainContext } from "./MainContext";
@@ -123,6 +124,20 @@ const AppContent = () => {
             isAuthenticated ? (
               isAdmin ? (
                 <ManageUsers />
+              ) : (
+                <Homepage />
+              )
+            ) : (
+              <Login />
+            )
+          }
+        />
+        <Route
+          path="/admin/manageForms"
+          element={
+            isAuthenticated ? (
+              isAdmin ? (
+                <ManageForms />
               ) : (
                 <Homepage />
               )

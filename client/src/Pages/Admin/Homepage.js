@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import styles from "../../CSS/Admin/Homepage.module.css"
+import styles from "../../CSS/Admin/Homepage.module.css";
 import axios from "axios";
 import { useAuth } from "../../AuthContext";
 import { useNavigate } from "react-router-dom";
@@ -8,6 +8,7 @@ export default function Homepage() {
   const { validateToken } = useAuth();
   const backendurl = process.env.REACT_APP_BACKEND_URL;
   const [usersCount, setUsersCount] = useState("");
+  const [formsCount, setFormsCount] = useState("");
   const navigation = useNavigate();
 
   // useEffect(() => {
@@ -30,9 +31,23 @@ export default function Homepage() {
     }
   };
 
+  const getFormsCount = async (token) => {
+    try {
+      var res = await axios.get(`${backendurl}admin/getFormsCount`, {
+        headers: {
+          Authorization: `${token}`,
+        },
+      });
+      setFormsCount(res?.data?.formsCount?? "");
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
   useEffect(() => {
     const token = localStorage.getItem("token");
     getUsersCount(token);
+    getFormsCount(token);
   }, []);
 
   return (
@@ -63,6 +78,19 @@ export default function Homepage() {
             </div>
             <div className={styles.cardBody}>
               <p style={{ marginTop: "5%" }}>Kullanıcı Kaydet</p>
+            </div>
+          </div>
+          <div
+            className={styles.card}
+            onClick={() => {
+              navigation("/admin/manageForms");
+            }}
+          >
+             <div className={styles.cardHeader}>
+              <p>Form Sayısı</p>
+            </div>
+            <div className={styles.cardBody}>
+              <p>{formsCount}</p>
             </div>
           </div>
           {/* <div className="card">
