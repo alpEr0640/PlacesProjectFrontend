@@ -1,0 +1,180 @@
+.manageUsersContainer {
+  height: 100vh;
+  padding: 0 4rem;
+  display: flex;
+  justify-content: center;
+}
+.usersContent {
+  position: relative;
+  top: 12rem;
+  display: flex;
+  width: 100%;
+  height: 50%;
+  flex-direction: column;
+  align-items: center;
+}
+
+.adminPageTable {
+  margin-top: 30px;
+  display: table;
+  width: 100%;
+  height: 70%;
+  border-spacing: 0;
+  border-collapse: collapse;
+}
+.adminPageTable thead {
+  text-align: center;
+  height: 40px;
+  background-color: gray;
+  color: white;
+}
+.adminPageTable td {
+  text-align: center;
+  color: black;
+  /* height: 60px;
+  width: 80px; */
+  border-style: groove;
+  border-spacing: 0;
+  border-left: 0px;
+  border-right: 0px;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
+.adminPageTable tbody .actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  flex-direction: row;
+  justify-content: center;
+  margin-left: 20px;
+}
+
+.adminPageTable button {
+  flex: 1 1 calc(50% - 10px);
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  background-color: darkgray;
+}
+
+/* Modal */
+
+.manageUserModal {
+  display: block;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(0px);
+  justify-content: center;
+  align-items: center;
+  animation: fadeIn 0.4s forwards;
+}
+
+@keyframes fadeIn {
+  from {
+    backdrop-filter: blur(0px);
+  }
+  to {
+    backdrop-filter: blur(10px); /* Blur derecesi */
+  }
+}
+
+/* Modal içeriği için büyüme efekti */
+@keyframes scaleUp {
+  from {
+    transform: scale(0.7); /* Küçük başlangıç */
+  }
+  to {
+    transform: scale(1); /* Normal boyut */
+  }
+}
+
+.editUserModalContainer {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.editUserModalContent {
+  position: relative;
+  display: flex;
+  width: 50%;
+  height: 70%;
+  margin-top: 5rem;
+  justify-content: center;
+  align-items: center;
+}
+
+.adminPageCard {
+  display: flex;
+  flex-direction: row;
+  height: 100%;
+  width: 60%;
+  border-radius: 10px;
+  justify-content: center;
+  background-color: rgba(0, 0, 0, 0.8);
+  box-shadow: 10px 10px 25px 0px rgba(0, 0, 0, 0.75);
+  flex-wrap: wrap;
+  animation: scaleUp 0.4s forwards;
+  cursor: default;
+}
+
+.adminPageCardHeader {
+  display: flex;
+  flex-direction: column;
+
+  height: 20%;
+  align-items: center;
+  justify-content: center;
+  font-size: large;
+  margin: 0px;
+}
+.adminPageCardBody {
+  display: flex;
+  height: 80%;
+  width: 100%;
+  position: relative;
+  align-items: center;
+  flex-direction: column;
+}
+
+.adminPageCardBody input {
+  margin: 20px;
+  width: 70%;
+  height: 40px;
+  text-align: center;
+}
+.adminPageCardBody button {
+  margin: 50px;
+  width: 70%;
+  height: 40px;
+  text-align: center;
+  background-color: red;
+}
+
+.adminPageCard i {
+  display: flex;
+  align-items: end;
+  justify-content: end;
+  color: white;
+}
+
+.adminPageCardBody label {
+  color: white;
+  margin: 20px;
+  width: 70%;
+  height: 40px;
+  text-align: center;
+}
+

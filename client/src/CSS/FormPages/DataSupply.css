@@ -1,0 +1,78 @@
+.datasupplyForm {
+  width: 80%;
+  height: auto;
+  -webkit-box-shadow: 10px 10px 25px 0px rgba(0, 0, 0, 0.75);
+  -moz-box-shadow: 10px 10px 25px 0px rgba(0, 0, 0, 0.75);
+  box-shadow: 10px 10px 25px 0px rgba(0, 0, 0, 0.5);
+
+  background-color: #ffffff;
+  padding: 20px 40px;
+  border-radius: 10px;
+  text-align: center;
+}
+
+.dataSupplyFormHeader {
+  margin-bottom: 20px;
+}
+
+.dataSupplyFormHeader h1 {
+  margin: 0;
+  font-size: 24px;
+  color: #333;
+}
+
+.dataInputs {
+  margin-bottom: 15px;
+  text-align: left;
+}
+
+.dataInputs label {
+  display: flex;
+  margin-bottom: 5px;
+  color: #555;
+}
+.dataInputs label span{
+  margin-left: 5px;
+}
+.dataSupplyFormBody input,
+.dataSupplyFormBody textarea,
+.dataSupplyFormBody select {
+  width: 100%;
+
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-sizing: border-box;
+}
+
+.formButton {
+  text-align: center;
+}
+
+.formButton button {
+  padding: 10px 20px;
+  background-color: #00b4c4;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+@media (max-width: 600px) {
+  .datasupplyForm {
+    padding: 15px 20px;
+  }
+
+  .dataSupplyFormHeader h1 {
+    font-size: 20px;
+  }
+
+  .dataSupplyFormBody input {
+    padding: 8px;
+  }
+
+  .formButton button {
+    padding: 8px 16px;
+  }
+}

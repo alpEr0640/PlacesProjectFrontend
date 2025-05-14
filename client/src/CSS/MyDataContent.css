@@ -1,0 +1,127 @@
+.Furkan {
+  width: 100%;
+  min-height: 100vh;
+  padding-top: 12rem;
+  background-image: url(../images/mainBackground.jpg);
+  background-size: cover;
+  background-attachment: fixed;
+  overflow: auto;
+  display: flex;
+  justify-content: center;
+}
+.myDataContainer {
+  width: 100%;
+  padding: 0 4rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.myDataButton {
+  width: 100%;
+  height: 3rem;
+  margin-bottom: 1rem;
+  display: flex;
+  justify-content: end;
+}
+.myDataButton button {
+  width: 14rem;
+  height: 3rem;
+  margin: 0 0 10px 0;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  background-color: #00b4c4;
+  color: white;
+}
+
+.myDataContent {
+  width: 100%;
+  display: block;
+  overflow-x: auto;
+  white-space: nowrap;
+  border-radius: 10px 10px 0 0;
+  background-color: rgba(0, 0, 0, 0.8);
+}
+.myDataTh {
+  height: 4rem !important;
+  border-bottom: gray 4px solid;
+  font-weight: bolder !important;
+  font-size: 1.3rem !important;
+}
+.myDataTd {
+  border-bottom: gray 1px solid !important;
+}
+
+.myDataTh,
+.myDataTd {
+  width: 20%;
+  color: white;
+  height: 3rem;
+  padding: 0rem 1rem;
+  max-width: 300px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  border-right: gray 1px solid;
+
+  font-size: 1rem;
+}
+.myDataTh:last-child,
+.myDataTd:last-child {
+  border-right: none;
+}
+.myDataTd a {
+  text-decoration: none;
+  color: white;
+  font-size: 1rem;
+}
+.myDataTd a:visited{
+  color: #00b4c4;
+}
+
+.myDataPagination {
+  width: 100%;
+  display: flex;
+  justify-content: end;
+  margin: 0 0 1rem 0;
+  padding: 1rem 0.8rem 0.8rem 0;
+  background-color: rgba(0, 0, 0, 0.8);
+  border-radius: 0 0 10px 10px;
+}
+.myDataPageNumbersUl {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.myDataPageNumbersUl li {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0px 10px;
+  cursor: pointer;
+  height: 40px;
+  width: 40px;
+  border-radius: 50%;
+  color: white;
+  border: 1px solid #00b4c4;
+}
+.myDataPaginationButton {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 1px solid #00b4c4;
+  background: none;
+  cursor: pointer;
+  color: white;
+}
+
+.myDataPaginationButton:hover,
+.myDataPageNumbersUl li:hover {
+  background-color: #00b4c4;
+  color: white;
+}
+.activePage {
+  background-color: #00b4c4;
+}

@@ -1,0 +1,180 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+.formActive {
+  background-color: #00b4c4 !important;
+  color: white !important;
+}
+.FormContainer {
+  height: auto;
+  min-height: 80vh;
+  background-color: #f3f0e7;
+}
+
+.FormContainerHeader {
+  width: 100%;
+  height: 10vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.FormContent {
+  min-height: 90vh;
+  height: auto;
+  display: flex;
+  align-items: start;
+  justify-content: start;
+}
+
+.formContentButtons {
+  width: 25%;
+  height: 90vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.formContentButtons button {
+  width: 60%;
+  height: 4rem;
+  margin: 1rem 1rem;
+  border: none;
+  cursor: pointer;
+  padding: 0.1rem;
+  border-radius: 10px;
+  background-color: rgba(0, 0, 0, 0.8);
+  -webkit-box-shadow: 10px 10px 25px 0px rgba(0, 0, 0, 0.75);
+  -moz-box-shadow: 10px 10px 25px 0px rgba(0, 0, 0, 0.75);
+  box-shadow: 10px 10px 25px 0px rgba(0, 0, 0, 0.75);
+  color: white;
+  transition: background-color 0.5s ease;
+}
+.formContentButtons button:hover {
+  background-color: #00b4c4;
+  color: white;
+}
+.FormContentForms {
+  width: 50%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: start;
+}
+.formImages {
+  width: 25%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  /* margin-bottom: 2rem; */
+  padding-bottom: 1rem;
+}
+.img1 {
+  background-image: url("../../images/form.jpg");
+}
+.img2 {
+  background-image: url("../../images/istek.jpg");
+}
+.img3 {
+  background-image: url("../../images/calisma.jpg");
+}
+.img4 {
+  background-image: url("../../images/Anlasma.jpg");
+}
+.coverImage {
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  object-fit: cover;
+  width: 15rem;
+  height: 10rem;
+  border-radius: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: end;
+  align-items: start;
+  -webkit-box-shadow: 10px 10px 25px 0px rgba(0, 0, 0, 0.75);
+  -moz-box-shadow: 10px 10px 25px 0px rgba(0, 0, 0, 0.75);
+  box-shadow: 10px 10px 25px 0px rgba(0, 0, 0, 0.75);
+}
+.coverImage label {
+  margin: 0 0 0.5rem 0.5rem;
+  color: white;
+  font-weight: 700;
+  cursor: inherit;
+}
+
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translatex(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animated-entry {
+  animation: slideIn 0.7s ease-out;
+}
+
+@media (max-height: 700px) {
+  .coverImage {
+    margin: 1rem 1rem;
+  }
+  .formContentButtons button {
+    font-size: 0.8rem;
+  }
+}
+
+@media (max-width: 1024px) {
+  .FormContent {
+    flex-direction: column;
+  }
+  .formContentButtons {
+    flex-direction: row;
+    width: 80%;
+  }
+  .formContentButtons button {
+    font-size: 0.8rem;
+  }
+  .formImages {
+    width: auto;
+    max-width: 100vh;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .coverImage {
+    width: calc(50% - 2rem);
+    margin: 0 1rem;
+  }
+}
+
+@media (max-width: 500px) {
+  .formImages {
+    width: auto;
+    max-width: 100vh;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .FormContentForms {
+    width: 90%;
+  }
+  .formContentButtons {
+    flex-direction: column;
+  }
+  .coverImage {
+    width: 50%;
+    margin: 1rem 1rem;
+  }
+}

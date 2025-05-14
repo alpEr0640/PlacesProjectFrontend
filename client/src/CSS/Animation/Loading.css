@@ -1,0 +1,13 @@
+.loadingContainer {
+  width: 100%;
+  height: 100vh;
+  background-image: url(../../images/deneme10.jpg);
+  background-size: cover;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 8rem;
+  font-weight: 800;
+  color:  white;
+
+}

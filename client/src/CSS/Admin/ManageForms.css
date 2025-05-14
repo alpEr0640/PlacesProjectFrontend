@@ -1,0 +1,181 @@
+.manageFormsContainer {
+  height: 100vh;
+  padding: 0 4rem;
+  display: flex;
+  justify-content: center;
+}
+.manageFormsContent {
+  position: relative;
+  top: 12rem;
+  display: flex;
+  width: 100%;
+  height: 50%;
+  flex-direction: column;
+  align-items: center;
+}
+
+.manageFormsTable {
+  margin-top: 30px;
+  display: table;
+  width: 100%;
+  height: 70%;
+  border-spacing: 0;
+  border-collapse: collapse;
+}
+.manageFormsTable thead {
+  text-align: center;
+  height: 40px;
+  background-color: gray;
+  color: white;
+}
+.manageFormsTable td {
+  text-align: center;
+  color: black;
+  /* height: 60px;
+  width: 80px; */
+  border-style: groove;
+  border-spacing: 0;
+  border-left: 0px;
+  border-right: 0px;
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+}
+
+.manageFormsTable tbody .actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  flex-direction: row;
+  justify-content: center;
+  margin-left: 20px;
+}
+
+.manageFormsTable button {
+  flex: 1 1 calc(50% - 10px);
+  height: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  background-color: darkgray;
+}
+
+/* MODALS */
+
+.FormModal {
+  display: block;
+  position: fixed;
+  z-index: 1000;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  overflow: auto;
+  background-color: rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(0px);
+  justify-content: center;
+  align-items: center;
+  animation: fadeIn 0.4s forwards;
+}
+
+@keyframes fadeIn {
+  from {
+    backdrop-filter: blur(0px);
+  }
+  to {
+    backdrop-filter: blur(10px); /* Blur derecesi */
+  }
+}
+
+/* Modal içeriği için büyüme efekti */
+@keyframes scaleUp {
+  from {
+    transform: scale(0.7); /* Küçük başlangıç */
+  }
+  to {
+    transform: scale(1); /* Normal boyut */
+  }
+}
+
+.FormModalContainer {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.FormModalContent {
+  position: relative;
+  display: flex;
+  width: 100%;
+  height: 70%;
+  margin-top: 2rem;
+  justify-content: center;
+  align-items: center;
+}
+
+.formModalCard {
+  display: flex;
+  flex-direction: column;
+  height: auto;
+  width: 80%;
+  border-radius: 10px;
+  justify-content: center;
+  background-color: rgba(0, 0, 0, 0.8);
+  box-shadow: 10px 10px 25px 0px rgba(0, 0, 0, 0.75);
+  flex-wrap: wrap;
+  animation: scaleUp 0.4s forwards;
+  cursor: default;
+}
+
+.formModalCardHeader {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  height: 15%;
+  align-items: center;
+  justify-content: center;
+  font-size: large;
+  padding: 20px;
+}
+
+/* .formModalCardBody {
+  display: flex;
+  height: 80%;
+  width: 100%;
+  position: relative;
+  align-items: center;
+  flex-direction: column;
+} */
+
+.formModalCardBody {
+  display: flex; /* Flex düzeni etkinleştir */
+  justify-content: space-between; /* Div'ler arasında boşluk bırakır */
+  align-items: center; /* Yatay hizalama */
+  gap: 10px;
+  width: 100%;
+}
+
+.formModalFormInfoColumn {
+  margin-left: 40px;
+  flex: 2; /* Eşit genişlikte iki div */
+  padding: 40px; /* İç boşluk */
+}
+
+.formModalContactColumn {
+  flex: 1; /* Eşit genişlikte iki div */
+  padding: 20px; /* İç boşluk */
+}
+
+.formModalCard i,
+.formModalCard p {
+  display: flex;
+  color: white;
+  font-size: large;
+}
+
+.formModalCardBody label {
+  color: gray;
+}

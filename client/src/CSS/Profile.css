@@ -1,0 +1,128 @@
+.profileContainer {
+  height: 100vh;
+  padding: 0 4rem;
+  display: flex;
+  justify-content: center;
+  background: url(../images/mainBackground.jpg);
+  background-size: cover;
+}
+.profileContent {
+  position: relative;
+  margin-top: 12rem;
+  height: 60%;
+  width: 50%;
+  border-radius: 10px;
+  background-color: rgba(0, 0, 0, 0.8);
+  -webkit-box-shadow: 10px 10px 25px 0px rgba(0, 0, 0, 0.75);
+  -moz-box-shadow: 10px 10px 25px 0px rgba(0, 0, 0, 0.75);
+  box-shadow: 10px 10px 25px 0px rgba(0, 0, 0, 0.75);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.profileContentHeader {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 20%;
+  width: 100%;
+}
+.profileHeaderContent {
+  font-size: 2rem;
+  font-weight: 600;
+  color: white;
+}
+.profileContentBody {
+  width: 100%;
+  height: 60%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.profileContentBody-Left {
+  height: 100%;
+  width: 50%;
+  color: white;
+  font-size: 1.3rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: end;
+  padding-right: 0.5rem;
+}
+.profileContentBody-Left p {
+  width: 50%;
+  height: 15%;
+  display: flex;
+  justify-content: end;
+  align-items: center;
+}
+
+.profileContentBody-Left p span {
+  right: 0;
+}
+.profileContentBody-Right {
+  height: 100%;
+  width: 50%;
+  color: white;
+  font-size: 1.3rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: start;
+  padding-left: 0.5rem;
+}
+.profileContentBody-Right p {
+  width: 100%;
+  height: 15%;
+  display: flex;
+  align-items: center;
+}
+
+
+.logutContainer {
+  height: 20%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: start;
+}
+.logutContainer button {
+  width: 30%;
+  height: 3rem;
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: bold;
+}
+
+@media (max-width:1000px){
+  .profileContainer{
+    padding: 0;
+  }
+  .profileContent{
+    width: 100%;
+
+  }
+}
+
+@media (max-width:600px){
+  .profileContent{
+    padding-right: 1rem;
+  }
+  .profileContentBody-Left p,
+  .profileContentBody-Right p {
+    width: 100%;
+    height: 4rem;
+    word-wrap: break-word; 
+    word-break: break-all; 
+  }
+
+}
+@media (max-height:600px){
+  .profileContent{
+    margin-top: 8rem;
+  }
+}
